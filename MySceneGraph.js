@@ -31,7 +31,7 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
-        // File reading 
+        // File reading
         this.reader = new CGFXMLreader();
 
         /*
@@ -50,6 +50,8 @@ class MySceneGraph {
     onXMLReady() {
         this.log("XML Loading finished.");
         var rootElement = this.reader.xmlDoc.documentElement;
+
+        // DEBUG: console.log(rootElement);
 
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement);
@@ -70,6 +72,7 @@ class MySceneGraph {
      * @param {XML root element} rootElement
      */
     parseXMLFile(rootElement) {
+        //TODO: change this to 'yas' instead of 'SCENE'
         if (rootElement.nodeName != "SCENE")
             return "root tag <SCENE> missing";
 
@@ -81,6 +84,8 @@ class MySceneGraph {
         for (var i = 0; i < nodes.length; i++) {
             nodeNames.push(nodes[i].nodeName);
         }
+
+        DEBUG: console.log(nodeNames);
 
         var error;
 
@@ -172,6 +177,8 @@ class MySceneGraph {
         for (var i = 0; i < children.length; i++)
             nodeNames.push(children[i].nodeName);
 
+        // DEBUG: console.log(nodeNames);
+
         // Frustum planes
         // (default values)
         this.near = 0.1;
@@ -239,14 +246,99 @@ class MySceneGraph {
             }
 
             //TODO: Save translation data
+            mat4.translate(this.initialTransforms, this.initialTransforms, [tx, ty, tz]);
         }
 
-        //TODO: Parse Rotations
+        //Parse Rotations
+        //DEBUG: console.log(children[scalingIndex]);
 
-        //TODO: Parse Scaling
+    /*var xRot = -1;
+    var yRot = -1;
+    var zRot = -1;*/
+    var rotations = [];
+    rotations['x'] = null;
+    rotations['y'] = null;
+    rotations['z'] = null;
+
+    var rotOrder = [];
+
+    var axis;
+
+    if (thirdRotationIndex != -1) {
+        axis = this.reader.getString(children[thirdRotationIndex], 'axis');
+        if (axis != null ) {
+            var angle = this.reader.getFloat(children[thirdRotationIndex], 'angle');
+            if (angle != null) {
+                rotations[axis] = angle;
+                rotOrder.push(axis);
+            }
+            else this.onXMLMinorError("failed to parse third rotation");
+        }
+    }
+
+    // DEBUG: console.log(axis+" "+rotations[axis]);
+
+    if (secondRotationIndex != -1) {
+        axis = this.reader.getString(children[secondRotationIndex], 'axis');
+        if (axis != null ) {
+            var angle = this.reader.getFloat(children[secondRotationIndex], 'angle');
+            if (angle != null) {
+                rotations[axis] = angle;
+                rotOrder.push(axis);
+            }
+            else this.onXMLMinorError("failed to parse second rotation");
+        }
+    }
+
+//    DEBUG: console.log(axis+" "+rotations[axis]);
+
+    if (firstRotationIndex != -1) {
+        axis = this.reader.getString(children[firstRotationIndex], 'axis');
+        if (axis != null ) {
+            var angle = this.reader.getFloat(children[firstRotationIndex], 'angle');
+            if (angle != null) {
+                rotations[axis] = angle;
+                rotOrder.push(axis);
+            }
+            else this.onXMLMinorError("failed to parse first rotation");
+        }
+    }
+
+//    DEBUG: console.log(axis+" "+rotations[axis]);
+
+    //TODO: Save Rotating data
+    for (var i = 0; i < rotOrder.length; i++)
+        mat4.rotate(this.initialTransforms, this.initialTransforms, DEGREE_TO_RAD * rotations[rotOrder[i]], this.axisCoords[rotOrder[i]]);
+
+
+        // Parse Scaling
+        //DEBUG: console.log(children[scalingIndex]);
+        //variaveis chamadas sx sy sz
+
+        if (scalingIndex == -1)
+            this.onXMLMinorError("initial scaling undefined; assuming S = (1, 1, 1)");
+        else {
+            var sx = this.reader.getFloat(children[scalingIndex], 'sx');
+            var sy = this.reader.getFloat(children[scalingIndex], 'sy');
+            var sz = this.reader.getFloat(children[scalingIndex], 'sz');
+
+            if (sx == null || sy == null || sz == null) {
+                sx = 1;
+                sy = 1;
+                sz = 1;
+                //this.onXMLMinorError("failed to parse coordinates of initial scaling; assuming 1");
+            }
+
+            //TODO: Save Scaling data
+            mat4.scale(this.initialTransforms, this.initialTransforms, [sx, sy, sz]);
+        }
 
         //TODO: Parse Reference length
 
+
+
+
+        DEBUG: console.log(this.initialTransforms);
         this.log("Parsed initials");
 
         return null;
@@ -412,7 +504,7 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <TEXTURES> block. 
+     * Parses the <TEXTURES> block.
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
