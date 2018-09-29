@@ -607,25 +607,38 @@ class MySceneGraph {
 
         var nodeNames = [];
         var materialID = [];
-        var materials = [][];
+        var materialShi = [];
+        var materials = [];
         // DEBUG: console.log(children);
 
         for (var i = 0; i < children.length; i++){
 
-        nodeNames.push(children[i].nodeName);
+            nodeNames.push(children[i].nodeName);
 
-        var id = this.reader.getString(children[i], 'id');
-        materialID.push(id);
-
+            var id = this.reader.getString(children[i], 'id');
+            var shininess = this.reader.getFloat(children[i], 'shininess');
+            materialID.push(id);
+            materialShi.push(shininess);
         }
-        DEBUG: console.log(materialID);
+        DEBUG: console.log(materialShi);
 
         for (var i = 0; i < materialID.length; i++) {
-            materials[]
+            materials[materialID[i]] = new Array();
+            materials[materialID[i]]['shininess'] = materialShi[i];
+            for (var j = 0; j < children[i].children.length; j++) {
+                var r = this.reader.getFloat(children[i].children[j], 'r');
+                var g = this.reader.getFloat(children[i].children[j], 'g');
+                var b = this.reader.getFloat(children[i].children[j], 'b');
+                var a = this.reader.getFloat(children[i].children[j], 'a');
+                var tmp = [r,g,b,a];
+                materials[materialID[i]][children[i].children[j].nodeName]=tmp;
+            }
         }
-        var materialSpecs = children[0].children;
+        //isto mete medo TODO:tentar arranjar uma maneira melhor!
+        // DEBUG: console.log(children[0].children[0]);
 
-        console.log(materialSpecs);
+        console.log(materials);
+
 
         this.log("Parsed materials");
         return null;
