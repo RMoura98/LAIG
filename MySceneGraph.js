@@ -363,13 +363,21 @@ class MySceneGraph {
 
         //DEBUG: console.log(nodeNames);
         var ambient = [];
+        ambient['r'] = 0;
+        ambient['g'] = 0;
+        ambient['b'] = 0;
+        ambient['a'] = 1;
         var background = [];
+        background['r'] = 0;
+        background['g'] = 0;
+        background['b'] = 0;
+        background['a'] = 1;
 
         var indexAmbient = nodeNames.indexOf("ambient");
         var indexBackground = nodeNames.indexOf("background");
 
         if (indexAmbient == -1) {
-            this.onXMLMinorError("ambient missing");
+            this.onXMLMinorError("ambient illumination missing; assuming R = 0 | G = 0 | B = 0 | A = 0");
         } else {
             var ambientR = this.reader.getFloat(children[indexAmbient], 'r');
             var ambientG = this.reader.getFloat(children[indexAmbient], 'g');
@@ -381,12 +389,13 @@ class MySceneGraph {
                 ambient['b'] = ambientB;
                 ambient['a'] = ambientA;
             }
+            else this.onXMLMinorError("unable to parse ambient illumination; assuming R = 0 | G = 0 | B = 0 | A = 0");
         }
 
         DEBUG: console.log(ambient);
 
         if (indexAmbient == -1) {
-            this.onXMLMinorError("background missing");
+            this.onXMLMinorError("background illumination missing; assuming R = 0 | G = 0 | B = 0 | A = 0");
         } else {
             var backgroundR = this.reader.getFloat(children[indexBackground], 'r');
             var backgroundG = this.reader.getFloat(children[indexBackground], 'g');
@@ -398,6 +407,7 @@ class MySceneGraph {
                 background['b'] = backgroundB;
                 background['a'] = backgroundA;
             }
+            else this.onXMLMinorError("unable to parse background illumination; assuming R = 0 | G = 0 | B = 0 | A = 0");
         }
 
         DEBUG: console.log(background);
@@ -560,7 +570,28 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
-        // TODO: Parse block
+        // Parse block
+
+        var children = texturesNode.children;
+
+        var textures = [];
+
+        var nodeNames = [];
+
+        for (var i = 0; i < children.length; i++)
+            nodeNames.push(children[i].nodeName);
+
+        console.log(children);
+
+        for (var i = 0; i < children.length; i++) {
+            var id = this.reader.getString(children[i], 'id');
+            var file = this.reader.getString(children[i], 'file');
+            textures[id] = file;
+        }
+
+        DEBUG: console.log(textures);
+
+        // TODO: falta gravar isto na extrutura de dados
 
         console.log("Parsed textures");
 
@@ -572,7 +603,30 @@ class MySceneGraph {
      * @param {materials block element} materialsNode
      */
     parseMaterials(materialsNode) {
-        // TODO: Parse block
+        var children = materialsNode.children;
+
+        var nodeNames = [];
+        var materialID = [];
+        var materials = [][];
+        // DEBUG: console.log(children);
+
+        for (var i = 0; i < children.length; i++){
+
+        nodeNames.push(children[i].nodeName);
+
+        var id = this.reader.getString(children[i], 'id');
+        materialID.push(id);
+
+        }
+        DEBUG: console.log(materialID);
+
+        for (var i = 0; i < materialID.length; i++) {
+            materials[]
+        }
+        var materialSpecs = children[0].children;
+
+        console.log(materialSpecs);
+
         this.log("Parsed materials");
         return null;
 
