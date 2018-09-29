@@ -349,8 +349,60 @@ class MySceneGraph {
      * @param {illumination block element} illuminationNode
      */
     parseIllumination(illuminationNode) {
-        // TODO: Parse Illumination node
+        // Parse Illumination node
 
+        //DEBUG: console.log(illuminationNode);
+        //tirar daqui ambiente e background.
+
+        var children = illuminationNode.children;
+
+        var nodeNames = [];
+
+        for (var i = 0; i < children.length; i++)
+            nodeNames.push(children[i].nodeName);
+
+        //DEBUG: console.log(nodeNames);
+        var ambient = [];
+        var background = [];
+
+        var indexAmbient = nodeNames.indexOf("ambient");
+        var indexBackground = nodeNames.indexOf("background");
+
+        if (indexAmbient == -1) {
+            this.onXMLMinorError("ambient missing");
+        } else {
+            var ambientR = this.reader.getFloat(children[indexAmbient], 'r');
+            var ambientG = this.reader.getFloat(children[indexAmbient], 'g');
+            var ambientB = this.reader.getFloat(children[indexAmbient], 'b');
+            var ambientA = this.reader.getFloat(children[indexAmbient], 'a');
+            if (ambientR != null || ambientG != null || ambientB != null || ambientA != null) {
+                ambient['r'] = ambientR;
+                ambient['g'] = ambientG;
+                ambient['b'] = ambientB;
+                ambient['a'] = ambientA;
+            }
+        }
+
+        DEBUG: console.log(ambient);
+
+        if (indexAmbient == -1) {
+            this.onXMLMinorError("background missing");
+        } else {
+            var backgroundR = this.reader.getFloat(children[indexBackground], 'r');
+            var backgroundG = this.reader.getFloat(children[indexBackground], 'g');
+            var backgroundB = this.reader.getFloat(children[indexBackground], 'b');
+            var backgroundA = this.reader.getFloat(children[indexBackground], 'a');
+            if (backgroundR != null || backgroundG != null || backgroundB != null || backgroundA != null) {
+                background['r'] = backgroundR;
+                background['g'] = backgroundG;
+                background['b'] = backgroundB;
+                background['a'] = backgroundA;
+            }
+        }
+
+        DEBUG: console.log(background);
+
+        //TODO: falta guardar esta info
         this.log("Parsed illumination");
 
         return null;
