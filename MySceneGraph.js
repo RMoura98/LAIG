@@ -266,7 +266,7 @@ class MySceneGraph {
                     return "no ID defined for perspective view";
 
                 // Checks for repeated IDs.
-                if (this.perspViews[perspViewId] != null)
+                if (perspViews[perspViewId] != null)
                     return "ID must be unique for each view (conflict: ID = " + perspViewId + ")";
 
                 // Get rest of values from <view>
