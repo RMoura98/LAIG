@@ -54,7 +54,7 @@ class MySceneGraph {
         this.log("XML Loading finished.");
         var rootElement = this.reader.xmlDoc.documentElement;
 
-        // DEBUG: console.log(rootElement);
+        //DEBUG: console.log(rootElement);
 
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement);
@@ -75,7 +75,7 @@ class MySceneGraph {
      * @param {XML root element} rootElement
      */
     parseXMLFile(rootElement) {
-        //TODO: change this to 'yas' instead of 'SCENE'
+        
         if (rootElement.nodeName != "yas")
             return "root tag <yas> missing";
 
@@ -215,7 +215,7 @@ class MySceneGraph {
 
         this.axis_length = this.reader.getFloat(sceneNode, 'axis_length');
 
-        if( (this.axis.length == null) || (isNaN(this.axis_length)) ) {
+        if( (this.axis_length == null) || (isNaN(this.axis_length)) ) {
             this.axis_length = 5.0;
 
             this.onXMLMinorError("unable to parse value for axis_length; assuming 'axis_length = 5.0'");
