@@ -414,7 +414,7 @@ class MySceneGraph {
             }
         }        
 
-        if ( (this.views[0].length + this.views[1].lenght) < 1)
+        if ( (this.views[0].length + this.views[1].length) < 1)
             return "at least on view (perspective or ortho) must be defined";
 
         this.log("Parsed views");
