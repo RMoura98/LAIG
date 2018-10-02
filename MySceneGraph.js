@@ -885,7 +885,7 @@ class MySceneGraph {
         }
 
 
-        if ( (Object.keys(this.lights[0]).length) + (Object.keys(this.lights[1]).length) < 1)
+        if ( Object.keys(this.lights).length < 1)
             return "at least one light (omni or spot) must be defined";
 
 
