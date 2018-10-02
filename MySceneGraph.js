@@ -534,7 +534,7 @@ class MySceneGraph {
 
         for(var i = 0; i < children.length; i++) {
 
-            if( (children[i].nodeName != "omni") || (children[i].nodeName != "spot") ) {
+            if( (children[i].nodeName != "omni") && (children[i].nodeName != "spot") ) {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -542,18 +542,17 @@ class MySceneGraph {
             if(children[i].nodeName == "omni") {
 
                 // Get id of current light
-                var onniLightId = this.reader.getString(children[i], 'id');
-                if (onniLightId == null)
+                var omniLightId = this.reader.getString(children[i], 'id');
+                if (omniLightId == null)
                     return "no ID defined for omni light";
 
                 // Checks for repeated IDs.
-                if (this.omniLights[onniLightId] != null)
-                    return "ID must be unique for each light (conflict: ID = " + onniLightId + ")";
+                if (omniLights[omniLightId] != null)
+                    return "ID must be unique for each light (conflict: ID = " + omniLightId + ")";
 
                 // Get rest of values from <omni>
                 var enabled = this.reader.getFloat(children[i], 'enabled');
-
-                if( (enabled == null) || (isNaN(enabled)) || (enabled != 0) || (enabled != 1)) {
+                if( (enabled == null) || (isNaN(enabled)) || (enabled < 0) || (enabled > 1)) {
                     enabled = 1;
 
                     this.onXMLMinorError("unable to parse <omni> value for enabled; assuming 'enabled = 1'");
@@ -595,121 +594,105 @@ class MySceneGraph {
                 }
 
                 // Getting x/y/z/w values from <location>
-                var locationX = this.reader.getFloat(grandChildrenNodeNames[locationIndex], 'x');
-
+                var locationX = this.reader.getFloat(grandChildren[locationIndex], 'x');
                 if((locationX == null) || (isNaN(locationX))) {
                     return "unable to parse x-coodinate from the <location> element of <omni>"
                 }
 
-                var locationY = this.reader.getFloat(grandChildrenNodeNames[locationIndex], 'y');
-
+                var locationY = this.reader.getFloat(grandChildren[locationIndex], 'y');
                 if((locationY == null) || (isNaN(locationY))) {
                     return "unable to parse y-coodinate from the <location> element of <omni>"
                 }
 
-                var locationZ = this.reader.getFloat(grandChildrenNodeNames[locationIndex], 'z');
-
+                var locationZ = this.reader.getFloat(grandChildren[locationIndex], 'z');
                 if((locationZ == null) || (isNaN(locationZ))) {
                     return "unable to parse z-coodinate from the <location> element of <omni>"
                 }
 
-                var locationW = this.reader.getFloat(grandChildrenNodeNames[locationIndex], 'w');
-
+                var locationW = this.reader.getFloat(grandChildren[locationIndex], 'w');
                 if((locationW == null) || (isNaN(locationW))) {
                     return "unable to parse w-coodinate from the <location> element of <omni>"
                 }
 
                 // Getting r/g/b/a values from <ambient>
-                var ambientR = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'r');
-
+                var ambientR = this.reader.getFloat(grandChildren[ambientIndex], 'r');
                 if((ambientR == null) || (isNaN(ambientR))) {
                     return "unable to parse r-coodinate from the <ambient> element of <omni>"
                 }
 
-                var ambientG = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'g');
-
+                var ambientG = this.reader.getFloat(grandChildren[ambientIndex], 'g');
                 if((ambientG == null) || (isNaN(ambientG))) {
                     return "unable to parse g-coodinate from the <ambient> element of <omni>"
                 }
 
-                var ambientB = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'b');
-
+                var ambientB = this.reader.getFloat(grandChildren[ambientIndex], 'b');
                 if((ambientB == null) || (isNaN(ambientB))) {
                     return "unable to parse b-coodinate from the <ambient> element of <omni>"
                 }
 
-                var ambientA = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'a');
-
+                var ambientA = this.reader.getFloat(grandChildren[ambientIndex], 'a');
                 if((ambientA == null) || (isNaN(ambientA))) {
                     return "unable to parse a-coodinate from the <ambient> element of <omni>"
                 }
 
                 // Getting r/g/b/a values from <diffuse>
-                var diffuseR = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'r');
-
+                var diffuseR = this.reader.getFloat(grandChildren[diffuseIndex], 'r');
                 if((diffuseR == null) || (isNaN(diffuseR))) {
                     return "unable to parse r-coodinate from the <diffuse> element of <omni>"
                 }
 
-                var diffuseG = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'g');
-
+                var diffuseG = this.reader.getFloat(grandChildren[diffuseIndex], 'g');
                 if((diffuseG == null) || (isNaN(diffuseG))) {
                     return "unable to parse g-coodinate from the <diffuse> element of <omni>"
                 }
 
-                var diffuseB = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'b');
-
+                var diffuseB = this.reader.getFloat(grandChildren[diffuseIndex], 'b');
                 if((diffuseB == null) || (isNaN(diffuseB))) {
                     return "unable to parse b-coodinate from the <diffuse> element of <omni>"
                 }
 
-                var diffuseA = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'a');
-
+                var diffuseA = this.reader.getFloat(grandChildren[diffuseIndex], 'a');
                 if((diffuseA == null) || (isNaN(diffuseA))) {
                     return "unable to parse a-coodinate from the <diffuse> element of <omni>"
                 }
 
                 // Getting r/g/b/a values from <specular>
-                var specularR = this.reader.getFloat(grandChildrenNodeNames[specularIndex], 'r');
-
+                var specularR = this.reader.getFloat(grandChildren[specularIndex], 'r');
                 if((specularR == null) || (isNaN(specularR))) {
                     return "unable to parse r-coodinate from the <specular> element of <omni>"
                 }
 
-                var specularG = this.reader.getFloat(grandChildrenNodeNames[specularIndex], 'g');
-
+                var specularG = this.reader.getFloat(grandChildren[specularIndex], 'g');
                 if((specularG == null) || (isNaN(specularG))) {
                     return "unable to parse g-coodinate from the <specular> element of <omni>"
                 }
 
-                var specularB = this.reader.getFloat(grandChildrenNodeNames[specularIndex], 'b');
-
+                var specularB = this.reader.getFloat(grandChildren[specularIndex], 'b');
                 if((specularB == null) || (isNaN(specularB))) {
                     return "unable to parse b-coodinate from the <specular> element of <omni>"
                 }
 
-                var specularA = this.reader.getFloat(grandChildrenNodeNames[specularIndex], 'a');
-
+                var specularA = this.reader.getFloat(grandChildren[specularIndex], 'a');
                 if((specularA == null) || (isNaN(specularA))) {
                     return "unable to parse a-coodinate from the <specular> element of <omni>"
                 }
 
 
                 // Pushing perspective view array to general view array
-                omniLights[onmiLightId] = [enabled, locationX, locationY, locationZ, locationW, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
+                omniLights[omniLightId] = [enabled, locationX, locationY, locationZ, locationW, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
 
-                lights[0] = omniLights;
+                this.lights[0] = omniLights;
             }
 
             else if(children[i].nodeName == "spot") {
-
+                grandChildrenNodeNames
                 // Get id of current light
                 var spotLightId = this.reader.getString(children[i], 'id');
                 if (spotLightId == null)
                     return "no ID defined for spot light";
 
                 // Checks for repeated IDs.
-                if (this.spotLights[spotLightId] != null)
+                if (spotLights[spotLightId] != null)
                     return "ID must be unique for each light (conflict: ID = " + spotLightId + ")";
 
                 // Get rest of values from <spot>
@@ -897,12 +880,12 @@ class MySceneGraph {
                 // Pushing perspective view array to general lights array
                 spotLights[spotLightId] = [enabled, angle, exponent, locationX, locationY, locationZ, locationW, targetX, targetY,targetZ, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
 
-                lights[1] = spotLights;
+                this.lights[1] = spotLights;
             }
         }
 
 
-        if ( (lights[0].length + lights[1].lenght) < 1)
+        if ( (Object.keys(this.lights[0]).length) + (Object.keys(this.lights[1]).length) < 1)
             return "at least one light (omni or spot) must be defined";
 
 
