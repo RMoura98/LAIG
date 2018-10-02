@@ -253,7 +253,7 @@ class MySceneGraph {
     
         for(var i = 0; i < children.length; i++) {
 
-            if( (children[i].nodeName != "perspective") || (children[i].nodeName != "ortho") ) {
+            if( (children[i].nodeName != "perspective") && (children[i].nodeName != "ortho") ) {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
