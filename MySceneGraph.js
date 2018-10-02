@@ -352,7 +352,7 @@ class MySceneGraph {
                 // Pushing perspective view array to general view array
                 perspViews[perspViewId] = [near, far, angle, fromX, fromY, fromZ, toX, toY, toZ];
 
-                views[0] = perspViews;
+                this.views[0] = perspViews;
             }
 
             if(children[i].nodeName == "ortho") {
@@ -410,11 +410,11 @@ class MySceneGraph {
 
                 orthoViews[orthoViewId] = [near, far ,left, right, top, bottom];
 
-                views[1] = orthoViews;
+                this.views[1] = orthoViews;
             }
         }        
 
-        if ( (views[0].length + views[1].lenght) < 1)
+        if ( (this.views[0].length + this.views[1].lenght) < 1)
             return "at least on view (perspective or ortho) must be defined";
 
         this.log("Parsed views");
