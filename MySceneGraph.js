@@ -363,7 +363,7 @@ class MySceneGraph {
                     return "no ID defined for perspective view";
 
                 // Checks for repeated IDs.
-                if (this.orthoViews[orthoViewId] != null)
+                if (orthoViews[orthoViewId] != null)
                     return "ID must be unique for each view (conflict: ID = " + orthoViewId + ")";
 
                 var near = this.reader.getFloat(children[i], 'near');
