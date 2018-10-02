@@ -180,7 +180,7 @@ class MySceneGraph {
         }
 
         // <primitives>
-        if ((index = nodeNames.indexOf("materials")) == -1)
+        if ((index = nodeNames.indexOf("primitives")) == -1)
             return "tag <primitives> missing";
         else {
             if (index != primitives_INDEX)
@@ -935,7 +935,7 @@ class MySceneGraph {
             this.textures[textureId] = [texture];
         }
 
-        if(this.textures.length < 1)
+        if(Object.keys(this.textures).length < 1)
             return "at least one texture must be defined";
 
         this.log("Parsed textures");
@@ -1015,104 +1015,88 @@ class MySceneGraph {
             }
 
             // Getting r/g/b/a values from <emission>
-            var emissionR = this.reader.getFloat(grandChildrenNodeNames[emissionIndex], 'r');
-
+            var emissionR = this.reader.getFloat(grandChildren[emissionIndex], 'r');
             if((emissionR == null) || (isNaN(emissionR))) {
                 return "unable to parse r-coodinate from the <emission> element of <material>"
             }
 
-            var emissionG = this.reader.getFloat(grandChildrenNodeNames[emissionIndex], 'g');
-
+            var emissionG = this.reader.getFloat(grandChildren[emissionIndex], 'g');
             if((emissionG == null) || (isNaN(emissionG))) {
                 return "unable to parse g-coodinate from the <emission> element of <material>"
             }
 
-            var emissionB = this.reader.getFloat(grandChildrenNodeNames[emissionIndex], 'b');
-
+            var emissionB = this.reader.getFloat(grandChildren[emissionIndex], 'b');
             if((emissionB == null) || (isNaN(emissionB))) {
                 return "unable to parse b-coodinate from the <emission> element of <material>"
             }
 
-            var emissionA = this.reader.getFloat(grandChildrenNodeNames[emissionIndex], 'a');
-
+            var emissionA = this.reader.getFloat(grandChildren[emissionIndex], 'a');
             if((emissionA == null) || (isNaN(emissionA))) {
                 return "unable to parse a-coodinate from the <emission> element of <material>"
             }
 
 
             // Getting r/g/b/a values from <ambient>
-            var ambientR = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'r');
-
+            var ambientR = this.reader.getFloat(grandChildren[ambientIndex], 'r');
             if((ambientR == null) || (isNaN(ambientR))) {
                 return "unable to parse r-coodinate from the <ambient> element of <material>"
             }
 
-            var ambientG = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'g');
-
+            var ambientG = this.reader.getFloat(grandChildren[ambientIndex], 'g');
             if((ambientG == null) || (isNaN(ambientG))) {
                 return "unable to parse g-coodinate from the <ambient> element of <material>"
             }
 
-            var ambientB = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'b');
-
+            var ambientB = this.reader.getFloat(grandChildren[ambientIndex], 'b');
             if((ambientB == null) || (isNaN(ambientB))) {
                 return "unable to parse b-coodinate from the <ambient> element of <material>"
             }
 
-            var ambientA = this.reader.getFloat(grandChildrenNodeNames[ambientIndex], 'r');
-
+            var ambientA = this.reader.getFloat(grandChildren[ambientIndex], 'r');
             if((ambientA == null) || (isNaN(ambientA))) {
                 return "unable to parse a-coodinate from the <ambient> element of <material>"
             }
 
 
             // Getting r/g/b/a values from <diffuse>
-            var diffuseR = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'r');
-
+            var diffuseR = this.reader.getFloat(grandChildren[diffuseIndex], 'r');
             if((diffuseR == null) || (isNaN(diffuseR))) {
                 return "unable to parse r-coodinate from the <diffuse> element of <material>"
             }
 
-            var diffuseG = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'g');
-
+            var diffuseG = this.reader.getFloat(grandChildren[diffuseIndex], 'g');
             if((diffuseG == null) || (isNaN(diffuseG))) {
                 return "unable to parse g-coodinate from the <diffuse> element of <material>"
             }
 
-            var diffuseB = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'b');
-
+            var diffuseB = this.reader.getFloat(grandChildren[diffuseIndex], 'b');
             if((diffuseB == null) || (isNaN(diffuseB))) {
                 return "unable to parse b-coodinate from the <diffuse> element of <material>"
             }
 
-            var diffuseA = this.reader.getFloat(grandChildrenNodeNames[diffuseIndex], 'a');
-
+            var diffuseA = this.reader.getFloat(grandChildren[diffuseIndex], 'a');
             if((diffuseA == null) || (isNaN(diffuseA))) {
                 return "unable to parse a-coodinate from the <diffuse> element of <material>"
             }
 
 
             // Getting r/g/b/a values from <emission>
-            var specularR = this.reader.getFloat(grandChildrenNodeNames[specularnIndex], 'r');
-
+            var specularR = this.reader.getFloat(grandChildren[specularIndex], 'r');
             if((specularR == null) || (isNaN(specularR))) {
                 return "unable to parse r-coodinate from the <specular> element of <material>"
             }
 
-            var specularG = this.reader.getFloat(grandChildrenNodeNames[specularnIndex], 'g');
-
+            var specularG = this.reader.getFloat(grandChildren[specularIndex], 'g');
             if((specularG == null) || (isNaN(specularG))) {
                 return "unable to parse g-coodinate from the <specular> element of <material>"
             }
 
-            var specularB = this.reader.getFloat(grandChildrenNodeNames[specularnIndex], 'b');
-
+            var specularB = this.reader.getFloat(grandChildren[specularIndex], 'b');
             if((specularB == null) || (isNaN(specularB))) {
                 return "unable to parse b-coodinate from the <specular> element of <material>"
             }
 
-            var specularA = this.reader.getFloat(grandChildrenNodeNames[specularnIndex], 'a');
-
+            var specularA = this.reader.getFloat(grandChildren[specularIndex], 'a');
             if((specularA == null) || (isNaN(specularA))) {
                 return "unable to parse a-coodinate from the <specular> element of <material>"
             }
@@ -1132,7 +1116,7 @@ class MySceneGraph {
             this.materials[materialId] = material;
         }
 
-        if( this.materials.length < 1 )
+        if( Object.keys(this.materials).length < 1 )
             return "at least one material must be defined";
 
         this.log("Parsed materials");
@@ -1194,7 +1178,7 @@ class MySceneGraph {
 
             for (var j = 0; j < grandChildren.length; j++) {
 
-                if( (grandChildren[j].nodeName != "translate") || (grandChildren[j].nodeName != "rotate") || 
+                if( (grandChildren[j].nodeName != "translate") && (grandChildren[j].nodeName != "rotate") && 
                 (grandChildren[j].nodeName != "scale") ) {
                     this.onXMLMinorError("unknown tag name <" + grandChildren[j].nodeName + ">");
                     continue;
@@ -1265,9 +1249,9 @@ class MySceneGraph {
                         return "unable to parse y-coodinate from the <scale> element of <transformation>";
                     }
 
-                    var y = this.reader.getFloat(grandChildren[j], 'y');
-                    if( (y == null) || (isNaN(y)) ) {
-                        return "unable to parse y-coodinate from the <scale> element of <transformation>";
+                    var z = this.reader.getFloat(grandChildren[j], 'z');
+                    if( (z == null) || (isNaN(z)) ) {
+                        return "unable to parse z-coodinate from the <scale> element of <transformation>";
                     }
 
                     mat4.scale(this.transformations, this.transformations, [x, y, z]);
