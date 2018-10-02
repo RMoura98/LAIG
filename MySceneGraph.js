@@ -317,33 +317,33 @@ class MySceneGraph {
                 }
 
                 // Getting x/y/z values from <from>
-                var fromX = this.reader.getFloat(grandChildrenNodeNames[fromIndex], 'x');
+                var fromX = this.reader.getFloat(grandChildren[fromIndex], 'x');
                 if((fromX == null) || (isNaN(fromX))) {
                     return "unable to parse x-coodinate from the <from> element of <perspective>"
                 }
 
-                var fromY = this.reader.getFloat(grandChildrenNodeNames[fromIndex], 'y');
+                var fromY = this.reader.getFloat(grandChildren[fromIndex], 'y');
                 if((fromY == null) || (isNaN(fromY))) {
                     return "unable to parse y-coodinate from the <from> element of <perspective>"
                 }
 
-                var fromZ = this.reader.getFloat(grandChildrenNodeNames[fromIndex], 'z');
+                var fromZ = this.reader.getFloat(grandChildren[fromIndex], 'z');
                 if((fromZ == null) || (isNaN(fromZ))) {
                     return "unable to parse z-coodinate from the <from> element of <perspective>"
                 }
 
                 // Getting x/y/z values from <to>
-                var toX = this.reader.getFloat(grandChildrenNodeNames[toIndex], 'x');
+                var toX = this.reader.getFloat(grandChildren[toIndex], 'x');
                 if((toX == null) || (isNaN(toX))) {
                     return "unable to parse x-coodinate from the <to> element of <perspective>"
                 }
 
-                var toY = this.reader.getFloat(grandChildrenNodeNames[toIndex], 'y');
+                var toY = this.reader.getFloat(grandChildren[toIndex], 'y');
                 if((toY == null) || (isNaN(toY))) {
                     return "unable to parse y-coodinate from the <to> element of <perspective>"
                 }
 
-                var toZ = this.reader.getFloat(grandChildrenNodeNames[toIndex], 'z');
+                var toZ = this.reader.getFloat(grandChildren[toIndex], 'z');
                 if((toZ == null) || (isNaN(toZ))) {
                     return "unable to parse z-coodinate from the <to> element of <perspective>"
                 }
