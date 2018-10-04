@@ -75,7 +75,7 @@ class MySceneGraph {
      * @param {XML root element} rootElement
      */
     parseXMLFile(rootElement) {
-        
+
         if (rootElement.nodeName != "yas")
             return "root tag <yas> missing";
 
@@ -199,7 +199,7 @@ class MySceneGraph {
                 this.onXMLMinorError("tag <components> out of order");
 
             //Parse components block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
         }
     }
@@ -211,7 +211,7 @@ class MySceneGraph {
     parseScene(sceneNode) {
 
         // DEBUG: console.log(nodeNames);
-        
+
 
         this.axis_length = this.reader.getFloat(sceneNode, 'axis_length');
 
@@ -244,13 +244,13 @@ class MySceneGraph {
         var grandChildren = [];
         var grandChildrenNodeNames = [];
 
-       
+
         if(children.length < 1) {
             return "at least one perspective or ortho view must be defined";
         }
 
         //DEBUG: console.log(nodeNames);
-    
+
         for(var i = 0; i < children.length; i++) {
 
             if( (children[i].nodeName != "perspective") && (children[i].nodeName != "ortho") ) {
@@ -385,34 +385,34 @@ class MySceneGraph {
                     left = 0;
 
                     this.onXMLMinorError("unable to parse value for left; assuming 'left = 0'");
-                }         
-                
+                }
+
                 var right = this.reader.getFloat(children[i], 'right');
                 if( (right == null) || (isNaN(right)) ) {
                     right = 0;
 
                     this.onXMLMinorError("unable to parse value for right; assuming 'right = 0'");
-                }        
+                }
 
                 var top = this.reader.getFloat(children[i], 'top');
                 if( (top == null) || (isNaN(top)) ) {
                     top = 50;
 
                     this.onXMLMinorError("unable to parse value for top; assuming 'top = 50'");
-                }        
+                }
 
                 var bottom = this.reader.getFloat(children[i], 'bottom');
                 if( (bottom == null) || (isNaN(bottom)) ) {
                     bottom = 0;
 
                     this.onXMLMinorError("unable to parse value for bottom; assuming 'bottom = 0'");
-                }        
+                }
 
                 orthoViews[orthoViewId] = [near, far ,left, right, top, bottom];
 
                 this.views[1] = orthoViews;
             }
-        }        
+        }
 
         if( (Object.keys(this.views[0]).length) + (Object.keys(this.views[1]).length) < 1 )
             return "at least one view (perspective or ortho) must be defined";
@@ -441,7 +441,7 @@ class MySceneGraph {
         var ambientIndex = nodeNames.indexOf("ambient");
         if(ambientIndex == -1)
             return "tag <ambient> from <ambient> missing";
-        
+
         var backgroundIndex = nodeNames.indexOf("background");
         if(backgroundIndex == -1)
             return "tag <background> from <ambient> missing;"
@@ -527,7 +527,7 @@ class MySceneGraph {
         var grandChildren = [];
         var grandChildrenNodeNames = [];
 
-       
+
         if(children.length < 1) {
             return "at least one omni or spot light must be defined";
         }
@@ -891,7 +891,7 @@ class MySceneGraph {
 
         this.log("Parsed lights");
         return null;
-        
+
     }
 
     /**
@@ -899,12 +899,12 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
-        
+
         var children = texturesNode.children;
 
         this.textures = [];
 
-       
+
         if(children.length < 1) {
             return "at least one texture must be defined";
         }
@@ -929,7 +929,7 @@ class MySceneGraph {
             var filePath = this.reader.getString(children[i], 'file');
             if (filePath == null)
                 return "file path undefined for texture with ID = " + textureId;
-            
+
             var texture = new CGFtexture(this.scene, "./scenes/" + filePath);
 
             this.textures[textureId] = [texture];
@@ -1132,7 +1132,7 @@ class MySceneGraph {
 
         var children = transformationsNode.children;
 
-        this.transformations = mat4.create(); 
+        this.transformations = mat4.create();
         mat4.identity(this.transformations);
 
         var hasTransformation = false;
@@ -1178,7 +1178,7 @@ class MySceneGraph {
 
             for (var j = 0; j < grandChildren.length; j++) {
 
-                if( (grandChildren[j].nodeName != "translate") && (grandChildren[j].nodeName != "rotate") && 
+                if( (grandChildren[j].nodeName != "translate") && (grandChildren[j].nodeName != "rotate") &&
                 (grandChildren[j].nodeName != "scale") ) {
                     this.onXMLMinorError("unknown tag name <" + grandChildren[j].nodeName + ">");
                     continue;
@@ -1208,7 +1208,7 @@ class MySceneGraph {
                 }
 
                 else if(grandChildren[j].nodeName == "rotate") {
-                    
+
                     // Get axis/angle values from rotation transformation
                     var axis = this.reader.getItem(grandChildren[j], 'axis', ['x', 'y', 'z']);
                     if( axis == null ) {
@@ -1279,9 +1279,69 @@ class MySceneGraph {
      */
     parsePrimitives(primitivesNode) {
 
-        
+
 
         this.log("Parsed primitives");
+        return null;
+    }
+
+    /**
+     * Parses the <components> block.
+     * @param {components block element} componentsNode
+     */
+    parseComponents(componentsNode) {
+
+		var children = componentsNode.children;
+		DEBUG: console.log(children);
+
+		if(children.length < 1) {
+            return "at least one component must be defined";
+        }
+
+	/*	for(var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName != "component") {
+                this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+                continue;
+            }
+
+			var componentId = this.reader.getString(children[i], 'id');
+            if (componentId == null)
+                return "failed to parse texture ID";
+
+			var grandChildren = children[i].children;
+            var grandChildrenNodeNames = [];
+			console.log(grandChildren);
+            for (var j = 0; j < grandChildren.length; j++) {
+				console.log(grandChildren[j].nodeName);
+                grandChildrenNodeNames.push(grandChildren[j].nodeName);
+            }
+
+			console.log(grandChildrenNodeNames);
+			if(grandChildrenNodeNames.length < 1) {
+				console.log("ddd" + grandChildrenNodeNames.length);
+				console.log(grandChildrenNodeNames);
+                return "transformation must have at least 1 child element (conflict: nChildren = " + grandChildrenNodeNames.length + ")";
+            }
+
+			for (var j = 0; j < grandChildren.length; j++) {
+
+                if( (grandChildren[j].nodeName != "transformation") && (grandChildren[j].nodeName != "materials") &&
+                (grandChildren[j].nodeName != "texture") && (grandChildren[j].nodeName != "children") ) {
+                    this.onXMLMinorError("unknown tag name <" + grandChildren[j].nodeName + ">");
+                    continue;
+                }
+
+                if(grandChildren[j].nodeName == "materials") {
+					console.log(":D");
+                }
+			}
+
+        }*/
+
+
+
+        this.log("Parsed components");
         return null;
     }
 
