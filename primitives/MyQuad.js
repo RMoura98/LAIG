@@ -1,13 +1,18 @@
 class MyQuad extends CGFobject
 {
-	constructor(scene, minS, maxS, minT, maxT) 
+	constructor(scene, x1, y1, x2, y2) 
 	{
 		super(scene);
 
-		this.minS = minS || 0.0;
-		this.maxS = maxS || 1.0;
-		this.minT = minT || 0.0;
-		this.maxT = maxT || 1.0;
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+
+		this.minS = 0.0;
+		this.maxS = 1.0;
+		this.minT = 0.0;
+		this.maxT = 1.0;
 
 // 		this.floorAppearance = new CGFappearance(this.scene);
 // 		this.floorAppearance.loadTexture("../resources/images/floor.png");
@@ -22,10 +27,10 @@ class MyQuad extends CGFobject
 	initBuffers() 
 	{
 		this.vertices = [
-				-0.5, -0.5, 0,
-				0.5, -0.5, 0,
-				-0.5, 0.5, 0,
-				0.5, 0.5, 0
+				x1, y1, 0,
+				x1, y2, 0,
+				x2, y1, 0,
+				x2, y2, 0
 				];
 
 		this.indices = [
