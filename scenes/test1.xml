@@ -125,7 +125,7 @@
 
     <components>
 
-        <component id="comp0">
+        <component id="cube">
             <!-- Uma "component" e' um objeto composto e pode ser -->
             <!--      usada em nos intermédios -->
             <!-- bloco "transformation" e' obrigatorio -->
@@ -186,15 +186,122 @@
                     <!-- componentes ou primitivas -->
 
                     <!-- pode ser assim!
-					<componentref id="ss" />
+					<primitiveref id="ss" />
 					-->
 
-				<primitiveref id="Quad" />
+					<componentref id="C_front" />
+					<componentref id="C_back" />
+					<componentref id="C_bottom" />
+					<componentref id="C_top" />
+					<componentref id="C_left" />
+					<componentref id="C_right" />
+
+
             </children>
         </component>
 
-		<component id="comp1">
+		<component id="C_front">
+            <transformation >
+                <translate x="0.0" y="0.0" z="0.5" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
 		</component>
+
+		<component id="C_back">
+            <transformation >
+                <translate x="0.0" y="0.0" z="0.5" />
+				<rotate axis="y" angle="180.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="C_right">
+            <transformation >
+				<translate x="0.0" y="0.0" z="0.5" />
+                <rotate axis="y" angle="90.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="C_left">
+            <transformation >
+				<translate x="0.0" y="0.0" z="0.5" />
+                <rotate axis="y" angle="-90.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="C_top">
+            <transformation >
+				<translate x="0.0" y="0.0" z="0.5" />
+                <rotate axis="x" angle="90.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+		<component id="C_bottom">
+            <transformation >
+				<translate x="0.0" y="0.0" z="0.5" />
+	            <rotate axis="x" angle="-90.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+		</component>
+
+
     </components>
 
 </yas>
