@@ -49,8 +49,10 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
-        // Reads the lights from the scene graph.
-        for (var key in this.graph.lights) {
+		DEBUG: console.log(this.graph.lights[0]);
+
+        // Reads the OMNI lights from the scene graph.
+        for (var key in this.graph.lights[0]) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
 
@@ -58,10 +60,10 @@ class XMLscene extends CGFscene {
                 var light = this.graph.lights[key];
 
                 //lights are predefined in cgfscene
-                this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
-                this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
-                this.lights[i].setDiffuse(light[3][0], light[3][1], light[3][2], light[3][3]);
-                this.lights[i].setSpecular(light[4][0], light[4][1], light[4][2], light[4][3]);
+                this.lights[i].setPosition(light[1], light[2], light[3], light[4]);
+                this.lights[i].setAmbient(light[5], light[6], light[7], light[8]);
+                this.lights[i].setDiffuse(light[9], light[10], light[11], light[12]);
+                this.lights[i].setSpecular(light[13], light[14], light[15], light[16]);
 
                 this.lights[i].setVisible(true);
                 if (light[0])
@@ -74,6 +76,38 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
+
+		// Reads the SPOT lights from the scene graph.
+		for (var key in this.graph.lights[1]) {
+			if (i >= 8)
+				break;              // Only eight lights allowed by WebGL.
+
+			if (this.graph.lights.hasOwnProperty(key)) {
+				var light = this.graph.lights[key];
+
+				//lights are predefined in cgfscene
+				this.lights[i].setSpotCutOff(light[1]);
+				this.lights[i].setSpotExponent(light[2]);
+				this.lights[i].setPosition(light[3], light[4], light[5], light[6]);
+				this.lights[i].setSpotDirection(light[7], light[8], light[9]);
+                this.lights[i].setAmbient(light[10], light[11], light[12], light[13]);
+                this.lights[i].setDiffuse(light[14], light[15], light[16], light[17]);
+                this.lights[i].setSpecular(light[18], light[19], light[20], light[21]);
+
+
+				this.lights[i].setVisible(true);
+				if (light[0])
+					this.lights[i].enable();
+				else
+					this.lights[i].disable();
+
+				this.lights[i].update();
+
+				i++;
+			}
+		}
+
+
     }
 
 
@@ -91,7 +125,7 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        // Adds lights group.
+        // Adds OMNI AND SPOT lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
         this.sceneInited = true;
