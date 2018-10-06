@@ -1407,9 +1407,13 @@ class MySceneGraph {
                      // Get grandsons
                     grandGrandChildren = grandChildren[j].children;
 
-                    if(grandGrandChildren.length < 1) {
+
+
+					DEBUG: console.log(grandChildren[j]);
+					//na minha opiniao nao e preciso isto
+                    /*if(grandGrandChildren.length < 1) {
                         return "<transformation> of <component> must have at least 1 child element (conflict: nChildren = " + grandGrandChildren.length + ")";
-                    }
+                    }*/
 
                     for (var k = 0; k < grandGrandChildren.length; k++) {
 
