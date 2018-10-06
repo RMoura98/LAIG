@@ -1536,7 +1536,7 @@ class MySceneGraph {
                         if( grandGrandChildren[k].nodeName == "material") {
 
                              // Get ID of current material
-                             var materialId = this.reader.getFloat(grandGrandChildren[k], 'id');
+                             var materialId = this.reader.getString(grandGrandChildren[k], 'id');
                              if(materialId == null)
                                  return "material with invalid ID";
 
@@ -1552,7 +1552,7 @@ class MySceneGraph {
                 if( grandChildren[j].nodeName == "texture" ) {
 
                     // Get ID of current texture
-                    var textureId = this.reader.getFloat(grandChildren[j].nodeName, 'id');
+                    var textureId = this.reader.getString(grandChildren[j], 'id');
                     if(textureId == null)
                         return "texture with invalid ID";
 
@@ -1560,6 +1560,7 @@ class MySceneGraph {
                     if(this.textures[textureId] == null)
                         return "ID must match to existing texture";
 
+					DEBUG: console.log(this.nodes[textureId]);
                     this.nodes[textureId].texture = textureId;
                 }
 
@@ -1582,7 +1583,7 @@ class MySceneGraph {
 
                         if(grandGrandChildren[k].nodeName == "primitiveref") {
                             // Get ID of current texture
-                            var primitiveRefId = this.reader.getFloat(grandGrandChildren[k].nodeName, 'id');
+                            var primitiveRefId = this.reader.getString(grandGrandChildren[k].nodeName, 'id');
                             if(primitiveRefId == null)
                                 return "texture with invalid ID";
 
