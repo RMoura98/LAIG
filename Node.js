@@ -3,7 +3,7 @@
   * @param string id
   */
 
- function Node(id) {
+ function MyNode(id) {
 
   this.id = id;
 
@@ -14,7 +14,7 @@
   this.matTransfRef = null;
 
   this.matTransf = mat4.create();
-  mat4.identity(this.transformMatrix);
+  mat4.identity(this.matTransf);
 
   this.descendants = [];
 
