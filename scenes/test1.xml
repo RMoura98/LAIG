@@ -110,16 +110,23 @@
         <!-- Deve existir um ou mais blocos "primitive" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
-        <primitive id="ss">
+        <!--<primitive id="ss">-->
             <!-- apenas pode existir UMA das seguintes tags: -->
             <!--    rectangle, triangle, cylinder, sphere, torus -->
             <!-- os parametros devem ser interpretados, genericamente, -->
             <!-- como em WebGL; o cilindro deve adicionalmente ter tampas -->
 
-            <rectangle x1="ff" y1="ff" x2="ff" y2="ff" />             <triangle   x1="ff" y1="ff" z1="ff"                          x2="ff" y2="ff" z2="ff"                          x3="ff" y3="ff" z3="ff" />
+            <!--<rectangle x1="ff" y1="ff" x2="ff" y2="ff" />
+			<triangle   x1="ff" y1="ff" z1="ff"                          x2="ff" y2="ff" z2="ff"                          x3="ff" y3="ff" z3="ff" />
             <cylinder base="ff" top="ff" height="ff" slices="ii" stacks="ii" />
-            <sphere radius="ff" slices="ii" stacks="ii" />             <torus inner="ff" outer="ff" slices="ii" loops="ii" />
-        </primitive >
+            <sphere radius="ff" slices="ii" stacks="ii" />
+			<torus inner="ff" outer="ff" slices="ii" loops="ii" />
+        </primitive >-->
+
+		<primitive id="C_face">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+        </primitive>
+
     </primitives >
 
 
@@ -212,7 +219,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
@@ -229,7 +236,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
@@ -246,7 +253,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
@@ -263,7 +270,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
@@ -280,7 +287,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
@@ -297,7 +304,7 @@
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="rectangle" />
+                <primitiveref id="C_face" />
             </children>
 		</component>
 
