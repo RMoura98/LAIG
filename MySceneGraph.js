@@ -1561,7 +1561,7 @@ class MySceneGraph {
                         return "ID must match to existing texture";
 
 					DEBUG: console.log(this.nodes[textureId]);
-                    this.nodes[textureId].texture = textureId;
+                    this.nodes[componentId].texture = textureId;
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
