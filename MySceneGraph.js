@@ -1583,7 +1583,7 @@ class MySceneGraph {
 
                         if(grandGrandChildren[k].nodeName == "primitiveref") {
                             // Get ID of current texture
-                            var primitiveRefId = this.reader.getString(grandGrandChildren[k].nodeName, 'id');
+                            var primitiveRefId = this.reader.getString(grandGrandChildren[k], 'id');
                             if(primitiveRefId == null)
                                 return "texture with invalid ID";
 
