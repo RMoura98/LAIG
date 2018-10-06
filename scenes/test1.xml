@@ -213,10 +213,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
@@ -230,10 +230,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
@@ -247,10 +247,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
@@ -264,10 +264,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
@@ -281,10 +281,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
@@ -298,10 +298,10 @@
             </transformation>
 
             <materials>
-                <material id="inherit" />
+                <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="C_face" />
