@@ -1297,7 +1297,8 @@ class MySceneGraph {
             }
 
             // Get ID of current primitive
-            var primitiveId = this.reader.getString(children[i], 'primitive');
+            var primitiveId = this.reader.getString(children[i], 'id');
+			DEBUG: console.log(primitiveId);
             if (primitiveId == null)
                 return "primitive with invalid ID";
 
@@ -1340,7 +1341,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = primitive;
             }
-            
+
         }
 
         if(Object.keys(this.primitives).length < 1) {
@@ -1442,30 +1443,30 @@ class MySceneGraph {
                             if( (x == null) || (isNaN(x)) ) {
                                 return "unable to parse x-coodinate from the <translate> element of <transformation>";
                             }
-        
+
                             var y = this.reader.getFloat(grandGrandChildren[k], 'y');
                             if( (y == null) || (isNaN(y)) ) {
                                 return "unable to parse y-coodinate from the <translate> element of <transformation>";
                             }
-        
+
                             var y = this.reader.getFloat(grandGrandChildren[k], 'y');
                             if( (y == null) || (isNaN(y)) ) {
                                 return "unable to parse y-coodinate from the <translate> element of <transformation>";
                             }
-        
+
                             mat4.translate(this.nodes[componentId].matTransf, this.nodes[componentId].matTransf, [x, y, z]);
 
                             hasTransformation = true;
                         }
-        
+
                         else if(grandGrandChildren[k].nodeName == "rotate") {
-                            
+
                             // Get axis/angle values from rotation transformation
                             var axis = this.reader.getItem(grandGrandChildren[k], 'axis', ['x', 'y', 'z']);
                             if( axis == null ) {
                                 return "unable to parse axis value from the <rotate> element of <transformation>";
                             }
-        
+
                             var axisVector;
                             if(axis == 'x')
                                 axisVector = [1, 0, 0];
@@ -1473,37 +1474,37 @@ class MySceneGraph {
                                 axisVector = [0, 1, 0];
                             else if(axis == 'z')
                                 axisVector = [0, 0, 1];
-        
-        
+
+
                             var angle = this.reader.getFloat(grandGrandChildren[k], 'angle');
                             if( angle == null ) {
                                 return "unable to parse angle value from the <rotate> element of <transformation>";
                             }
-        
-        
+
+
                             mat4.rotate(this.nodes[componentId], this.nodes[componentId], DEGREE_TO_RAD*angle, axisVector);
 
                             hasTransformation = true;
                         }
-        
+
                         else if(grandGrandChildren[k].nodeName == "scale") {
-        
+
                             // Get x/y/z coordinates from scale transformation
                             var x = this.reader.getFloat(grandGrandChildren[k], 'x');
                             if( (x == null) || (isNaN(x)) ) {
                                 return "unable to parse x-coodinate from the <scale> element of <transformation>";
                             }
-        
+
                             var y = this.reader.getFloat(grandGrandChildren[k], 'y');
                             if( (y == null) || (isNaN(y)) ) {
                                 return "unable to parse y-coodinate from the <scale> element of <transformation>";
                             }
-        
+
                             var z = this.reader.getFloat(grandGrandChildren[k], 'z');
                             if( (z == null) || (isNaN(z)) ) {
                                 return "unable to parse z-coodinate from the <scale> element of <transformation>";
                             }
-        
+
                             mat4.scale(this.nodes[componentId], this.nodes[componentId], [x, y, z]);
 
                             hasTransformation = true;
@@ -1512,7 +1513,7 @@ class MySceneGraph {
                 }
 
                 if( grandChildren[j].nodeName == "materials" ) {
-                     
+
                     // Get grandsons
                     grandGrandChildren = grandChildren[j].children;
 
@@ -1534,7 +1535,7 @@ class MySceneGraph {
                              var materialId = this.reader.getFloat(grandGrandChildren[k], 'id');
                              if(materialId == null)
                                  return "material with invalid ID";
- 
+
                              // Check if ID exists
                              if(this.materials[materialId] == null)
                                  return "ID must match to existing material";
@@ -1554,11 +1555,11 @@ class MySceneGraph {
                     // Check if ID exists
                     if(this.textures[textureId] == null)
                         return "ID must match to existing texture";
-                    
+
                     this.nodes[textureId].texture = textureId;
                 }
 
-                if( grandChildren[j].nodeName == "children" ) { 
+                if( grandChildren[j].nodeName == "children" ) {
 
                     // Get grandsons
                     grandGrandChildren = grandChildren[j].children;
@@ -1584,7 +1585,7 @@ class MySceneGraph {
                             // Check if ID exists
                             if(this.primitives[primitiveRefId] == null)
                                 return "ID must match to existing primitive";
-                            
+
                                 this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
 
                             this.nodes[componentId].insertPrimitive(this.primitives[primitiveRefId]);
