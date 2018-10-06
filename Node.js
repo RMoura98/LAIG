@@ -21,10 +21,10 @@
   this.primitives = [];
 }
 
-Node.prototype.insertChild = function (nodeId) {
+MyNode.prototype.insertChild = function (nodeId) {
   this.descendants.push(nodeId);
 }
 
-Node.prototype.inserPrimitive = function (primitive) {
+MyNode.prototype.insertPrimitive = function (primitive) {
   this.primitives.push(primitive);
 }

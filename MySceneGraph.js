@@ -1591,7 +1591,7 @@ class MySceneGraph {
                             if(this.primitives[primitiveRefId] == null)
                                 return "ID must match to existing primitive";
 
-                                this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
+							console.log(this.nodes[componentId]);
 
                             this.nodes[componentId].insertPrimitive(this.primitives[primitiveRefId]);
                         }
