@@ -1308,44 +1308,44 @@ class MySceneGraph {
 
             // Get grandsons
             grandChildren = children[i].children;
-
+			DEBUG: console.log(grandChildren.length);
             if(grandChildren.length != 1) {
                 return "primitive must have 1 child element (conflict: nChildren = " + grandChildren.length + ")";
             }
-
+			DEBUG: console.log(grandChildren[0].nodeName);
 
             //check which primitive
-            if(grandChildren.nodeName == "rectangle") {
+            if(grandChildren[0].nodeName == "rectangle") {
 
-                var x1 = this.reader.getFloat(grandChildren, 'x1');
+                var x1 = this.reader.getFloat(grandChildren[0], 'x1');
                 if( (x1 == null) || (isNaN(x1)) ) {
                     return "value for x1 in <rectangle> of <primitive> is invalid";
                 }
 
-                var y1 = this.reader.getFloat(grandChildren, 'y1');
+                var y1 = this.reader.getFloat(grandChildren[0], 'y1');
                 if( (y1 == null) || (isNaN(y1)) ) {
                     return "value for y1 in <rectangle> of <primitive> is invalid";
                 }
 
-                var x2 = this.reader.getFloat(grandChildren, 'x2');
+                var x2 = this.reader.getFloat(grandChildren[0], 'x2');
                 if( (x2 == null) || (isNaN(x2)) ) {
                     return "value for x2 in <rectangle> of <primitive> is invalid";
                 }
 
-                var y2 = this.reader.getFloat(grandChildren, 'y2');
+                var y2 = this.reader.getFloat(grandChildren[0], 'y2');
                 if( (y2 == null) || (isNaN(y2)) ) {
                     return "value for y2 in <rectangle> of <primitive> is invalid";
                 }
 
-                var primitive = new MyQuad(this.graph.scene, x1, y1, x2, y2);
+                var primitive = new MyQuad(this.scene, x1, y1, x2, y2);
 
                 this.primitives[primitiveId] = primitive;
             }
 
         }
-
+		DEBUG: console.log(this.primitives);
         if(Object.keys(this.primitives).length < 1) {
-            return "at least on primitive should exist";
+            return "at least one primitive should exist";
         }
 
         this.log("Parsed primitives");
