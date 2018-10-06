@@ -1375,7 +1375,7 @@ class MySceneGraph {
             }
 
             // Get ID of current primitive
-            var componentId = this.reader.getString(children[i], 'component');
+            var componentId = this.reader.getString(children[i], 'id');
             if (componentId == null)
                 return "component with invalid ID";
 
