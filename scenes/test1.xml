@@ -69,7 +69,8 @@
         <!-- Deve existir um ou mais blocos "texture" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
-        <texture id="text0" file="images/bank.jpg" />
+        <texture id="text0" file="images/wood.jpg" />
+        <texture id="text1" file="images/metal.jpg" />
 
     </textures>
 
@@ -123,7 +124,7 @@
 			<torus inner="ff" outer="ff" slices="ii" loops="ii" />
         </primitive >-->
 
-		<primitive id="C_face">
+		<primitive id="quad">
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
@@ -132,84 +133,62 @@
 
     <components>
 
-        <component id="cube">
-            <!-- Uma "component" e' um objeto composto e pode ser -->
-            <!--      usada em nos intermédios -->
-            <!-- bloco "transformation" e' obrigatorio -->
-
+        <component id="table">
             <transformation>
-                <!-- deve conter uma referencia a uma das "transformation" -->
-                <!-- declaradas anteriormente -->
-
-                <!--
-				<transformationref id="ss" />
-				-->
-
-                <!-- ou, ALTERNATIVAMENTE, transformacoes explicitas, -->
-                <!-- usando zero ou mais das instrucoes seguintes, sem -->
-                <!--        limite nem ordem -->
-                <!-- ex: bloco transformation pode ficar sem conteudo -->
-
-				<!-- pode ser assim!
-                <translate x="ff" y="ff" z="ff" />
-                <rotate axis="cc" angle="ff" />
-                <scale x="ff" y="ff" z="ff" />
-				-->
-	        </transformation>
-
-            <!-- declaracao obrigatoria de pelo menos um material; -->
-            <!-- o material id="inherit", mantem (herda) material do "pai" -->
-            <!-- se varios materiais declarados, o default e' o -->
-            <!-- primeiro material; de cada vez que se pressione a tecla m/M, -->
-            <!-- o material muda para o proximo material da lista; do -->
-            <!-- ultimo material da lista volta ao primeiro -->
+            </transformation>
 
             <materials>
                 <material id="mater0" />
             </materials>
 
-            <!-- declaracao obrigatoria de texture -->
-            <!-- id="inherit" mantem (herda) a textura do objecto "pai" -->
-            <!-- id="none" remove a textura recebida do pai -->
-            <!-- a textura declarada sobrepoe a textura recebida do -->
-            <!-- objecto "pai" -->
-            <!-- length_s e length_t sao fatores de escala de textura:-->
-            <!-- Exemplo length_s=3.0: uma ocorrencia da textura, em -->
-            <!-- comprimento, deve cobrir um comprimento igual -->
-            <!-- a 3 unidades;  -->
-            <!-- Exemplo length_t=0.4, uma ocorrencia da textura, em -->
-            <!-- largura, deve cobrir uma largura igual a 0.4 unidades.  -->
-            <!-- E' permitido que objetos afetados por Transf. Geometr. -->
-             <!-- do tipo escalamento violem esta regra.        -->
-            <!-- Nao e' necessario aplicar fatores de escala em  -->
-            <!-- quadricas (esfera, cilindro...) -->
+            <texture id="none" length_s="1.0" length_t="1.0" />
 
-            <texture id="text0" length_s="1.0" length_t="1.0" />
-
-            <!-- bloco "children" obrigatorio num "component" -->
-			<children>
-                    <!-- deve existir uma ou mais tags "componentref" e/ou -->
-                    <!-- "primitiveref", identificando outros -->
-                    <!-- componentes ou primitivas -->
-
-                    <!-- pode ser assim!
-					<primitiveref id="ss" />
-					-->
-
-					<componentref id="C_front" />
-					<componentref id="C_back" />
-					<componentref id="C_bottom" />
-					<componentref id="C_top" />
-					<componentref id="C_left" />
-					<componentref id="C_right" />
-
-
+            <children>
+                <componentref id="top" />
+                <componentref id="legs" />
             </children>
         </component>
 
-		<component id="C_front">
-            <transformation >
-                <translate x="0.0" y="0.0" z="0.5" />
+        <component id="top">
+            <transformation>
+                <translate x="0.0" y="5.0" z="0.0" />
+                <scale x="4.0" y="1.0" z="2.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="text0" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="cube">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="quad-front" />
+                <componentref id="quad-back" />
+                <componentref id="quad-left" />
+                <componentref id="quad-right" />
+                <componentref id="quad-top" />
+                <componentref id="quad-bot" />
+            </children>
+        </component>
+
+        <component id="quad-front">
+            <transformation>
+                <translate x="0.0" y="0.0" z="1.0" />
             </transformation>
 
             <materials>
@@ -219,14 +198,14 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
-		<component id="C_back">
-            <transformation >
-                <translate x="0.0" y="0.0" z="0.5" />
-				<rotate axis="y" angle="180.0" />
+        <component id="quad-back">
+            <transformation>
+                <translate x="0.0" y="0.0" z="-1.0" />
+                <rotate axis="y" angle="180" />
             </transformation>
 
             <materials>
@@ -236,14 +215,14 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
-		<component id="C_right">
-            <transformation >
-				<translate x="0.0" y="0.0" z="0.5" />
-                <rotate axis="y" angle="90.0" />
+        <component id="quad-left">
+            <transformation>
+                <translate x="-1.0" y="0.0" z="0.0" />
+                <rotate axis="y" angle="270" />
             </transformation>
 
             <materials>
@@ -253,14 +232,14 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
-		<component id="C_left">
-            <transformation >
-				<translate x="0.0" y="0.0" z="0.5" />
-                <rotate axis="y" angle="-90.0" />
+        <component id="quad-right">
+            <transformation>
+                <translate x="1.0" y="0.0" z="0.0" />
+                <rotate axis="y" angle="90" />
             </transformation>
 
             <materials>
@@ -270,14 +249,14 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
-		<component id="C_top">
-            <transformation >
-				<translate x="0.0" y="0.0" z="0.5" />
-                <rotate axis="x" angle="90.0" />
+        <component id="quad-top">
+            <transformation>
+                <translate x="0.0" y="1.0" z="0.0" />
+                <rotate axis="x" angle="270" />
             </transformation>
 
             <materials>
@@ -287,14 +266,14 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
-		<component id="C_bottom">
-            <transformation >
-				<translate x="0.0" y="0.0" z="0.5" />
-	            <rotate axis="x" angle="-90.0" />
+        <component id="quad-bot">
+            <transformation>
+                <translate x="0.0" y="-1.0" z="0.0" /> 
+                <rotate axis="x" angle="90" />
             </transformation>
 
             <materials>
@@ -304,10 +283,95 @@
             <texture id="text0" length_s="1.0" length_t="1.0" />
 
             <children>
-                <primitiveref id="C_face" />
+                <primitiveref id="quad" />
             </children>
-		</component>
+        </component>
 
+        <component id="legs">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="text1" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="front-left-leg" />
+                <componentref id="front-right-leg" />
+                <componentref id="back-left-leg" />
+                <componentref id="back-right-leg" />
+            </children>
+        </component>
+
+        <component id="front-left-leg">
+            <transformation>
+                <translate x="-3.0" y="" z="1.2" />
+                <scale x="0.7" y="2.5" z="0.7" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="front-right-leg">
+            <transformation>
+                <translate x="3.0" y="" z="1.2" />
+                <scale x="0.7" y="2.5" z="0.7" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        
+        <component id="back-left-leg">
+            <transformation>
+                <translate x="-3.0" y="" z="-1.2" />
+                <scale x="0.7" y="2.5" z="0.7" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+
+        <component id="back-right-leg">
+            <transformation>
+                <translate x="3.0" y="" z="-1.2" />
+                <scale x="0.7" y="2.5" z="0.7" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
 
     </components>
 
