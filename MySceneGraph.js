@@ -507,8 +507,6 @@ class MySceneGraph {
             this.onXMLMinorError("unable to parse <background> value for r; assuming 'r = 1'");
         }
 
-        console.log("Parsed ambient");
-
         return null;
     }
 
@@ -1298,7 +1296,6 @@ class MySceneGraph {
 
             // Get ID of current primitive
             var primitiveId = this.reader.getString(children[i], 'id');
-			DEBUG: console.log(primitiveId);
             if (primitiveId == null)
                 return "primitive with invalid ID";
 
@@ -1308,11 +1305,9 @@ class MySceneGraph {
 
             // Get grandsons
             grandChildren = children[i].children;
-			DEBUG: console.log(grandChildren.length);
             if(grandChildren.length != 1) {
                 return "primitive must have 1 child element (conflict: nChildren = " + grandChildren.length + ")";
             }
-			DEBUG: console.log(grandChildren[0].nodeName);
 
             //check which primitive
             if(grandChildren[0].nodeName == "rectangle") {
@@ -1343,7 +1338,6 @@ class MySceneGraph {
             }
 
         }
-		DEBUG: console.log(this.primitives);
         if(Object.keys(this.primitives).length < 1) {
             return "at least one primitive should exist";
         }
@@ -1407,9 +1401,6 @@ class MySceneGraph {
                      // Get grandsons
                     grandGrandChildren = grandChildren[j].children;
 
-
-
-					DEBUG: console.log(grandChildren[j]);
 					//na minha opiniao nao e preciso isto
                     /*if(grandGrandChildren.length < 1) {
                         return "<transformation> of <component> must have at least 1 child element (conflict: nChildren = " + grandGrandChildren.length + ")";
@@ -1541,8 +1532,8 @@ class MySceneGraph {
                                  return "material with invalid ID";
 
                              // Check if ID exists
-                             if(this.materials[materialId] == null)
-                                 return "ID must match to existing material";
+                             if(this.materials[materialId] == null && materialId != "inherit")
+								 return "ID must match to existing material";
 
                             this.nodes[componentId].material = materialId;
                         }
@@ -1557,10 +1548,9 @@ class MySceneGraph {
                         return "texture with invalid ID";
 
                     // Check if ID exists
-                    if(this.textures[textureId] == null)
+                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
                         return "ID must match to existing texture";
 
-					DEBUG: console.log(this.nodes[textureId]);
                     this.nodes[componentId].texture = textureId;
                 }
 
@@ -1590,8 +1580,6 @@ class MySceneGraph {
                             // Check if ID exists
                             if(this.primitives[primitiveRefId] == null)
                                 return "ID must match to existing primitive";
-
-							console.log(this.nodes[componentId]);
 
                             this.nodes[componentId].insertPrimitive(this.primitives[primitiveRefId]);
                         }
@@ -1637,7 +1625,7 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-
+		//DEBUG: console.log(this.nodes);
 
         for (let i = 0; i < this.nodes.length; i++) {
             this.scene.pushMatrix();
