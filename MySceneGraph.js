@@ -931,7 +931,7 @@ class MySceneGraph {
 
             var texture = new CGFtexture(this.scene, "./scenes/" + filePath);
 
-            this.textures[textureId] = [texture];
+            this.textures[textureId] = texture;
         }
 
         if(Object.keys(this.textures).length < 1)
