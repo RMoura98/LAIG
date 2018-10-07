@@ -307,7 +307,7 @@
 
         <component id="front-left-leg">
             <transformation>
-                <translate x="-3.0" y="" z="1.2" />
+                <translate x="-3.0" y="5.0" z="1.2" />
                 <scale x="0.7" y="2.5" z="0.7" />
             </transformation>
 
@@ -324,7 +324,7 @@
 
         <component id="front-right-leg">
             <transformation>
-                <translate x="3.0" y="" z="1.2" />
+                <translate x="3.0" y="5.0" z="1.2" />
                 <scale x="0.7" y="2.5" z="0.7" />
             </transformation>
 
@@ -341,7 +341,7 @@
         
         <component id="back-left-leg">
             <transformation>
-                <translate x="-3.0" y="" z="-1.2" />
+                <translate x="-3.0" y="5.0" z="-1.2" />
                 <scale x="0.7" y="2.5" z="0.7" />
             </transformation>
 
@@ -358,7 +358,7 @@
 
         <component id="back-right-leg">
             <transformation>
-                <translate x="3.0" y="" z="-1.2" />
+                <translate x="3.0" y="5.0" z="-1.2" />
                 <scale x="0.7" y="2.5" z="0.7" />
             </transformation>
 
