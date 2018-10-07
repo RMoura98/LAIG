@@ -507,6 +507,7 @@ class MySceneGraph {
             this.onXMLMinorError("unable to parse <background> value for r; assuming 'r = 1'");
         }
 
+        this.log("Parsed ambient");
         return null;
     }
 
