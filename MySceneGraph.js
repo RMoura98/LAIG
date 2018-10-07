@@ -1626,13 +1626,45 @@ class MySceneGraph {
     displayScene() {
         // entry point for graph rendering
         //TODO: Render loop starting at root of graph
-		//DEBUG: console.log(this.nodes);
 
-        for (let i = 0; i < this.nodes.length; i++) {
+
+		for (var nodeKey in this.nodes) {
+			if (this.nodes.hasOwnProperty(nodeKey)) {
+				// DEBUG: console.log(nodeKey);
+				// DEBUG: console.log(nodeKey);
+				// DEBUG: console.log(this.nodes[nodeKey].material);
+				// DEBUG: console.log(this.nodes[nodeKey].texture);
+
+				this.scene.pushMatrix();
+				for (var primitiveKey in this.nodes[nodeKey].descendants) {
+					// DEBUG: console.log(primitiveKey);
+					if (this.nodes[nodeKey].descendants.hasOwnProperty(primitiveKey)) {
+
+						//TODO: desenhar
+
+						console.log(this.nodes[nodeKey].descendants[primitiveKey]);
+
+						// DEBUG: console.log(this.nodes[nodeKey].primitives[primitiveKey]);
+						this.scene.multMatrix(this.nodes[nodeKey].matTransf);
+						var primitive = this.nodes[nodeKey].primitives[primitiveKey];
+						var textId = this.nodes[nodeKey].texture;
+						var texture = this.textures[textId];
+						primitive.display();
+						// DEBUG: console.log(texture);
+						//this.nodes[nodeKey].primitives[primitiveKey].texture.apply();
+						primitive.display();
+
+					}
+				}
+				this.scene.popMatrix();
+            }
+
+		}
+        /*for (let i = 0; i < this.nodes.length; i++) {
             this.scene.pushMatrix();
             for(let j=0; j<this.nodes[i].primitives[j].length; j++)
                 this.nodes[i].primitives[j].display;
             this.scene.popMatrix();
-        }
+        }*/
     }
 }
