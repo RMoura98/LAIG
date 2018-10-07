@@ -39,13 +39,17 @@ class MyInterface extends CGFinterface {
 
         for (var key in lights[0]) {
             if (lights[0].hasOwnProperty(key)) {
-                this.scene.lightValues[key] = lights[0][key][0];
+				if (lights[0][key][0]) this.scene.lightValues[key] = true;
+				else this.scene.lightValues[key] = false;
+                //this.scene.lightValues[key] = lights[0][key][0];
                 group.add(this.scene.lightValues, key);
             }
         }
         for (var key in lights[1]) {
             if (lights[1].hasOwnProperty(key)) {
-                this.scene.lightValues[key] = lights[1][key][0];
+				if (lights[1][key][0]) this.scene.lightValues[key] = true;
+				else this.scene.lightValues[key] = false;
+                //this.scene.lightValues[key] = lights[1][key][0];
                 group.add(this.scene.lightValues, key);
             }
         }
