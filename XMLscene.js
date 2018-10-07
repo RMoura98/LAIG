@@ -49,8 +49,6 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
-		DEBUG: console.log(this.graph.lights[0]);
-
         // Reads the OMNI lights from the scene graph.
         for (var key in this.graph.lights[0]) {
             if (i >= 8)
