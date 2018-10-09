@@ -70,9 +70,6 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
         <texture id="wood" file="images/wood.jpg" />
-        <texture id="metal" file="images/metal.jpg" />
-        <texture id="ball" file="images/ball.jpg" />
-        <texture id="cup" file="images/cup.jpg" />
 
     </textures>
 
@@ -130,18 +127,6 @@
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
-        <primitive id="cylinder-leg">
-            <cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30" />
-        </primitive>
-
-        <primitive id="cylinder-cup">
-            <cylinder base="0.2" top="0.2" height="0.6" slices="30" stacks="30" />
-        </primitive>
-
-        <primitive id="sphere">
-            <sphere radius="1.0" slices="30" stacks="30" />
-        </primitive>
-
     </primitives >
 
 
@@ -159,7 +144,6 @@
 
             <children>
                 <componentref id="top" />
-                <componentref id="legs" />
             </children>
         </component>
 
@@ -300,131 +284,7 @@
                 <primitiveref id="quad" />
             </children>
         </component>
-
-        <component id="legs">
-            <transformation>
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="metal" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <componentref id="front-left-leg" />
-                <componentref id="front-right-leg" />
-                <componentref id="back-left-leg" />
-                <componentref id="back-right-leg" />
-            </children>
-        </component>
-
-        <component id="front-left-leg">
-            <transformation>
-                <translate x="-1.6" y="3.4" z="0.75" />
-                <rotate axis="x" angle="270" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="cylinder-leg" />
-            </children>
-        </component>
-
-        <component id="front-right-leg">
-            <transformation>
-                <translate x="1.6" y="3.4" z="0.75" />
-                <rotate axis="x" angle="270" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="cylinder-leg" />
-            </children>
-        </component>
         
-        <component id="back-left-leg">
-            <transformation>
-                <translate x="-1.6" y="3.4" z="-0.75" />
-                <rotate axis="x" angle="270" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="cylinder-leg" />
-            </children>
-        </component>
-
-        <component id="back-right-leg">
-            <transformation>
-                <translate x="1.6" y="3.4" z="-0.75" />
-                <rotate axis="x" angle="270" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </transformation>
-
-            <materials>
-                <material id="inherit" />
-            </materials>
-
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="cylinder-leg" />
-            </children>
-        </component>
-
-        <component id="ball">
-            <transformation>
-                <translate x="-1.2" y="5.4" z="-0.6" />
-                <scale x="0.3" y="0.3" z="0.3" />
-            </transformation>
-
-            <materials>
-                <material id="mater0" />
-            </materials>
-
-            <texture id="ball" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="sphere" />
-            </children>
-        </component>
-
-        <component id="cup">
-            <transformation>
-                <translate x="0.8" y="5.1" z="-0.23" />
-                <rotate axis="x" angle="270" />
-            </transformation>
-
-            <materials>
-                <material id="mater0" />
-            </materials>
-
-            <texture id="cup" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="cylinder-cup" />
-            </children>
-        </component>
-
     </components>
 
 </yas>
