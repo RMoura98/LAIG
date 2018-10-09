@@ -698,7 +698,7 @@ class MySceneGraph {
 
                 // Get rest of values from <spot>
                 var enabled = this.reader.getFloat(children[i], 'enabled');
-                if( (enabled == null) || (isNaN(enabled)) || (enabled != 0) || (enabled != 1)) {
+                if( (enabled == null) || (isNaN(enabled)) || ((enabled != 0) && (enabled != 1))) {
                     enabled = 1;
 
                     this.onXMLMinorError("unable to parse <spot> value for enabled; assuming 'enabled = 1'");
@@ -1196,9 +1196,9 @@ class MySceneGraph {
                         return "unable to parse y-coodinate from the <translate> element of <transformation>";
                     }
 
-                    var y = this.reader.getFloat(grandChildren[j], 'y');
-                    if( (y == null) || (isNaN(y)) ) {
-                        return "unable to parse y-coodinate from the <translate> element of <transformation>";
+                    var z = this.reader.getFloat(grandChildren[j], 'z');
+                    if( (z == null) || (isNaN(z)) ) {
+                        return "unable to parse z-coodinate from the <translate> element of <transformation>";
                     }
 
                     mat4.translate(this.transformations, this.transformations, [x, y, z]);
@@ -1445,9 +1445,9 @@ class MySceneGraph {
                                 return "unable to parse y-coodinate from the <translate> element of <transformation>";
                             }
 
-                            var y = this.reader.getFloat(grandGrandChildren[k], 'y');
-                            if( (y == null) || (isNaN(y)) ) {
-                                return "unable to parse y-coodinate from the <translate> element of <transformation>";
+                            var z = this.reader.getFloat(grandGrandChildren[k], 'y');
+                            if( (z == null) || (isNaN(z)) ) {
+                                return "unable to parse z-coodinate from the <translate> element of <transformation>";
                             }
 
                             mat4.translate(this.nodes[componentId].matTransf, this.nodes[componentId].matTransf, [x, y, z]);
@@ -1478,7 +1478,7 @@ class MySceneGraph {
                             }
 
 
-                            mat4.rotate(this.nodes[componentId], this.nodes[componentId], DEGREE_TO_RAD*angle, axisVector);
+                            mat4.rotate(this.nodes[componentId].matTransf, this.nodes[componentId].matTransf, DEGREE_TO_RAD*angle, axisVector);
 
                             hasTransformation = true;
                         }
@@ -1501,7 +1501,7 @@ class MySceneGraph {
                                 return "unable to parse z-coodinate from the <scale> element of <transformation>";
                             }
 
-                            mat4.scale(this.nodes[componentId], this.nodes[componentId], [x, y, z]);
+                            mat4.scale(this.nodes[componentId].matTransf, this.nodes[componentId].matTransf, [x, y, z]);
 
                             hasTransformation = true;
                         }
@@ -1624,46 +1624,34 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        // entry point for graph rendering
-        //TODO: Render loop starting at root of graph
+		var fisrtNodeName = Object.keys(this.nodes)[0];
+        var textureID = this.nodes[fisrtNodeName].texture;
+        var materialID = this.nodes[fisrtNodeName].material;
+        this.displaySceneRecursive(fisrtNodeName, textureID, materialID);
+    }
 
+	displaySceneRecursive( nodeName, textureId, materialId){
+        var material = materialId;
+        var texture = textureId;
 
-		/*for (var nodeKey in this.nodes) {
-			if (this.nodes.hasOwnProperty(nodeKey)) {
-				// DEBUG: console.log(nodeKey);
-				// DEBUG: console.log(nodeKey);
-				// DEBUG: console.log(this.nodes[nodeKey].material);
-				// DEBUG: console.log(this.nodes[nodeKey].texture);
-
-				this.scene.pushMatrix();
-				for (var primitiveKey in this.nodes[nodeKey].descendants) {
-					// DEBUG: console.log(primitiveKey);
-					if (this.nodes[nodeKey].descendants.hasOwnProperty(primitiveKey)) {
-
-						//TODO: desenhar
-
-						console.log(this.nodes[nodeKey].descendants[primitiveKey]);
-
-						// DEBUG: console.log(this.nodes[nodeKey].primitives[primitiveKey]);
-						this.scene.multMatrix(this.nodes[nodeKey].matTransf);
-						var primitive = this.nodes[nodeKey].primitives[primitiveKey];
-						var textId = this.nodes[nodeKey].texture;
-						var texture = this.textures[textId];
-						primitive.display();
-						// DEBUG: console.log(texture);
-						//this.nodes[nodeKey].primitives[primitiveKey].texture.apply();
-
-					}
-				}
-				this.scene.popMatrix();
-            }
-
-		}
-        for (let i = 0; i < this.nodes.length; i++) {
+        if(nodeName != null){
+            var node = this.nodes[nodeName];
+            if(node.material != null)
+                material = node.material;
+            if(node.texture != null)
+                texture = node.texture;
+        }
+        this.scene.multMatrix(node.matTransf);
+        for(var i = 0; i < node.descendants.length; i++){
             this.scene.pushMatrix();
-            for(let j=0; j<this.nodes[i].primitives[j].length; j++)
-                this.nodes[i].primitives[j].display;
+                displaySceneRecursive(node.descendants[i], textureId, materialId);
             this.scene.popMatrix();
-        }*/
+        }
+
+        if (node.primitives[0] != null){
+            this.textures[texture].bind();
+            this.materials[material].apply();
+            node.primitives[0].display();
+        }
     }
 }

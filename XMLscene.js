@@ -94,7 +94,7 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-		// TODO: Melhorar isto
+		// TODO: Melhorar isto nao pode ser assim!
         this.camera.near = this.graph.views['presp0'][0];
         this.camera.far = this.graph.views['presp0'][1];
 
