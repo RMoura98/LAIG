@@ -36,7 +36,7 @@
 
     <ambient>
         <ambient r="0.2" g="0.2" b="0.2" a="1" />
-        <background r="0.0" g="0.0" b="0.0" a="1" />
+        <background r="0.9" g="0.9" b="0.9" a="1" />
     </ambient>
 
 
@@ -45,7 +45,7 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
         <omni id="omni0" enabled="1" >
-            <location x="10" y="10" z="10" w="10" />
+            <location x="-4" y="2" z="-2" w="2" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
             <diffuse r="1" g="1" b="1" a="1" />
             <specular r="1" g="1" b="1" a="1" />
@@ -270,7 +270,7 @@
 
         <component id="quad-bot">
             <transformation>
-                <translate x="0.0" y="-0.5" z="0.0" /> 
+                <translate x="0.0" y="-0.5" z="0.0" />
                 <rotate axis="x" angle="90" />
             </transformation>
 
@@ -284,7 +284,7 @@
                 <primitiveref id="quad" />
             </children>
         </component>
-        
+
     </components>
 
 </yas>

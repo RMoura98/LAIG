@@ -49,8 +49,9 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
-        // Reads the OMNI lights from the scene graph.
-        for (var key in this.graph.lights[0]) {
+
+        // Reads the lights from the scene graph.
+        for (var key in this.graph.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
 
@@ -58,10 +59,22 @@ class XMLscene extends CGFscene {
                 var light = this.graph.lights[key];
 
                 //lights are predefined in cgfscene
-                this.lights[i].setPosition(light[1], light[2], light[3], light[4]);
-                this.lights[i].setAmbient(light[5], light[6], light[7], light[8]);
-                this.lights[i].setDiffuse(light[9], light[10], light[11], light[12]);
-                this.lights[i].setSpecular(light[13], light[14], light[15], light[16]);
+				if(light.length > 17){
+					this.lights[i].setSpotCutOff(light[1]);
+					this.lights[i].setSpotExponent(light[2]);
+					this.lights[i].setPosition(light[3], light[4], light[5], light[6]);
+					this.lights[i].setSpotDirection(light[7], light[8], light[9]);
+	                this.lights[i].setAmbient(light[10], light[11], light[12], light[13]);
+	                this.lights[i].setDiffuse(light[14], light[15], light[16], light[17]);
+	                this.lights[i].setSpecular(light[18], light[19], light[20], light[21]);
+				}
+				else{
+					this.lights[i].setPosition(light[1], light[2], light[3], light[4]);
+					this.lights[i].setAmbient(light[5], light[6], light[7], light[8]);
+					this.lights[i].setDiffuse(light[9], light[10], light[11], light[12]);
+					this.lights[i].setSpecular(light[13], light[14], light[15], light[16]);
+				}
+
 
                 this.lights[i].setVisible(true);
                 if (light[0])
@@ -74,38 +87,6 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
-
-		// Reads the SPOT lights from the scene graph.
-		for (var key in this.graph.lights[1]) {
-			if (i >= 8)
-				break;              // Only eight lights allowed by WebGL.
-
-			if (this.graph.lights.hasOwnProperty(key)) {
-				var light = this.graph.lights[key];
-
-				//lights are predefined in cgfscene
-				this.lights[i].setSpotCutOff(light[1]);
-				this.lights[i].setSpotExponent(light[2]);
-				this.lights[i].setPosition(light[3], light[4], light[5], light[6]);
-				this.lights[i].setSpotDirection(light[7], light[8], light[9]);
-                this.lights[i].setAmbient(light[10], light[11], light[12], light[13]);
-                this.lights[i].setDiffuse(light[14], light[15], light[16], light[17]);
-                this.lights[i].setSpecular(light[18], light[19], light[20], light[21]);
-
-
-				this.lights[i].setVisible(true);
-				if (light[0])
-					this.lights[i].enable();
-				else
-					this.lights[i].disable();
-
-				this.lights[i].update();
-
-				i++;
-			}
-		}
-
-
     }
 
 
@@ -113,17 +94,19 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        this.camera.near = this.graph.near;
-        this.camera.far = this.graph.far;
+		// TODO: Melhorar isto
+        this.camera.near = this.graph.views['presp0'][0];
+        this.camera.far = this.graph.views['presp0'][1];
 
-        //TODO: Change reference length according to parsed graph
-        //this.axis = new CGFaxis(this, this.graph.referenceLength);
+		this.axis = new CGFaxis(this,this.graph.axis_length);
 
-        // TODO: Change ambient and background details according to parsed graph
+    	this.setGlobalAmbientLight(this.graph.ambient['ambient'][0], this.graph.ambient['ambient'][1], this.graph.ambient['ambient'][2], this.graph.ambient['ambient'][3]);
+
+    	this.gl.clearColor(this.graph.ambient['background'][0], this.graph.ambient['background'][1], this.graph.ambient['background'][2], this.graph.ambient['background'][3]);
 
         this.initLights();
 
-        // Adds OMNI AND SPOT lights group.
+        // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
         this.sceneInited = true;
@@ -170,7 +153,7 @@ class XMLscene extends CGFscene {
             }
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+        	this.graph.displayScene();
         }
         else {
             // Draw axis

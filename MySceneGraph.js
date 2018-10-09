@@ -238,8 +238,8 @@ class MySceneGraph {
         var children = viewsNode.children;
 
         this.views = [];        //  [[perspectives] [orthos]]
-        var perspViews = [];     //  [[near far angle x y z x y z]]
-        var orthoViews = [];     //  [[near far left right top bottom]]
+          //  [[near far angle x y z x y z]]
+         //  [[near far left right top bottom]]
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -266,7 +266,7 @@ class MySceneGraph {
                     return "no ID defined for perspective view";
 
                 // Checks for repeated IDs.
-                if (perspViews[perspViewId] != null)
+                if (this.views[perspViewId] != null)
                     return "ID must be unique for each view (conflict: ID = " + perspViewId + ")";
 
                 // Get rest of values from <view>
@@ -350,9 +350,7 @@ class MySceneGraph {
 
 
                 // Pushing perspective view array to general view array
-                perspViews[perspViewId] = [near, far, angle, fromX, fromY, fromZ, toX, toY, toZ];
-
-                this.views[0] = perspViews;
+                this.views[perspViewId] = [near, far, angle, fromX, fromY, fromZ, toX, toY, toZ];
             }
 
             if(children[i].nodeName == "ortho") {
@@ -363,7 +361,7 @@ class MySceneGraph {
                     return "no ID defined for perspective view";
 
                 // Checks for repeated IDs.
-                if (orthoViews[orthoViewId] != null)
+                if (this.views[orthoViewId] != null)
                     return "ID must be unique for each view (conflict: ID = " + orthoViewId + ")";
 
                 var near = this.reader.getFloat(children[i], 'near');
@@ -408,13 +406,11 @@ class MySceneGraph {
                     this.onXMLMinorError("unable to parse value for bottom; assuming 'bottom = 0'");
                 }
 
-                orthoViews[orthoViewId] = [near, far ,left, right, top, bottom];
-
-                this.views[1] = orthoViews;
+                this.views[orthoViewId] = [near, far ,left, right, top, bottom];
             }
         }
 
-        if( (Object.keys(this.views[0]).length) + (Object.keys(this.views[1]).length) < 1 )
+        if( (Object.keys(this.views).length) < 1 )
             return "at least one view (perspective or ortho) must be defined";
 
         this.log("Parsed views");
@@ -432,7 +428,11 @@ class MySceneGraph {
 
         var nodeNames = [];
 
-        this.ambient = [];
+		this.ambient = [];
+
+        this.ambient['ambient'] = [];
+        this.ambient['background'] = [];
+
 
         for (var i = 0; i < children.length; i++)
             nodeNames.push(children[i].nodeName);
@@ -477,6 +477,7 @@ class MySceneGraph {
             this.onXMLMinorError("unable to parse <ambient> value for r; assuming 'r = 1'");
         }
 
+		this.ambient['ambient'] = [ambientR, ambientG, ambientB, ambientA];
 
         // Getting <background> values
         var backgroundR = this.reader.getFloat(children[backgroundIndex], 'r');
@@ -507,6 +508,8 @@ class MySceneGraph {
             this.onXMLMinorError("unable to parse <background> value for r; assuming 'r = 1'");
         }
 
+		this.ambient['background'] = [backgroundR, backgroundG, backgroundB, backgroundA];
+
         this.log("Parsed ambient");
         return null;
     }
@@ -520,8 +523,8 @@ class MySceneGraph {
         var children = lightsNode.children;
 
         this.lights = [];        //  [[omni] [spot]]
-        var omniLights = [];     //  [[enabled x y z w r g b a r g b a r g b a]]
-        var spotLights = [];     //  [[enabled angle exponent x y z w x y z r g b a r g b a r g b a]]
+        //  [[enabled x y z w r g b a r g b a r g b a]]
+    	//  [[enabled angle exponent x y z w x y z r g b a r g b a r g b a]]
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -546,7 +549,7 @@ class MySceneGraph {
                     return "no ID defined for omni light";
 
                 // Checks for repeated IDs.
-                if (omniLights[omniLightId] != null)
+                if (this.lights[omniLightId] != null)
                     return "ID must be unique for each light (conflict: ID = " + omniLightId + ")";
 
                 // Get rest of values from <omni>
@@ -678,9 +681,8 @@ class MySceneGraph {
 
 
                 // Pushing perspective view array to general view array
-                omniLights[omniLightId] = [enabled, locationX, locationY, locationZ, locationW, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
+                this.lights[omniLightId] = [enabled, locationX, locationY, locationZ, locationW, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
 
-                this.lights[0] = omniLights;
             }
 
             else if(children[i].nodeName == "spot") {
@@ -691,7 +693,7 @@ class MySceneGraph {
                     return "no ID defined for spot light";
 
                 // Checks for repeated IDs.
-                if (spotLights[spotLightId] != null)
+                if (this.lights[spotLightId] != null)
                     return "ID must be unique for each light (conflict: ID = " + spotLightId + ")";
 
                 // Get rest of values from <spot>
@@ -877,9 +879,7 @@ class MySceneGraph {
 
 
                 // Pushing perspective view array to general lights array
-                spotLights[spotLightId] = [enabled, angle, exponent, locationX, locationY, locationZ, locationW, targetX, targetY,targetZ, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
-
-                this.lights[1] = spotLights;
+                this.lights[spotLightId] = [enabled, angle, exponent, locationX, locationY, locationZ, locationW, targetX, targetY,targetZ, ambientR, ambientG, ambientB, ambientA, diffuseR, diffuseG, diffuseB, diffuseA, specularR, specularG, specularB, specularA];
             }
         }
 
@@ -1628,7 +1628,7 @@ class MySceneGraph {
         //TODO: Render loop starting at root of graph
 
 
-		for (var nodeKey in this.nodes) {
+		/*for (var nodeKey in this.nodes) {
 			if (this.nodes.hasOwnProperty(nodeKey)) {
 				// DEBUG: console.log(nodeKey);
 				// DEBUG: console.log(nodeKey);
@@ -1652,7 +1652,6 @@ class MySceneGraph {
 						primitive.display();
 						// DEBUG: console.log(texture);
 						//this.nodes[nodeKey].primitives[primitiveKey].texture.apply();
-						primitive.display();
 
 					}
 				}
@@ -1660,7 +1659,7 @@ class MySceneGraph {
             }
 
 		}
-        /*for (let i = 0; i < this.nodes.length; i++) {
+        for (let i = 0; i < this.nodes.length; i++) {
             this.scene.pushMatrix();
             for(let j=0; j<this.nodes[i].primitives[j].length; j++)
                 this.nodes[i].primitives[j].display;
