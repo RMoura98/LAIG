@@ -77,6 +77,7 @@
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
         <texture id="wood" file="images/wood.jpg" />
+        <texture id="metal" file="images/metal.jpg" />
 
     </textures>
 
@@ -134,6 +135,10 @@
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
 
+        <primitive id="cylinder-leg">
+            <cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30" />
+        </primitive>
+
     </primitives >
 
 
@@ -151,6 +156,7 @@
 
             <children>
                 <componentref id="table" />
+                <componentref id="legs" />
             </children>
         </component>
 
@@ -303,6 +309,39 @@
 
             <children>
                 <primitiveref id="quad" />
+            </children>
+        </component>
+
+        <component id="legs">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="mater0" />
+            </materials>
+
+            <texture id="metal" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <componentref id="front-left-leg" />
+            </children>
+        </component>
+
+        <component id="front-left-leg">
+            <transformation>
+                <translate x="-1.6" y="3.4" z="0.75" />
+                <rotate axis="x" angle="270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </transformation>
+
+            <materials>
+                <material id="mater0" />
+            </materials>
+
+            <texture id="metal" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="cylinder-leg" />
             </children>
         </component>
 
