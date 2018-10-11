@@ -93,7 +93,6 @@ class MySceneGraph {
         var error;
 
         // Processes each node, verifying errors.
-        console.log(nodeNames.indexOf("scene"));
         // <scene>
         var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
@@ -1334,6 +1333,38 @@ class MySceneGraph {
                 }
 
                 var primitive = new MyQuad(this.scene, x1, y1, x2, y2);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+            if(grandChildren[0].nodeName == "cylinder") {
+
+                var base = this.reader.getFloat(grandChildren[0], 'base');
+                if( (base == null) || (isNaN(base)) ) {
+                    return "value for base in <cylinder> of <primitive> is invalid";
+                }
+
+                var top = this.reader.getFloat(grandChildren[0], 'top');
+                if( (top == null) || (isNaN(top)) ) {
+                    return "value for top in <cylinder> of <primitive> is invalid";
+                }
+
+                var height = this.reader.getFloat(grandChildren[0], 'height');
+                if( (height == null) || (isNaN(height)) ) {
+                    return "value for height in <cylinder> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <cylinder> of <primitive> is invalid";
+                }
+
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if( (stacks == null) || (isNaN(stacks)) ) {
+                    return "value for slices in <cylinder> of <primitive> is invalid";
+                }
+
+                var primitive = new MyCylinder(this.scene, base, top, height, slices, stacks);
 
                 this.primitives[primitiveId] = primitive;
             }
