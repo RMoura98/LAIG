@@ -25,17 +25,22 @@ class MyCylinder extends CGFobject
 		];
 		
 
+		// TODO
+		// fix the display
+
 		var angInt = (Math.PI*2)/this.slices;
 
 		for(var j = 0; j <= this.stacks; j++)
 		{
 			for(var i = 0; i < this.slices; i++)
 			{
-				this.vertices.push(Math.cos(angInt*i), Math.sin(angInt*i), 1-(j/this.stacks));
+				this.vertices.push(this.baseRadius*Math.cos(angInt*i), this.baseRadius*Math.sin(angInt*i), j*(this.height/this.stacks));
 
-				this.normals.push(Math.cos(angInt*i), Math.sin(angInt*i), 1-(j/this.stacks));
+				this.normals.push(this.baseRadius*Math.cos(angInt*i), this.baseRadius*Math.sin(angInt*i), j*(this.height/this.stacks));
 			}
 		}
+
+
 
 		for(var k=0; k < (this.slices*this.stacks); k++)
 		{
