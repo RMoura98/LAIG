@@ -28,22 +28,22 @@ class MyQuad extends CGFobject
 	{
 		this.vertices = [
 				this.x1, this.y1, 0,
-				this.x1, this.y2, 0,
 				this.x2, this.y1, 0,
-				this.x2, this.y2, 0
+				this.x2, this.y2, 0,
+				this.x1, this.y2, 0
 				];
 
 		this.indices = [
 				0, 1, 2,
-				3, 2, 1
+				2, 3, 0
 			];
 
 
 		this.texCoords = [
-				this.maxS, this.maxT,
-				this.minS, this.maxT,
-				this.maxS, this.minT,
-				this.minS, this.minT,
+				1, 1,
+				0, 1,
+				1, 0,
+				0, 0,
 		];
 
 
