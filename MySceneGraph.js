@@ -93,7 +93,7 @@ class MySceneGraph {
         var error;
 
         // Processes each node, verifying errors.
-
+        console.log(nodeNames.indexOf("scene"));
         // <scene>
         var index;
         if ((index = nodeNames.indexOf("scene")) == -1)
@@ -1445,7 +1445,7 @@ class MySceneGraph {
                                 return "unable to parse y-coodinate from the <translate> element of <transformation>";
                             }
 
-                            var z = this.reader.getFloat(grandGrandChildren[k], 'y');
+                            var z = this.reader.getFloat(grandGrandChildren[k], 'z');
                             if( (z == null) || (isNaN(z)) ) {
                                 return "unable to parse z-coodinate from the <translate> element of <transformation>";
                             }
@@ -1536,7 +1536,7 @@ class MySceneGraph {
                              if(this.materials[materialId] == null && materialId != "inherit")
 								 return "ID must match to existing material";
 
-                            this.nodes[componentId].material = materialId;
+                            this.nodes[componentId].materialId = materialId;
                         }
                     }
                 }
@@ -1552,7 +1552,7 @@ class MySceneGraph {
                     if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
                         return "ID must match to existing texture";
 
-                    this.nodes[componentId].texture = textureId;
+                    this.nodes[componentId].textureId = textureId;
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
@@ -1572,17 +1572,26 @@ class MySceneGraph {
                             continue;
                         }
 
+                        if(grandGrandChildren[k].nodeName == "componentref") {
+                            // Get ID of current componentref
+                            var componentRefId = this.reader.getString(grandGrandChildren[k], 'id');
+                            if(componentRefId == null)
+                                return "componentRef with invalid ID";
+
+                            this.nodes[componentId].insertChild(componentRefId);
+                        }
+
                         if(grandGrandChildren[k].nodeName == "primitiveref") {
-                            // Get ID of current texture
+                            // Get ID of current primitiveref
                             var primitiveRefId = this.reader.getString(grandGrandChildren[k], 'id');
                             if(primitiveRefId == null)
-                                return "texture with invalid ID";
+                                return "primitiveref with invalid ID";
 
                             // Check if ID exists
                             if(this.primitives[primitiveRefId] == null)
                                 return "ID must match to existing primitive";
 
-                            this.nodes[componentId].insertPrimitive(this.primitives[primitiveRefId]);
+                            this.nodes[componentId].primitive = this.primitives[primitiveRefId];
                         }
                     }
                 }
@@ -1624,34 +1633,31 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-		var fisrtNodeName = Object.keys(this.nodes)[0];
-        var textureID = this.nodes[fisrtNodeName].texture;
-        var materialID = this.nodes[fisrtNodeName].material;
-        this.displaySceneRecursive(fisrtNodeName, textureID, materialID);
+        var rootNodeName = Object.keys(this.nodes)[0];
+        this.displaySceneRecursive(this.nodes[rootNodeName]);
     }
 
-	displaySceneRecursive( nodeName, textureId, materialId){
-        var material = materialId;
-        var texture = textureId;
+	displaySceneRecursive( node ) {
 
-        if(nodeName != null){
-            var node = this.nodes[nodeName];
-            if(node.material != null)
-                material = node.material;
-            if(node.texture != null)
-                texture = node.texture;
-        }
+        var sonName;
+
         this.scene.multMatrix(node.matTransf);
-        for(var i = 0; i < node.descendants.length; i++){
-            this.scene.pushMatrix();
-                displaySceneRecursive(node.descendants[i], textureId, materialId);
-            this.scene.popMatrix();
+
+        if(Object.keys(node.descendants).length != 0) {
+
+            for(var i = 0; i < Object.keys(node.descendants).length; i++) {
+                sonName = Object.keys(node.descendants)[i];
+
+                this.scene.pushMatrix();
+                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]] );
+                this.scene.popMatrix();
+            }
         }
 
-        if (node.primitives[0] != null){
-            this.textures[texture].bind();
-            this.materials[material].apply();
-            node.primitives[0].display();
+        if (node.primitive != null) {
+            this.textures[node.textureId].bind();
+            this.materials[node.materialId].apply();
+            node.primitive.display();
         }
     }
 }
