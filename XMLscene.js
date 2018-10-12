@@ -95,8 +95,10 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 		// TODO: Melhorar isto nao pode ser assim!
-        this.camera.near = this.graph.views['presp0'][0];
-        this.camera.far = this.graph.views['presp0'][1];
+		var viewId = Object.keys(this.graph.views)[0];
+
+        this.camera.near = this.graph.views[viewId][0];
+        this.camera.far = this.graph.views[viewId][1];
 
 		this.axis = new CGFaxis(this,this.graph.axis_length);
 
