@@ -28,7 +28,7 @@ class MyCylinder extends CGFobject {
 		this.texCoords = [];
 
 		//TODO
-		//fix the display
+		//fix the display e so mudar este !! muito chato
 		var angInt = (Math.PI * 2) / this.slices;
 
 		for (var j = 0; j <= this.stacks; j++) {
@@ -63,8 +63,9 @@ class MyCylinder extends CGFobject {
 
 	display(){
 
+		//cylinder
 		super.display();
-		
+
 		//top base
 		this.scene.pushMatrix();
 			this.scene.scale(this.topRadius, this.topRadius, 1);
@@ -72,6 +73,7 @@ class MyCylinder extends CGFobject {
 			this.base.display();
 		this.scene.popMatrix();
 
+		//bottom base
 		this.scene.pushMatrix();
 			this.scene.scale(this.baseRadius, this.baseRadius, 1);
 			this.scene.rotate(Math.PI, 0, 1, 0);
