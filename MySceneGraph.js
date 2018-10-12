@@ -1579,11 +1579,25 @@ class MySceneGraph {
                     if(textureId == null)
                         return "texture with invalid ID";
 
+					var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
+					// DEBUG: console.log(textureLS);
+                    if(textureLS == null)
+                        return "texture with invalid s";
+
+					var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
+					// DEBUG: console.log(textureLT);
+					if(textureLT == null)
+                    	return "texture with invalid t";
+
+					if (textureLT <= 0 || textureLS <= 0)
+                        return "value s and t must be positive";
+
                     // Check if ID exists
                     if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
                         return "ID must match to existing texture";
 
                     this.nodes[componentId].textureId = textureId;
+					this.nodes[componentId].textureLength = [textureLS,textureLT];
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
@@ -1686,8 +1700,9 @@ class MySceneGraph {
         }
 
         if (node.primitive != null) {
+			this.materials[node.materialId].apply();
+			node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
             this.textures[node.textureId].bind();
-            this.materials[node.materialId].apply();
             node.primitive.display();
         }
     }

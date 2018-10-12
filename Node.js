@@ -7,21 +7,22 @@
 
   this.id = id;
 
-  this.materialId = null;                 //Id to the material
+  this.materialId = null;				//Id to the material
 
-  this.textureId = null;                  //Id to the texture
+  this.textureId = null;				//Id to the texture
 
-  this.matTransfRef = null;               //id to a global transformation matrix
+  this.textureLength = [];				//texture factor s and t [s,t]
 
-  this.matTransf = mat4.create();         //Transformation matrix
+  this.matTransfRef = null;             //id to a global transformation matrix
+
+  this.matTransf = mat4.create();       //Transformation matrix
   mat4.identity(this.matTransf);
 
-  this.descendants = [];                  //Every direct descendant
+  this.descendants = [];                //Every direct descendant
 
-  this.primitive = null;                  //Primitive
+  this.primitive = null;                //Primitive
 }
 
 MyNode.prototype.insertChild = function (nodeId) {
   this.descendants.push(nodeId);
 }
-
