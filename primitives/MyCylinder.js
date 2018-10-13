@@ -33,21 +33,20 @@ class MyCylinder extends CGFobject {
 		//fix the display e so mudar este !! muito chato
 		var angInt = (Math.PI * 2) / this.slices;
 
-		var raio = (this.topRadius - this.baseRadius) / this.stacks;
-		var theta = this.height / this.stacks;
+		var varRaioS = (this.topRadius - this.baseRadius) / this.stacks;
+		var varheightS = this.height / this.stacks;
 
 
 		for (var i = 0; i <= this.stacks; ++i) {
 			for (var j = 0; j <= this.slices; ++j) {
-				var currRadius = (this.topRadius - this.baseRadius) / this.stacks * i;
+				var cRaio = varRaioS * i;
 				// normais
-				this.vertices.push((this.baseRadius + (raio * i)) * Math.cos(j * angInt), (this.baseRadius + (raio * i)) * Math.sin(j * angInt), i * theta);
-				this.normals.push(currRadius * Math.cos(theta) * Math.cos(angInt), currRadius * Math.cos(theta) * Math.sin(angInt), currRadius * Math.sin(theta));
+				this.vertices.push((this.baseRadius + (varRaioS * i)) * Math.cos(j * angInt), (this.baseRadius + (varRaioS * i)) * Math.sin(j * angInt), i * varheightS);
+				/*this.normals.push(cRaio * Math.cos(varheightS) * Math.cos(angInt), cRaio * Math.cos(varheightS) * Math.sin(angInt), cRaio * Math.sin(varheightS));*/
+				this.normals.push( this.height * Math.cos(j * angInt) / Math.sqrt(Math.pow(cRaio, 2) + Math.pow(this.height, 2)), this.height * Math.sin(j * angInt) / Math.sqrt(Math.pow(cRaio, 2) + Math.pow(this.height, 2)), cRaio / Math.sqrt(Math.pow(cRaio, 2) + Math.pow(this.height, 2)));
 				this.texCoords.push(j / this.slices, 1 - i / this.stacks);
 			}
 		}
-
-
 
 		/*for (var j = 0; j <= this.stacks; j++) {
 			for (var i = 0; i <= this.slices; i++) {
@@ -72,14 +71,9 @@ class MyCylinder extends CGFobject {
 
 		/*for (let i = 0; i < this.stacks; i++) {
 			for (let j = 0; j <= this.slices; j++) {
-				if (j == this.slices - 1) {
-					this.indices.push( (i * this.slices + j),  (i * this.slices + j) + 1 - this.slices,(((i + 1) * this.slices + j) + 1) - this.slices);
-					this.indices.push((i * this.slices + j), (((i + 1) * this.slices + j) + 1) - this.slices, ((i + 1) * this.slices + j));
-				}
-				else {
 					this.indices.push((i * this.slices + j), (i * this.slices + j) + 1, ((i + 1) * this.slices + j) + 1);
 					this.indices.push((i * this.slices + j), ((i + 1) * this.slices + j) + 1,((i + 1) * this.slices + j) );
-				}
+
 			}
 		}*/
 
