@@ -1760,9 +1760,9 @@ class MySceneGraph {
      */
     displayScene() {
         var rootNodeName = Object.keys(this.nodes)[0];
-		if (this.nodes[rootNodeName].textureId == "none" || this.nodes[rootNodeName].textureId == "inherit")
+		if (this.nodes[rootNodeName].textureId == "inherit")
 			this.onXMLError("On " + rootNodeName + " the texture id cant be '" + this.nodes[rootNodeName].textureId + "'" );
-		else if (this.nodes[rootNodeName].materialId == "none" || this.nodes[rootNodeName].materialId == "inherit")
+		else if (this.nodes[rootNodeName].materialId == "inherit")
 			this.onXMLError("On " + rootNodeName + " the material id cant be '" + this.nodes[rootNodeName].materialId + "'" );
 		else
 	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].materialId);
@@ -1797,7 +1797,7 @@ class MySceneGraph {
                 sonName = Object.keys(node.descendants)[i];
 
                 this.scene.pushMatrix();
-                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]], this.nodes[node.id].textureId, this.nodes[node.id].materialId);
+                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]], cTextureId, cMaterialId);
                 this.scene.popMatrix();
             }
         }
