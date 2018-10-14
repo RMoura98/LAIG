@@ -1361,10 +1361,37 @@ class MySceneGraph {
 
                 var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
                 if( (stacks == null) || (isNaN(stacks)) ) {
-                    return "value for slices in <cylinder> of <primitive> is invalid";
+                    return "value for stacks in <cylinder> of <primitive> is invalid";
                 }
 
                 var primitive = new MyCylinder(this.scene, base, top, height, slices, stacks);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+			if(grandChildren[0].nodeName == "torus") {
+
+                var innerRadius = this.reader.getFloat(grandChildren[0], 'inner');
+                if( (innerRadius == null) || (isNaN(innerRadius)) ) {
+                    return "value for innerRadius in <torus> of <primitive> is invalid";
+                }
+
+                var outerRadius = this.reader.getFloat(grandChildren[0], 'outer');
+                if( (outerRadius == null) || (isNaN(outerRadius)) ) {
+                    return "value for outerRadius in <torus> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <torus> of <primitive> is invalid";
+                }
+
+                var loops = this.reader.getFloat(grandChildren[0], 'loops');
+                if( (loops == null) || (isNaN(loops)) ) {
+                    return "value for loops in <torus> of <primitive> is invalid";
+                }
+
+                var primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops)
 
                 this.primitives[primitiveId] = primitive;
             }

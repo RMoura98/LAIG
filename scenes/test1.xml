@@ -154,6 +154,10 @@
             <cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30" />
         </primitive>
 
+		<primitive id="torus">
+            <torus inner="0.2" outer="1.0" slices="30" loops="30" />
+        </primitive>
+
     </primitives >
 
 
@@ -170,8 +174,24 @@
             <texture id="wood" length_s="1.0" length_t="1.0" />
 
             <children>
+				<componentref id="torus_test" />
                 <componentref id="table" />
                 <componentref id="legs" />
+            </children>
+        </component>
+
+		<component id="torus_test">
+            <transformation>
+            </transformation>
+
+            <materials>
+                <material id="mater0" />
+            </materials>
+
+            <texture id="test" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="torus" />
             </children>
         </component>
 
