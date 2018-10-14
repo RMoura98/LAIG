@@ -1809,7 +1809,6 @@ class MySceneGraph {
 					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
 				else{
 					node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
-					console.log(cTextureId);
 	            	this.textures[cTextureId].bind();
 				}
 			}
