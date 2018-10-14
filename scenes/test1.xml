@@ -159,11 +159,11 @@
         </primitive>
 
 		<primitive id="triangle">
-			<triangle x1="-1.0" y1="0.0" z1="0.0"
-				 	  x2="0.0" y2="-2.0" z2="0.0"
-	 				  x3="1.0" y3="0.0" z3="0.0" />
+			<triangle x1="0.5" y1="0.0" z1="0.0"
+				 	  x2="0.0" y2="1.0" z2="0.0"
+	 				  x3="-0.5" y3="0.0" z3="0.0" />
         </primitive>
-		
+
     </primitives >
 
 

@@ -59,8 +59,16 @@ class MyTriangle extends CGFobject {
 		var b = Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2) + Math.pow((this.z2 - this.z1), 2));
 		var c = Math.sqrt(Math.pow((this.x3 - this.x2), 2) + Math.pow((this.y3 - this.y2), 2) + Math.pow((this.z3 - this.z2), 2));
 
-		
+		var b_cos = (a * a - b * b + c * c) / (2.0 * a * c);
+		var b_sin = Math.sqrt(1 - Math.pow(b_cos, 2));
 
+		this.texCoords = [
+			(c - a * b_cos), (1 - a * b_sin),
+			0, 1,
+			c, 1
+		];
+
+		this.updateTexCoordsGLBuffers();
 	};
 
 }
