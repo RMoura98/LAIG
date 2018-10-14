@@ -1779,13 +1779,14 @@ class MySceneGraph {
 		else
 			cMaterialId = node.materialId;
 
-		if (node.textureId == "inherit")
+		if (node.textureId == "none")
+			cTextureId = null;
+		else if (node.textureId == "inherit")
 			cTextureId = textureId;
 		else
 			cTextureId = node.textureId;
 
-		if (node.textureId == "none")
-			cTextureId = null;
+
 
 
         this.scene.multMatrix(node.matTransf);
@@ -1803,8 +1804,9 @@ class MySceneGraph {
 
         if (node.primitive != null) {
 			this.materials[cMaterialId].apply();
-			if(cTextureId != null){
+			if(cTextureId != null && cTextureId != "none"){
 				node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
+				console.log(cTextureId);
 	            this.textures[cTextureId].bind();
 			}
             node.primitive.display();
