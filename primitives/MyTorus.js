@@ -55,9 +55,6 @@ class MyTorus extends CGFobject {
 
 
 
-	updateTexCoords(s, t) {
-
-		//nao e preciso fazer nada
-	};
+	updateTexCoords(s, t) {};
 
 }
