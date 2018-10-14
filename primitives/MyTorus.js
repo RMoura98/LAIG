@@ -32,7 +32,7 @@ class MyTorus extends CGFobject {
 				//coordenadas paramétricas ( wiki :) )
 				x = (this.outerRadius + this.innerRadius * Math.cos(j * angO)) * Math.cos(i * angY);
 				y = (this.outerRadius + this.innerRadius * Math.cos(j * angO)) * Math.sin(i * angY);
-				z = this.innerRadius * Math.sin(j*angO	);
+				z = this.innerRadius * Math.sin(j*angO);
 
 				this.vertices.push(x, y, z);
 				this.normals.push(x - (this.outerRadius * Math.cos(i * angY)), y - (this.outerRadius * Math.sin(i * angY)), z);

@@ -1396,6 +1396,60 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+			if(grandChildren[0].nodeName == "triangle") {
+
+                var x1 = this.reader.getFloat(grandChildren[0], 'x1');
+                if( (x1 == null) || (isNaN(x1)) ) {
+                    return "value for x1 in <triangle> of <primitive> is invalid";
+                }
+
+                var y1 = this.reader.getFloat(grandChildren[0], 'y1');
+                if( (y1 == null) || (isNaN(y1)) ) {
+                    return "value for y1 in <triangle> of <primitive> is invalid";
+                }
+
+				var z1 = this.reader.getFloat(grandChildren[0], 'z1');
+                if( (z1 == null) || (isNaN(z1)) ) {
+                    return "value for z1 in <triangle> of <primitive> is invalid";
+                }
+
+
+                var x2 = this.reader.getFloat(grandChildren[0], 'x2');
+                if( (x2 == null) || (isNaN(x2)) ) {
+                    return "value for x2 in <triangle> of <primitive> is invalid";
+                }
+
+                var y2 = this.reader.getFloat(grandChildren[0], 'y2');
+                if( (y2 == null) || (isNaN(y2)) ) {
+                    return "value for y2 in <triangle> of <primitive> is invalid";
+                }
+
+				var z2 = this.reader.getFloat(grandChildren[0], 'z2');
+                if( (z2 == null) || (isNaN(z2)) ) {
+                    return "value for z2 in <triangle> of <primitive> is invalid";
+                }
+
+
+				var x3 = this.reader.getFloat(grandChildren[0], 'x3');
+                if( (x3 == null) || (isNaN(x3)) ) {
+                    return "value for x3 in <triangle> of <primitive> is invalid";
+                }
+
+                var y3 = this.reader.getFloat(grandChildren[0], 'y3');
+                if( (y3 == null) || (isNaN(y3)) ) {
+                    return "value for y3 in <triangle> of <primitive> is invalid";
+                }
+
+				var z3 = this.reader.getFloat(grandChildren[0], 'z3');
+                if( (z3 == null) || (isNaN(z3)) ) {
+                    return "value for z3 in <triangle> of <primitive> is invalid";
+                }
+
+                var primitive = new MyTriangle(this.scene, x1, y1, z1, x2, y2, z2, x3, y3, z3);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
         }
         if(Object.keys(this.primitives).length < 1) {
             return "at least one primitive should exist";
