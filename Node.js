@@ -13,8 +13,6 @@
 
   this.textureLength = [];				//texture factor s and t [s,t]
 
-  this.matTransfRef = null;             //id to a global transformation matrix
-
   this.matTransf = mat4.create();       //Transformation matrix
   mat4.identity(this.matTransf);
 

@@ -1130,8 +1130,7 @@ class MySceneGraph {
 
         var children = transformationsNode.children;
 
-        this.transformations = mat4.create();
-        mat4.identity(this.transformations);
+		this.transformations = [];
 
         var hasTransformation = false;
         var didTransform;
@@ -1157,6 +1156,9 @@ class MySceneGraph {
             // Check for repeated IDs
             if (this.transformations[transformationId] != null)
                 return "ID must be unique for each transformation (conflict: ID = " + transformationId + ")";
+
+			this.transformations[transformationId] = mat4.create();
+			mat4.identity(this.transformations[transformationId]);
 
             hasTransformation = true;
 
@@ -1200,7 +1202,7 @@ class MySceneGraph {
                         return "unable to parse z-coodinate from the <translate> element of <transformation>";
                     }
 
-                    mat4.translate(this.transformations, this.transformations, [x, y, z]);
+                    mat4.translate(this.transformations[transformationId], this.transformations[transformationId], [x, y, z]);
 
                     didTransform = true;
                 }
@@ -1228,7 +1230,7 @@ class MySceneGraph {
                     }
 
 
-                    mat4.rotate(this.transformations, this.transformations, DEGREE_TO_RAD*angle, axisVector);
+                    mat4.rotate(this.transformations[transformationId], this.transformations[transformationId], DEGREE_TO_RAD*angle, axisVector);
 
                     didTransform = true;
 
@@ -1252,7 +1254,7 @@ class MySceneGraph {
                         return "unable to parse z-coodinate from the <scale> element of <transformation>";
                     }
 
-                    mat4.scale(this.transformations, this.transformations, [x, y, z]);
+                    mat4.scale(this.transformations[transformationId], this.transformations[transformationId], [x, y, z]);
 
                     didTransform = true;
                 }
@@ -1527,10 +1529,10 @@ class MySceneGraph {
                             continue;
                         }
 
-                        if( grandGrandChildren[k].nodeName == "transformationRef" ) {
+                        if( grandGrandChildren[k].nodeName == "transformationref" ) {
 
                              // Get ID of current transformationref
-                            var transRefId = this.reader.getFloat(grandGrandChildren[k], 'id');
+                            var transRefId = this.reader.getString(grandGrandChildren[k], 'id');
                             if (transRefId == null)
                                 return "transformationRef with invalid ID";
 
@@ -1539,7 +1541,7 @@ class MySceneGraph {
                                 return "ID must exist for existing transformation";
 
 
-                            this.nodes[componentId].matTransfRef = transRefId;
+                            this.nodes[componentId].matTransf = this.transformations[transRefId];
 
                             hasTransformation = true;
                         }
@@ -1785,8 +1787,6 @@ class MySceneGraph {
 			cTextureId = textureId;
 		else
 			cTextureId = node.textureId;
-
-
 
 
         this.scene.multMatrix(node.matTransf);
