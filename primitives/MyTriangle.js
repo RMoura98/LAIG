@@ -62,6 +62,7 @@ class MyTriangle extends CGFobject {
 		var b_cos = (a * a - b * b + c * c) / (2.0 * a * c);
 		var b_sin = Math.sqrt(1 - Math.pow(b_cos, 2));
 
+		//obrigado stor!!
 		this.texCoords = [
 			(c - a * b_cos), (1 - a * b_sin),
 			0, 1,

@@ -1760,12 +1760,33 @@ class MySceneGraph {
      */
     displayScene() {
         var rootNodeName = Object.keys(this.nodes)[0];
-        this.displaySceneRecursive(this.nodes[rootNodeName]);
+		if (this.nodes[rootNodeName].textureId == "none" || this.nodes[rootNodeName].textureId == "inherit")
+			this.onXMLError("On " + rootNodeName + " the texture id cant be '" + this.nodes[rootNodeName].textureId + "'" );
+		else if (this.nodes[rootNodeName].materialId == "none" || this.nodes[rootNodeName].materialId == "inherit")
+			this.onXMLError("On " + rootNodeName + " the material id cant be '" + this.nodes[rootNodeName].materialId + "'" );
+		else
+	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].materialId);
     }
 
-	displaySceneRecursive( node ) {
+	displaySceneRecursive(node, textureId, materialId) {
 
         var sonName;
+		var cTextureId;
+		var cMaterialId;
+
+		if (node.materialId == "inherit")
+			cMaterialId = materialId;
+		else
+			cMaterialId = node.materialId;
+
+		if (node.textureId == "inherit")
+			cTextureId = textureId;
+		else
+			cTextureId = node.textureId;
+
+		if (node.textureId == "none")
+			cTextureId = null;
+
 
         this.scene.multMatrix(node.matTransf);
 
@@ -1775,15 +1796,17 @@ class MySceneGraph {
                 sonName = Object.keys(node.descendants)[i];
 
                 this.scene.pushMatrix();
-                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]] );
+                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]], this.nodes[node.id].textureId, this.nodes[node.id].materialId);
                 this.scene.popMatrix();
             }
         }
 
         if (node.primitive != null) {
-			this.materials[node.materialId].apply();
-			node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
-            this.textures[node.textureId].bind();
+			this.materials[cMaterialId].apply();
+			if(cTextureId != null){
+				node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
+	            this.textures[cTextureId].bind();
+			}
             node.primitive.display();
         }
     }
