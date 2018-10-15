@@ -39,11 +39,31 @@ class MyInterface extends CGFinterface {
 
         for (var key in lights) {
             if (lights.hasOwnProperty(key)) {
-				if (lights[key][0]) this.scene.lightValues[key] = true;
-				else this.scene.lightValues[key] = false;
+
+                if (lights[key][0]) 
+                    this.scene.lightValues[key] = true;
+                else 
+                    this.scene.lightValues[key] = false;
+
                 //this.scene.lightValues[key] = lights[0][key][0];
+
                 group.add(this.scene.lightValues, key);
             }
         }
+    }
+
+    addCamerasGroup(views) {
+
+        var group = this.gui.addFolder("Cameras");
+        group.open();
+
+        for (var i=0; i < Object.keys(views).length; i++) {
+
+            this.scene.cameraValues[Object.keys(views)[i]] = false;
+
+            group.add(this.scene.cameraValues, Object.keys(views)[i]);
+        }
+
+        //this.scene.cameraValues[Object.keys(this.scene.cameraValues)[0]] = true;
     }
 }
