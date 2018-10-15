@@ -32,9 +32,9 @@ class MySphere extends CGFobject {
 
             for (var longNumber = 0; longNumber <= this.slices; longNumber++) {
 
-                var x = Math.cos(phi * longNumber) * Math.sin(theta * latNumber);
+                var x = Math.sin(phi * longNumber) * Math.sin(theta * latNumber);
                 var y = Math.cos(theta * latNumber);
-                var z = Math.sin(phi * longNumber) * Math.sin(theta * latNumber);
+                var z = Math.cos(phi * longNumber) * Math.sin(theta * latNumber);
                 var s = 1 - (longNumber / this.slices);
                 var t = 1 - (latNumber / this.stacks);
 
