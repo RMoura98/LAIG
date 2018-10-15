@@ -23,13 +23,15 @@
         <!-- tem de existir, pelo menos, uma vista de -->
         <!-- entre as seguintes (perspective ou ortho) -->
 
-        <perspective id="presp0" near="0.1" far="500" angle="0.0">
-            <from x="500.0" y="500.0" z="500.0" />
+        <perspective id="presp0" near="0.1" far="500" angle="0.4">
+            <from x="15.0" y="25.0" z="15.0" />
             <to x="0.0" y="0.0" z="0.0" />
         </perspective>
 
-        <ortho id="orth0"  near="0.1" far="500"
-                        left="0.0" right="0.0" top="50" bottom="0.0" />
+        <ortho id="ortho0" near="0.1" far="500" left="0" right="0" top="10" bottom="0" >
+            <from x="15" y="25" z="15" />
+            <to x="0.0" y="0.0" z="0.0" />
+        </ortho>
 
     </views>
 
@@ -85,7 +87,8 @@
 
         <texture id="wood" file="images/wood.jpg" />
         <texture id="metal" file="images/metal.jpg" />
-        <texture id="test" file="images/test.jpg" />
+        <texture id="cup" file="images/cup.jpg" />
+        <texture id="ball" file="images/ball.jpg" />
 
     </textures>
 
@@ -154,21 +157,18 @@
             <cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30" />
         </primitive>
 
-		<primitive id="torus">
-            <torus inner="0.2" outer="1.0" slices="30" loops="30" />
+        <primitive id="cylinder-cup">
+            <cylinder base="0.2" top="0.2" height="0.6" slices="30" stacks="30" />
         </primitive>
 
-		<primitive id="triangle">
-			<triangle x1="0.5" y1="0.0" z1="0.0"
-				 	  x2="0.0" y2="1.0" z2="0.0"
-	 				  x3="-0.5" y3="0.0" z3="0.0" />
+        <primitive id="sphere">
+            <sphere radius="1.0" slices="30" stacks="30" />
         </primitive>
 
     </primitives >
 
 
     <components>
-
         <component id="root">
             <transformation>
             </transformation>
@@ -180,41 +180,9 @@
             <texture id="none" length_s="1.0" length_t="1.0" />
 
             <children>
-				<componentref id="torus_test" />
-				<componentref id="triangle_test" />
                 <componentref id="table" />
-                <componentref id="legs" />
-            </children>
-        </component>
-
-		<component id="torus_test">
-            <transformation>
-				<translate x="5.0" y="5.0" z="0.0" />
-            </transformation>
-
-            <materials>
-                <material id="mater0" />
-            </materials>
-
-            <texture id="test" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="torus" />
-            </children>
-        </component>
-
-		<component id="triangle_test">
-            <transformation>
-            </transformation>
-
-            <materials>
-                <material id="mater0" />
-            </materials>
-
-            <texture id="test" length_s="1.0" length_t="1.0" />
-
-            <children>
-                <primitiveref id="triangle" />
+                <componentref id="ball" />
+                <componentref id="cup" />
             </children>
         </component>
 
@@ -226,10 +194,11 @@
                 <material id="mater0" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="none" length_s="1.0" length_t="1.0" />
 
             <children>
                 <componentref id="top" />
+                <componentref id="legs" />
             </children>
         </component>
 
@@ -239,8 +208,8 @@
                 <scale x="4.0" y="0.2" z="2.3" />
             </transformation>
 
-			<materials>
-                <material id="mater0" />
+            <materials>
+                <material id="inherit" />
             </materials>
 
             <texture id="wood" length_s="1.0" length_t="1.0" />
@@ -253,11 +222,12 @@
         <component id="cube">
             <transformation>
             </transformation>
+
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <componentref id="quad-front" />
@@ -275,10 +245,10 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -292,10 +262,10 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -309,10 +279,10 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -326,27 +296,27 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
             </children>
         </component>
 
-		<component id="quad-top">
+        <component id="quad-top">
             <transformation>
                 <translate x="0.0" y="0.5" z="0.0" />
                 <rotate axis="x" angle="270" />
             </transformation>
 
-			<materials>
-                <material id="mater0" />
+            <materials>
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -355,15 +325,15 @@
 
         <component id="quad-bot">
             <transformation>
-                <translate x="0.0" y="-0.5" z="0.0" />
+                <translate x="0.0" y="-0.5" z="0.0" /> 
                 <rotate axis="x" angle="90" />
             </transformation>
 
-			<materials>
-                <material id="mater0" />
+            <materials>
+                <material id="inherit" />
             </materials>
 
-            <texture id="wood" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -375,13 +345,16 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
-            <texture id="test" length_s="1.0" length_t="1.0" />
+            <texture id="metal" length_s="1.0" length_t="1.0" />
 
             <children>
                 <componentref id="front-left-leg" />
+                <componentref id="front-right-leg" />
+                <componentref id="back-left-leg" />
+                <componentref id="back-right-leg" />
             </children>
         </component>
 
@@ -393,13 +366,101 @@
             </transformation>
 
             <materials>
-                <material id="mater0" />
+                <material id="inherit" />
             </materials>
 
             <texture id="inherit" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="cylinder-leg" />
+            </children>
+        </component>
+
+        <component id="front-right-leg">
+            <transformation>
+                <translate x="1.6" y="3.4" z="0.75" />
+                <rotate axis="x" angle="270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="cylinder-leg" />
+            </children>
+        </component>
+        
+        <component id="back-left-leg">
+            <transformation>
+                <translate x="-1.6" y="3.4" z="-0.75" />
+                <rotate axis="x" angle="270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="cylinder-leg" />
+            </children>
+        </component>
+
+        <component id="back-right-leg">
+            <transformation>
+                <translate x="1.6" y="3.4" z="-0.75" />
+                <rotate axis="x" angle="270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </transformation>
+
+            <materials>
+                <material id="inherit" />
+            </materials>
+
+            <texture id="inherit" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="cylinder-leg" />
+            </children>
+        </component>
+
+        <component id="ball">
+            <transformation>
+                <translate x="-1.2" y="5.4" z="-0.6" />
+                <scale x="0.3" y="0.3" z="0.3" />
+            </transformation>
+
+            <materials>
+                <material id="mater0" />
+            </materials>
+
+            <texture id="ball" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="cup">
+            <transformation>
+                <translate x="0.8" y="5.1" z="-0.23" />
+                <rotate axis="x" angle="270" />
+            </transformation>
+
+            <materials>
+                <material id="mater0" />
+            </materials>
+
+            <texture id="cup" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="cylinder-cup" />
             </children>
         </component>
 
