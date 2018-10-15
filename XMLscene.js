@@ -167,6 +167,7 @@ class XMLscene extends CGFscene {
                 }
             }
 
+            //Add this to a Listener?
             for(var i=0; i<Object.keys(this.cameraValues).length; i++) {
 
                 if( this.cameraValues[Object.keys(this.cameraValues)[i]] ) {
