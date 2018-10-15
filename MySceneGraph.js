@@ -238,7 +238,7 @@ class MySceneGraph {
 
         this.views = [];        //  [[perspectives] [orthos]]
           //  [[near far angle x y z x y z]]
-         //  [[near far left right top bottom]]
+         //  [[near far left right top bottom x y z x y z]]
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -405,7 +405,65 @@ class MySceneGraph {
                     this.onXMLMinorError("unable to parse value for bottom; assuming 'bottom = 0'");
                 }
 
-                this.views[orthoViewId] = [near, far ,left, right, top, bottom];
+                // Get children of perpective view
+                grandChildren = children[i].children;
+
+                grandChildrenNodeNames = [];
+                for (var j = 0; j < grandChildren.length; j++) {
+                    grandChildrenNodeNames.push(grandChildren[j].nodeName);
+                }
+
+                if(grandChildrenNodeNames.length != 2) {
+                    return "ortho view must have 2 child elements (conflict: nChildren = " + grandChildrenNodeNames.length + ")";
+                }
+
+                // Gets indices of each element.
+                var fromIndex = grandChildrenNodeNames.indexOf("from");
+                var toIndex = grandChildrenNodeNames.indexOf("to");
+
+                // Verifying existance of <from> and <to> elements
+                if(fromIndex == -1) {
+                    return "element <from> not found"
+                }
+
+                else if(toIndex == -1) {
+                    return "element <to> not found"
+                }
+
+                // Getting x/y/z values from <from>
+                var fromX = this.reader.getFloat(grandChildren[fromIndex], 'x');
+                if((fromX == null) || (isNaN(fromX))) {
+                    return "unable to parse x-coodinate from the <from> element of <ortho>"
+                }
+
+                var fromY = this.reader.getFloat(grandChildren[fromIndex], 'y');
+                if((fromY == null) || (isNaN(fromY))) {
+                    return "unable to parse y-coodinate from the <from> element of <ortho>"
+                }
+
+                var fromZ = this.reader.getFloat(grandChildren[fromIndex], 'z');
+                if((fromZ == null) || (isNaN(fromZ))) {
+                    return "unable to parse z-coodinate from the <from> element of <ortho>"
+                }
+
+                // Getting x/y/z values from <to>
+                var toX = this.reader.getFloat(grandChildren[toIndex], 'x');
+                if((toX == null) || (isNaN(toX))) {
+                    return "unable to parse x-coodinate from the <to> element of <ortho>"
+                }
+
+                var toY = this.reader.getFloat(grandChildren[toIndex], 'y');
+                if((toY == null) || (isNaN(toY))) {
+                    return "unable to parse y-coodinate from the <to> element of <ortho>"
+                }
+
+                var toZ = this.reader.getFloat(grandChildren[toIndex], 'z');
+                if((toZ == null) || (isNaN(toZ))) {
+                    return "unable to parse z-coodinate from the <to> element of <ortho>"
+                }
+
+                // Pushing perspective view array to general view array
+                this.views[orthoViewId] = [near, far ,left, right, top, bottom, fromX, fromY, fromZ, toX, toY, toZ];
             }
         }
 
@@ -882,7 +940,6 @@ class MySceneGraph {
             }
         }
 
-
         if ( Object.keys(this.lights).length < 1)
             return "at least one light (omni or spot) must be defined";
 
@@ -1339,66 +1396,7 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
-            if(grandChildren[0].nodeName == "cylinder") {
-
-                var base = this.reader.getFloat(grandChildren[0], 'base');
-                if( (base == null) || (isNaN(base)) ) {
-                    return "value for base in <cylinder> of <primitive> is invalid";
-                }
-
-                var top = this.reader.getFloat(grandChildren[0], 'top');
-                if( (top == null) || (isNaN(top)) ) {
-                    return "value for top in <cylinder> of <primitive> is invalid";
-                }
-
-                var height = this.reader.getFloat(grandChildren[0], 'height');
-                if( (height == null) || (isNaN(height)) ) {
-                    return "value for height in <cylinder> of <primitive> is invalid";
-                }
-
-                var slices = this.reader.getFloat(grandChildren[0], 'slices');
-                if( (slices == null) || (isNaN(slices)) ) {
-                    return "value for slices in <cylinder> of <primitive> is invalid";
-                }
-
-                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
-                if( (stacks == null) || (isNaN(stacks)) ) {
-                    return "value for stacks in <cylinder> of <primitive> is invalid";
-                }
-
-                var primitive = new MyCylinder(this.scene, base, top, height, slices, stacks);
-
-                this.primitives[primitiveId] = primitive;
-            }
-
-			if(grandChildren[0].nodeName == "torus") {
-
-                var innerRadius = this.reader.getFloat(grandChildren[0], 'inner');
-                if( (innerRadius == null) || (isNaN(innerRadius)) ) {
-                    return "value for innerRadius in <torus> of <primitive> is invalid";
-                }
-
-                var outerRadius = this.reader.getFloat(grandChildren[0], 'outer');
-                if( (outerRadius == null) || (isNaN(outerRadius)) ) {
-                    return "value for outerRadius in <torus> of <primitive> is invalid";
-                }
-
-                var slices = this.reader.getFloat(grandChildren[0], 'slices');
-                if( (slices == null) || (isNaN(slices)) ) {
-                    return "value for slices in <torus> of <primitive> is invalid";
-                }
-
-                var loops = this.reader.getFloat(grandChildren[0], 'loops');
-                if( (loops == null) || (isNaN(loops)) ) {
-                    return "value for loops in <torus> of <primitive> is invalid";
-                }
-
-                var primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops)
-
-                this.primitives[primitiveId] = primitive;
-            }
-
-			if(grandChildren[0].nodeName == "triangle") {
+            if(grandChildren[0].nodeName == "triangle") {
 
                 var x1 = this.reader.getFloat(grandChildren[0], 'x1');
                 if( (x1 == null) || (isNaN(x1)) ) {
@@ -1451,6 +1449,89 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = primitive;
             }
+
+            if(grandChildren[0].nodeName == "cylinder") {
+
+                var base = this.reader.getFloat(grandChildren[0], 'base');
+                if( (base == null) || (isNaN(base)) ) {
+                    return "value for base in <cylinder> of <primitive> is invalid";
+                }
+
+                var top = this.reader.getFloat(grandChildren[0], 'top');
+                if( (top == null) || (isNaN(top)) ) {
+                    return "value for top in <cylinder> of <primitive> is invalid";
+                }
+
+                var height = this.reader.getFloat(grandChildren[0], 'height');
+                if( (height == null) || (isNaN(height)) ) {
+                    return "value for height in <cylinder> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <cylinder> of <primitive> is invalid";
+                }
+
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if( (stacks == null) || (isNaN(stacks)) ) {
+                    return "value for stacks in <cylinder> of <primitive> is invalid";
+                }
+
+                var primitive = new MyCylinder(this.scene, base, top, height, slices, stacks);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+            if(grandChildren[0].nodeName == "sphere") {
+
+                var radius = this.reader.getFloat(grandChildren[0], 'radius');
+                if( (radius == null) || (isNaN(radius)) ) {
+                    return "value for radius in <sphere> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <sphere> of <primitive> is invalid";
+                }
+
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if( (stacks == null) || (isNaN(stacks)) ) {
+                    return "value for stacks in <sphere> of <primitive> is invalid";
+                }
+
+                var primitive = new MySphere(this.scene, radius, slices, stacks);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+			if(grandChildren[0].nodeName == "torus") {
+
+                var innerRadius = this.reader.getFloat(grandChildren[0], 'inner');
+                if( (innerRadius == null) || (isNaN(innerRadius)) ) {
+                    return "value for innerRadius in <torus> of <primitive> is invalid";
+                }
+
+                var outerRadius = this.reader.getFloat(grandChildren[0], 'outer');
+                if( (outerRadius == null) || (isNaN(outerRadius)) ) {
+                    return "value for outerRadius in <torus> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <torus> of <primitive> is invalid";
+                }
+
+                var loops = this.reader.getFloat(grandChildren[0], 'loops');
+                if( (loops == null) || (isNaN(loops)) ) {
+                    return "value for loops in <torus> of <primitive> is invalid";
+                }
+
+                var primitive = new MyTorus(this.scene, innerRadius, outerRadius, slices, loops)
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+			
 
         }
         if(Object.keys(this.primitives).length < 1) {
@@ -1774,7 +1855,7 @@ class MySceneGraph {
 
         var sonName;
 		var cTextureId;
-		var cMaterialId;
+        var cMaterialId;
 
 		if (node.materialId == "inherit")
 			cMaterialId = materialId;
@@ -1808,7 +1889,7 @@ class MySceneGraph {
 				if (cTextureId == "none")
 					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
 				else{
-					node.primitive.updateTexCoords(node.textureLength[0], node.textureLength[1]);
+					node.primitive.updateTexCoords(node.textureLength[0],node.textureLength[1]);
 	            	this.textures[cTextureId].bind();
 				}
 			}
