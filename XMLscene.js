@@ -13,6 +13,7 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
+        this.cameraValues = {};
     }
 
     /**
@@ -48,8 +49,7 @@ class XMLscene extends CGFscene {
     initLights() {
         var i = 0;
         // Lights index.
-
-
+        
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
@@ -94,7 +94,8 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-		// TODO: Melhorar isto nao pode ser assim!
+        // TODO: Melhorar isto nao pode ser assim!
+
 		var viewId = Object.keys(this.graph.views)[0];
 
         this.camera.near = this.graph.views[viewId][0];
@@ -102,11 +103,23 @@ class XMLscene extends CGFscene {
 
 		this.axis = new CGFaxis(this,this.graph.axis_length);
 
-    	this.setGlobalAmbientLight(this.graph.ambient['ambient'][0], this.graph.ambient['ambient'][1], this.graph.ambient['ambient'][2], this.graph.ambient['ambient'][3]);
+    	this.setGlobalAmbientLight(
+            this.graph.ambient['ambient'][0], 
+            this.graph.ambient['ambient'][1], 
+            this.graph.ambient['ambient'][2], 
+            this.graph.ambient['ambient'][3]);
 
-    	this.gl.clearColor(this.graph.ambient['background'][0], this.graph.ambient['background'][1], this.graph.ambient['background'][2], this.graph.ambient['background'][3]);
+    	this.gl.clearColor(
+            this.graph.ambient['background'][0], 
+            this.graph.ambient['background'][1], 
+            this.graph.ambient['background'][2], 
+            this.graph.ambient['background'][3]);
+
 
         this.initLights();
+
+        // Adds cameras group.
+        this.interface.addCamerasGroup(this.graph.views);
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
@@ -152,6 +165,56 @@ class XMLscene extends CGFscene {
                     this.lights[i].update();
                     i++;
                 }
+            }
+
+            for(var i=0; i<Object.keys(this.cameraValues).length; i++) {
+
+                if( this.cameraValues[Object.keys(this.cameraValues)[i]] ) {
+                    if( this.graph.views[Object.keys(this.cameraValues)[i]].length == 9) {
+                        this.camera = new CGFcamera(
+                            this.graph.views[Object.keys(this.cameraValues)[i]][2],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][0],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][1],
+                            vec3.fromValues(
+                                this.graph.views[Object.keys(this.cameraValues)[i]][3],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][4],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][5]
+                            ),
+                            vec3.fromValues(
+                                this.graph.views[Object.keys(this.cameraValues)[i]][6],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][7],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][8]
+                            )
+                        );
+                    }
+
+                    if( this.graph.views[Object.keys(this.cameraValues)[i]].length == 12) {
+                        this.camera = new CGFcameraOrtho(
+                            this.graph.views[Object.keys(this.cameraValues)[i]][2],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][3],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][5],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][4],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][0],
+                            this.graph.views[Object.keys(this.cameraValues)[i]][1],
+                            vec3.fromValues(
+                                this.graph.views[Object.keys(this.cameraValues)[i]][6],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][7],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][8]
+                            ),
+                            vec3.fromValues(
+                                this.graph.views[Object.keys(this.cameraValues)[i]][9],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][10],
+                                this.graph.views[Object.keys(this.cameraValues)[i]][11]
+                            ),
+                            vec3.fromValues(
+                                1,
+                                1,
+                                1
+                            )
+                        );
+                    }
+                }
+
             }
 
             // Displays the scene (MySceneGraph function).
