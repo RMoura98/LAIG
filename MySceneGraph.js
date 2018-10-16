@@ -1734,9 +1734,13 @@ class MySceneGraph {
                              if(this.materials[materialId] == null && materialId != "inherit")
 								 return "ID must match to existing material";
 
-                            this.nodes[componentId].materialId = materialId;
+                            // Adds materials to node
+                            this.nodes[componentId].materialId.push(materialId);
                         }
                     }
+                    
+                    // Set materialIdPos to first material in array
+                    this.nodes[componentId].materialIdPos = 0;
                 }
 
                 if( grandChildren[j].nodeName == "texture" ) {
@@ -1851,7 +1855,7 @@ class MySceneGraph {
 		else if (this.nodes[rootNodeName].materialId == "inherit")
 			this.onXMLError("On " + rootNodeName + " the material id cant be '" + this.nodes[rootNodeName].materialId + "'" );
 		else
-	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].materialId);
+	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].materialId[this.nodes[rootNodeName].materialIdPos]);
     }
 
 	displaySceneRecursive(node, textureId, materialId) {
@@ -1863,7 +1867,7 @@ class MySceneGraph {
 		if (node.materialId == "inherit")
 			cMaterialId = materialId;
 		else
-			cMaterialId = node.materialId;
+			cMaterialId = node.materialId[node.materialIdPos];
 
 		if (node.textureId == "none")
 			cTextureId = null;
