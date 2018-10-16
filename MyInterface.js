@@ -20,8 +20,6 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
-        // add a group of controls (and open/expand by defult)
-
         return true;
     }
 
@@ -59,4 +57,22 @@ class MyInterface extends CGFinterface {
 
         group.add(this.scene, 'currentCamera', Object.keys(views) );
     }
+
+    processKeyboard(event) {
+
+        if(event.keyCode == 109 || event.keyCode == 77) {
+
+            for(var key in this.scene.graph.nodes) {
+
+                if(this.scene.graph.nodes[key].materialId.length > 1) {
+
+                    if( this.scene.graph.nodes[key].materialIdPos == (this.scene.graph.nodes[key].materialId.length - 1) )
+                        this.scene.graph.nodes[key].materialIdPos = 0;
+                    else   
+                        this.scene.graph.nodes[key].materialIdPos++;
+                }
+            }
+        }
+    }
+    
 }
