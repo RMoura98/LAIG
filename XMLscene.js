@@ -15,7 +15,7 @@ class XMLscene extends CGFscene {
         this.lightValues = {};
         
         this.currentCamera = null;
-        this.applyDefault = null;
+        this.previousCamera = null;
     }
 
     /**
@@ -44,7 +44,9 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.currentCamera = "default";
-        this.applyDefault = 0;
+        this.previousCamera = "default";
+
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -168,69 +170,11 @@ class XMLscene extends CGFscene {
                 }
             }
 
-            if( this.currentCamera != "default" ) {
+            if( this.currentCamera != this.previousCamera ) {
                 this.camera = this.graph.views[this.currentCamera];
-                this.applyDefault = 1;
-            }
-            else {
-                if(this.applyDefault) { 
-                    this.camera = this.graph.views[this.currentCamera];
-                    this.applyDefault = 0;
-                }
+                this.previousCamera = this.currentCamera;
             }
 
-            /*
-            //Add this to a Listener?
-            for(var i=0; i<Object.keys(this.cameraValues).length; i++) {
-
-                if( this.cameraValues[Object.keys(this.cameraValues)[i]] ) {
-                    if( this.graph.views[Object.keys(this.cameraValues)[i]].length == 9) {
-                        this.camera = new CGFcamera(
-                            this.graph.views[Object.keys(this.cameraValues)[i]][2],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][0],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][1],
-                            vec3.fromValues(
-                                this.graph.views[Object.keys(this.cameraValues)[i]][3],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][4],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][5]
-                            ),
-                            vec3.fromValues(
-                                this.graph.views[Object.keys(this.cameraValues)[i]][6],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][7],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][8]
-                            )
-                        );
-                    }
-
-                    if( this.graph.views[Object.keys(this.cameraValues)[i]].length == 12) {
-                        this.camera = new CGFcameraOrtho(
-                            this.graph.views[Object.keys(this.cameraValues)[i]][2],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][3],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][5],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][4],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][0],
-                            this.graph.views[Object.keys(this.cameraValues)[i]][1],
-                            vec3.fromValues(
-                                this.graph.views[Object.keys(this.cameraValues)[i]][6],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][7],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][8]
-                            ),
-                            vec3.fromValues(
-                                this.graph.views[Object.keys(this.cameraValues)[i]][9],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][10],
-                                this.graph.views[Object.keys(this.cameraValues)[i]][11]
-                            ),
-                            vec3.fromValues(
-                                1,
-                                1,
-                                1
-                            )
-                        );
-                    }
-                }
-
-            }
-            */
 
             // Displays the scene (MySceneGraph function).
         	this.graph.displayScene();
