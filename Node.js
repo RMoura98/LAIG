@@ -7,11 +7,12 @@
 
   this.id = id;
 
-  this.materialId = null;				//Id to the material
+  this.materialId = [];			      	    //Id to the material
+  this.materialIdPos = null;            //Position of current material
 
-  this.textureId = null;				//Id to the texture
+  this.textureId = null;				        //Id to the texture
 
-  this.textureLength = [];				//texture factor s and t [s,t]
+  this.textureLength = [];				      //texture factor s and t [s,t]
 
   this.matTransf = mat4.create();       //Transformation matrix
   mat4.identity(this.matTransf);
