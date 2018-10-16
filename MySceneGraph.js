@@ -466,7 +466,7 @@ class MySceneGraph {
                 }
 
                 // Pushing perspective camera to general view array
-                this.views[perspViewId] = new CGFcameraOrtho( left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0) );
+                this.views[orthoViewId] = new CGFcameraOrtho( left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0) );
             }
         }
 
