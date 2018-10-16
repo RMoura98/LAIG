@@ -97,18 +97,18 @@
         <!-- Deve existir um ou mais blocos "material" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
-        <material id="mater1" shininess = "1" >
-            <emission r="0" g="0" b="0" a="1" />
-            <ambient r="0" g="0" b="0" a="1" />
-            <diffuse r=".33" g=".33" b=".33" a="1" />
-            <specular r="0" g="0" b="0" a="1" />
-        </material>
-
-		<material id="mater0" shininess = "1" >
+        <material id="mater0" shininess = "1" >
             <emission r="0" g="0" b="0" a="1" />
             <ambient r="0.2" g="0.2" b="0.2" a="1" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1" />
             <specular r="0.5" g="0.5" b="0.5" a="1" />
+        </material>
+
+        <material id="mater1" shininess = "1" >
+            <emission r="0.2" g="0.2" b="0.2" a="1" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="1" g="1" b="1" a="1" />
+            <specular r="0" g="0" b="0" a="1" />
         </material>
 
     </materials>
@@ -442,6 +442,7 @@
 
             <materials>
                 <material id="mater0" />
+                <material id="mater1" />
             </materials>
 
             <texture id="ball" length_s="1.0" length_t="1.0" />
