@@ -240,6 +240,9 @@ class MySceneGraph {
           //  [[near far angle x y z x y z]]
          //  [[near far left right top bottom x y z x y z]]
 
+        //Adding a default perpective camera
+        this.views["default"] = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
         var grandChildren = [];
         var grandChildrenNodeNames = [];
 
@@ -348,8 +351,8 @@ class MySceneGraph {
                 }
 
 
-                // Pushing perspective view array to general view array
-                this.views[perspViewId] = [near, far, angle, fromX, fromY, fromZ, toX, toY, toZ];
+                // Pushing perspective camera to general view array
+                this.views[perspViewId] = new CGFcamera( angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ) );
             }
 
             if(children[i].nodeName == "ortho") {
@@ -462,8 +465,8 @@ class MySceneGraph {
                     return "unable to parse z-coodinate from the <to> element of <ortho>"
                 }
 
-                // Pushing perspective view array to general view array
-                this.views[orthoViewId] = [near, far ,left, right, top, bottom, fromX, fromY, fromZ, toX, toY, toZ];
+                // Pushing perspective camera to general view array
+                this.views[perspViewId] = new CGFcameraOrtho( left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0) );
             }
         }
 
