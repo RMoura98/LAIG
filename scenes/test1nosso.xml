@@ -29,7 +29,7 @@
         </perspective>
 
         <ortho id="ortho0" near="0.1" far="500" left="-10" right="10" top="10" bottom="-10" >
-            <from x="15" y="25" z="15" />
+            <from x="15.0" y="25.0" z="15.0" />
             <to x="0.0" y="0.0" z="0.0" />
         </ortho>
 
@@ -127,6 +127,10 @@
             <rotate axis="x" angle="0" />
             <scale x="1" y="1" z="1" />
       </transformation>
+
+	  <transformation id="transfMesa">
+		  <translate x="0" y="-5" z="0" />
+	</transformation>
 
     </transformations>
 
@@ -325,7 +329,7 @@
 
         <component id="quad-bot">
             <transformation>
-                <translate x="0.0" y="-0.5" z="0.0" /> 
+                <translate x="0.0" y="-0.5" z="0.0" />
                 <rotate axis="x" angle="90" />
             </transformation>
 
@@ -393,7 +397,7 @@
                 <primitiveref id="cylinder-leg" />
             </children>
         </component>
-        
+
         <component id="back-left-leg">
             <transformation>
                 <translate x="-1.6" y="3.4" z="-0.75" />

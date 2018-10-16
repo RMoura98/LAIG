@@ -1534,7 +1534,7 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
-			
+
 
         }
         if(Object.keys(this.primitives).length < 1) {

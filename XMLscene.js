@@ -13,7 +13,7 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
-        
+
         this.currentCamera = null;
         this.previousCamera = null;
     }
@@ -47,6 +47,7 @@ class XMLscene extends CGFscene {
         this.previousCamera = "default";
 
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+		this.interface.setActiveCamera(this.camera);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -54,7 +55,7 @@ class XMLscene extends CGFscene {
     initLights() {
         var i = 0;
         // Lights index.
-        
+
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
@@ -99,23 +100,19 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-       
-        //var viewId = Object.keys(this.graph.views)[0];
-        
-        this.camera = this.graph.views[this.currentCamera];
 
 		this.axis = new CGFaxis(this,this.graph.axis_length);
 
     	this.setGlobalAmbientLight(
-            this.graph.ambient['ambient'][0], 
-            this.graph.ambient['ambient'][1], 
-            this.graph.ambient['ambient'][2], 
+            this.graph.ambient['ambient'][0],
+            this.graph.ambient['ambient'][1],
+            this.graph.ambient['ambient'][2],
             this.graph.ambient['ambient'][3]);
 
     	this.gl.clearColor(
-            this.graph.ambient['background'][0], 
-            this.graph.ambient['background'][1], 
-            this.graph.ambient['background'][2], 
+            this.graph.ambient['background'][0],
+            this.graph.ambient['background'][1],
+            this.graph.ambient['background'][2],
             this.graph.ambient['background'][3]);
 
 
@@ -173,6 +170,8 @@ class XMLscene extends CGFscene {
             if( this.currentCamera != this.previousCamera ) {
                 this.camera = this.graph.views[this.currentCamera];
                 this.previousCamera = this.currentCamera;
+				if (this.currentCamera == "default")
+					this.interface.setActiveCamera(this.camera);
             }
 
 
