@@ -13,7 +13,9 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
-        this.cameraValues = {};
+        
+        this.currentCamera = null;
+        this.applyDefault = null;
     }
 
     /**
@@ -41,7 +43,8 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.currentCamera = "default";
+        this.applyDefault = 0;
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -94,12 +97,10 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        // TODO: Melhorar isto nao pode ser assim!
-
-		var viewId = Object.keys(this.graph.views)[0];
-
-        this.camera.near = this.graph.views[viewId][0];
-        this.camera.far = this.graph.views[viewId][1];
+       
+        //var viewId = Object.keys(this.graph.views)[0];
+        
+        this.camera = this.graph.views[this.currentCamera];
 
 		this.axis = new CGFaxis(this,this.graph.axis_length);
 
@@ -167,6 +168,18 @@ class XMLscene extends CGFscene {
                 }
             }
 
+            if( this.currentCamera != "default" ) {
+                this.camera = this.graph.views[this.currentCamera];
+                this.applyDefault = 1;
+            }
+            else {
+                if(this.applyDefault) { 
+                    this.camera = this.graph.views[this.currentCamera];
+                    this.applyDefault = 0;
+                }
+            }
+
+            /*
             //Add this to a Listener?
             for(var i=0; i<Object.keys(this.cameraValues).length; i++) {
 
@@ -217,6 +230,7 @@ class XMLscene extends CGFscene {
                 }
 
             }
+            */
 
             // Displays the scene (MySceneGraph function).
         	this.graph.displayScene();
