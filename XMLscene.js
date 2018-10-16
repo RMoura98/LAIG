@@ -101,7 +101,7 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
-		this.axis = new CGFaxis(this,this.graph.axis_length);
+		this.axis = new CGFaxis(this, this.graph.axis_length);
 
     	this.setGlobalAmbientLight(
             this.graph.ambient['ambient'][0],
