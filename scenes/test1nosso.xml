@@ -222,6 +222,7 @@
     <components>
         <component id="root">
             <transformation>
+				<scale x="0.3" y="0.3" z="0.3" />
             </transformation>
 
             <materials>
@@ -268,7 +269,7 @@
                 <componentref id="wall-left" />
                 <componentref id="wall-back" />
             </children>
-        </component>        
+        </component>
 
         <component id="wall-bot">
             <transformation>
@@ -614,7 +615,7 @@
                 <translate x="70" y="34" z="18" />
                 <rotate axis="y" angle="150" />
                 <rotate axis="x" angle="40" />
-                <scale x="3" y="3" z="3" /> 
+                <scale x="2" y="2" z="2" />
             </transformation>
 
             <materials>
