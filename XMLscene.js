@@ -46,7 +46,7 @@ class XMLscene extends CGFscene {
         this.currentCamera = "default";
         this.previousCamera = "default";
 
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(75, 45, 100), vec3.fromValues(45, 0, 0));
 		this.interface.setActiveCamera(this.camera);
     }
     /**
