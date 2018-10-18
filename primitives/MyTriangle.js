@@ -42,7 +42,7 @@ class MyTriangle extends CGFobject {
 			normalX, normalY, normalZ,
 			normalX, normalY, normalZ
 		];
-
+		
 		this.texCoords = [
 			0, 1,
 			1, 1,

@@ -90,6 +90,10 @@
         <texture id="metal" file="images/metal.jpg" />
         <texture id="cup" file="images/cup.jpg" />
         <texture id="ball" file="images/ball.jpg" />
+        <texture id="floor" file="images/floor.jpg" />
+        <texture id="wall" file="images/wall.jpg" />
+        <texture id="blackboard" file="images/blackboard.jpg" />
+        <texture id="paper-plane" file="images/paper-plane.jpg" />
 
     </textures>
 
@@ -282,7 +286,7 @@
                 <material id="mater0" />
             </materials>
 
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="floor" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -300,7 +304,7 @@
                 <material id="mater0" />
             </materials>
 
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -317,7 +321,7 @@
                 <material id="mater0" />
             </materials>
 
-            <texture id="none" length_s="1.0" length_t="1.0" />
+            <texture id="wall" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
@@ -622,7 +626,7 @@
                 <material id="mater0" />
             </materials>
 
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="paper-plane" length_s="1.0" length_t="1.0" />
 
             <children>
                 <componentref id="left-wing" />
@@ -841,7 +845,7 @@
                 <material id="mater2" />
             </materials>
 
-            <texture id="ball" length_s="1.0" length_t="1.0" />
+            <texture id="blackboard" length_s="1.0" length_t="1.0" />
 
             <children>
                 <primitiveref id="quad" />
