@@ -1855,26 +1855,33 @@ class MySceneGraph {
 		else if (this.nodes[rootNodeName].materialId == "inherit")
 			this.onXMLError("On " + rootNodeName + " the material id cant be '" + this.nodes[rootNodeName].materialId + "'" );
 		else
-	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].materialId[this.nodes[rootNodeName].materialIdPos]);
+	        this.displaySceneRecursive(this.nodes[rootNodeName], this.nodes[rootNodeName].textureId, this.nodes[rootNodeName].textureLength, this.nodes[rootNodeName].materialId[this.nodes[rootNodeName].materialIdPos]);
     }
 
-	displaySceneRecursive(node, textureId, materialId) {
+	displaySceneRecursive(node, textureId, textureLength, materialId) {
 
         var sonName;
 		var cTextureId;
         var cMaterialId;
+        var cTextureLength;
 
-		if (node.materialId == "inherit")
+		if (node.materialId == "inherit") 
 			cMaterialId = materialId;
 		else
 			cMaterialId = node.materialId[node.materialIdPos];
 
-		if (node.textureId == "none")
-			cTextureId = null;
-		else if (node.textureId == "inherit")
-			cTextureId = textureId;
-		else
-			cTextureId = node.textureId;
+		if (node.textureId == "none") {
+            cTextureId = null;
+            cTextureLength = [];
+        }
+		else if (node.textureId == "inherit") {
+            cTextureId = textureId;
+            cTextureLength = textureLength;
+        }
+		else {
+            cTextureId = node.textureId;
+            cTextureLength = node.textureLength;
+        }
 
 
         this.scene.multMatrix(node.matTransf);
@@ -1885,7 +1892,7 @@ class MySceneGraph {
                 sonName = Object.keys(node.descendants)[i];
 
                 this.scene.pushMatrix();
-                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]], cTextureId, cMaterialId);
+                    this.displaySceneRecursive( this.nodes[node.descendants[sonName]], cTextureId, cTextureLength, cMaterialId);
                 this.scene.popMatrix();
             }
         }
@@ -1896,7 +1903,7 @@ class MySceneGraph {
 				if (cTextureId == "none")
 					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
 				else{
-					node.primitive.updateTexCoords(node.textureLength[0],node.textureLength[1]);
+					node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
 	            	this.textures[cTextureId].bind();
 				}
 			}
