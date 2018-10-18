@@ -94,6 +94,7 @@
         <texture id="wall" file="images/wall.jpg" />
         <texture id="blackboard" file="images/blackboard.jpg" />
         <texture id="paper-plane" file="images/paper-plane.jpg" />
+        <texture id="orange" file="images/orange.jpg" />
 
     </textures>
 
@@ -220,6 +221,10 @@
             <triangle   x1="0.1" y1="0" z1="0"   x2="0.05" y2="-3.16227" z2="-3"   x3="0.05" y3="-1" z3="0"    />
         </primitive>
 
+        <primitive id="life-buoy">
+            <torus inner="2" outer="4" slices="30" loops="30" />
+        </primitive>
+
     </primitives >
 
 
@@ -255,6 +260,7 @@
                 <componentref id="table" />
                 <componentref id="plane" />
                 <componentref id="blackboard" />
+                <componentref id="life-buoy" />
             </children>
         </component>
 
@@ -342,7 +348,7 @@
 
             <children>
                 <componentref id="top" />
-                <componentref id="legs" />
+                <componentref id="table-legs" />
                 <componentref id="ball" />
                 <componentref id="cup" />
             </children>
@@ -486,7 +492,7 @@
             </children>
         </component>
 
-        <component id="legs">
+        <component id="table-legs">
             <transformation>
             </transformation>
 
@@ -616,7 +622,7 @@
 
         <component id="plane">
             <transformation>
-                <translate x="70" y="34" z="18" />
+                <translate x="45" y="28" z="18" />
                 <rotate axis="y" angle="150" />
                 <rotate axis="x" angle="40" />
                 <scale x="2" y="2" z="2" />
@@ -849,6 +855,24 @@
 
             <children>
                 <primitiveref id="quad" />
+            </children>
+        </component>
+
+        <component id="life-buoy">
+            <transformation>
+                <translate x="4" y="5.5" z="60" />
+                <rotate axis="y" angle="90" />
+                <rotate axis="x" angle="-30" />
+            </transformation>
+
+            <materials>
+                <material id="mater2" />
+            </materials>
+
+            <texture id="orange" length_s="1.0" length_t="1.0" />
+
+            <children>
+                <primitiveref id="life-buoy" />
             </children>
         </component>
     </components>
