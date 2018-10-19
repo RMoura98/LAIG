@@ -86,15 +86,15 @@
         <!-- Deve existir um ou mais blocos "texture" -->
         <!-- Os identificadores "id" nao podem ser repetidos -->
 
-        <texture id="wood" file="images/wood.jpg" />
-        <texture id="metal" file="images/metal.jpg" />
-        <texture id="cup" file="images/cup.jpg" />
-        <texture id="ball" file="images/ball.jpg" />
-        <texture id="floor" file="images/floor.jpg" />
-        <texture id="wall" file="images/wall.jpg" />
-        <texture id="blackboard" file="images/blackboard.jpg" />
-        <texture id="paper-plane" file="images/paper-plane.jpg" />
-        <texture id="orange" file="images/orange.jpg" />
+        <texture id="wood" file="scenes/images/wood.jpg" />
+        <texture id="metal" file="scenes/images/metal.jpg" />
+        <texture id="cup" file="scenes/images/cup.jpg" />
+        <texture id="ball" file="scenes/images/ball.jpg" />
+        <texture id="floor" file="scenes/images/floor.jpg" />
+        <texture id="wall" file="scenes/images/wall.jpg" />
+        <texture id="blackboard" file="scenes/images/blackboard.jpg" />
+        <texture id="paper-plane" file="scenes/images/paper-plane.jpg" />
+        <texture id="orange" file="scenes/images/orange.jpg" />
 
     </textures>
 
