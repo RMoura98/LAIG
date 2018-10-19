@@ -1738,7 +1738,7 @@ class MySceneGraph {
                             this.nodes[componentId].materialId.push(materialId);
                         }
                     }
-                    
+
                     // Set materialIdPos to first material in array
                     this.nodes[componentId].materialIdPos = 0;
                 }
@@ -1750,25 +1750,29 @@ class MySceneGraph {
                     if(textureId == null)
                         return "texture with invalid ID";
 
-					var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
-					// DEBUG: console.log(textureLS);
-                    if(textureLS == null)
-                        return "texture with invalid s";
+					if(textureId != "none"){
+						var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
+						// DEBUG: console.log(textureLS);
+	                    if(textureLS == null)
+							return "texture with invalid s";
 
-					var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
-					// DEBUG: console.log(textureLT);
-					if(textureLT == null)
-                    	return "texture with invalid t";
+						var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
+						// DEBUG: console.log(textureLT);
+						if(textureLT == null)
+	                    	return "texture with invalid t";
 
-					if (textureLT <= 0 || textureLS <= 0)
-                        return "value s and t must be positive";
+						if (textureLT <= 0 || textureLS <= 0)
+	                        return "value s and t must be positive";
 
-                    // Check if ID exists
-                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
-                        return "ID must match to existing texture";
+	                    // Check if ID exists
+	                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
+	                        return "ID must match to existing texture";
+							
+						this.nodes[componentId].textureLength = [textureLS,textureLT];
+					}
 
                     this.nodes[componentId].textureId = textureId;
-					this.nodes[componentId].textureLength = [textureLS,textureLT];
+
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
@@ -1865,7 +1869,7 @@ class MySceneGraph {
         var cMaterialId;
         var cTextureLength;
 
-		if (node.materialId == "inherit") 
+		if (node.materialId == "inherit")
 			cMaterialId = materialId;
 		else
 			cMaterialId = node.materialId[node.materialIdPos];
