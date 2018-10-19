@@ -293,6 +293,9 @@ class MySceneGraph {
                     this.onXMLMinorError("unable to parse value for angle; assuming 'angle = 0'");
                 }
 
+				//passar para radianos
+				angle *= DEGREE_TO_RAD;				
+
                 // Get children of perpective view
                 grandChildren = children[i].children;
 
@@ -1872,7 +1875,7 @@ class MySceneGraph {
 		if (node.materialId[node.materialIdPos] == "inherit")
 			cMaterialId = materialId;
 		else
-            cMaterialId = node.materialId[node.materialIdPos]; 
+            cMaterialId = node.materialId[node.materialIdPos];
 
 		if (node.textureId == "none") {
             cTextureId = null;
