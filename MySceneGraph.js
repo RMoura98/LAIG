@@ -1869,10 +1869,10 @@ class MySceneGraph {
         var cMaterialId;
         var cTextureLength;
 
-		if (node.materialId == "inherit")
+		if (node.materialId[node.materialIdPos] == "inherit")
 			cMaterialId = materialId;
 		else
-			cMaterialId = node.materialId[node.materialIdPos];
+            cMaterialId = node.materialId[node.materialIdPos]; 
 
 		if (node.textureId == "none") {
             cTextureId = null;
@@ -1903,6 +1903,7 @@ class MySceneGraph {
 
         if (node.primitive != null) {
 			this.materials[cMaterialId].apply();
+			console.log(cMaterialId);
 			if(cTextureId != null) {
 				if (cTextureId == "none")
 					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
