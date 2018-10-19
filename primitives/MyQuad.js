@@ -48,15 +48,18 @@ class MyQuad extends CGFobject {
 
 	updateTexCoords(s, t) {
 
+		var sizeQx = Math.abs(this.x2-this.x1);
+		var sizeQy = Math.abs(this.y2-this.y1);
+
 		this.texCoords = [
 		  //Left lower
-		  0, 1/t,
+		  0, sizeQy/t,
 		  //Right lower
-		  1/s, 1/t,
+		  sizeQx/s, sizeQy/t,
 		  //Left upper
 		  0, 0,
 		  //Rigth upper
-		  1/s, 0
+		  sizeQx/s, 0
 	  ];
 
 		this.updateTexCoordsGLBuffers();
