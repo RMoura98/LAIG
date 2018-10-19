@@ -15,9 +15,6 @@ class MyTriangle extends CGFobject {
 		this.y3 = y3;
 		this.z3 = z3;
 
-		this.u = 1.0;
-        this.v = 1.0;
-
 		this.initBuffers();
 	}
 
@@ -42,7 +39,7 @@ class MyTriangle extends CGFobject {
 			normalX, normalY, normalZ,
 			normalX, normalY, normalZ
 		];
-		
+
 		this.texCoords = [
 			0, 1,
 			1, 1,
@@ -58,20 +55,21 @@ class MyTriangle extends CGFobject {
 
 	updateTexCoords(s, t) {
 
-		this.u = s;
-        this.v = t;
 
 		var a = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2) + Math.pow((this.z1 - this.z3), 2));
 		var b = Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2) + Math.pow((this.z2 - this.z1), 2));
 		var c = Math.sqrt(Math.pow((this.x3 - this.x2), 2) + Math.pow((this.y3 - this.y2), 2) + Math.pow((this.z3 - this.z2), 2));
 
-		var b_cos = (a * a - b * b + c * c) / (2.0 * a * c);
+		var b_cos = (Math.pow(a,2) - Math.pow(b,2) + Math.pow(c,2)) / (2.0 * a * c);
 		var b_sin = Math.sqrt(1 - Math.pow(b_cos, 2));
 
+		var sizeTx = a * b_sin;
+		var sizeTy = c;
+
 		this.texCoords = [
-			(c - a * b_cos) / s, (this.v - a * b_sin) / t,
-			0, 1 / t,
-			c / s, 1 / t
+			(c - a * b_cos) / s, (sizeTx - a * b_sin) / t,
+			0, sizeTx / t,
+			c / s, sizeTx / t
 		];
 
 		this.updateTexCoordsGLBuffers();
