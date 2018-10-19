@@ -988,7 +988,7 @@ class MySceneGraph {
             if (filePath == null)
                 return "file path undefined for texture with ID = " + textureId;
 
-            var texture = new CGFtexture(this.scene, "./scenes/" + filePath);
+            var texture = new CGFtexture(this.scene, filePath);
 
             this.textures[textureId] = texture;
         }
@@ -1767,7 +1767,7 @@ class MySceneGraph {
 	                    // Check if ID exists
 	                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
 	                        return "ID must match to existing texture";
-							
+
 						this.nodes[componentId].textureLength = [textureLS,textureLT];
 					}
 
