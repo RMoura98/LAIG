@@ -1906,7 +1906,6 @@ class MySceneGraph {
 
         if (node.primitive != null) {
 			this.materials[cMaterialId].apply();
-			console.log(cMaterialId);
 			if(cTextureId != null) {
 				if (cTextureId == "none")
 					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
