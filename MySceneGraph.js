@@ -294,7 +294,7 @@ class MySceneGraph {
                 }
 
 				//passar para radianos
-				angle *= DEGREE_TO_RAD;				
+				angle *= DEGREE_TO_RAD;
 
                 // Get children of perpective view
                 grandChildren = children[i].children;
@@ -1751,27 +1751,30 @@ class MySceneGraph {
                     // Get ID of current texture
                     var textureId = this.reader.getString(grandChildren[j], 'id');
                     if(textureId == null)
-                        return "texture with invalid ID";
-
+                        return "texture with invalid ID on component '" + componentId + "'";
 					if(textureId != "none"){
-						var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
-						// DEBUG: console.log(textureLS);
-	                    if(textureLS == null)
-							return "texture with invalid s";
+						if(!(!this.reader.hasAttribute(grandChildren[j],'length_s') && textureId == "inherit")){
+							var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
+							// DEBUG: console.log(textureLS);
+		                    if(textureLS == null)
+								return "texture with invalid s on component '" + componentId + "'";
 
-						var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
-						// DEBUG: console.log(textureLT);
-						if(textureLT == null)
-	                    	return "texture with invalid t";
+							var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
+							// DEBUG: console.log(textureLT);
+							if(textureLT == null)
+		                    	return "texture with invalid t on component '" + componentId + "'";
 
-						if (textureLT <= 0 || textureLS <= 0)
-	                        return "value s and t must be positive";
+							if (textureLT <= 0 || textureLS <= 0)
+		                        return "value s and t must be positive on component '" + componentId + "'";
 
-	                    // Check if ID exists
-	                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none")
-	                        return "ID must match to existing texture";
+		                    // Check if ID exists
+		                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none"){
+								return "ID '" + textureId + "' must match to existing texture";
+							}
 
-						this.nodes[componentId].textureLength = [textureLS,textureLT];
+
+							this.nodes[componentId].textureLength = [textureLS,textureLT];
+						}
 					}
 
                     this.nodes[componentId].textureId = textureId;
