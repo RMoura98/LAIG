@@ -1752,8 +1752,22 @@ class MySceneGraph {
                     var textureId = this.reader.getString(grandChildren[j], 'id');
                     if(textureId == null)
                         return "texture with invalid ID on component '" + componentId + "'";
-					if(textureId != "none"){
-						if(textureId == "inherit" && !this.reader.hasAttribute(grandChildren[j], 'length_s')){}
+
+                    // Check if ID exists
+                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none"){
+                        return "ID '" + textureId + "' must match to existing texture";
+                    }
+
+					if(textureId != "none") {
+                        var hasLengthS = this.reader.hasAttribute(grandChildren[j], 'length_s');
+                        var hasLengthT = this.reader.hasAttribute(grandChildren[j], 'length_t');
+
+						if( textureId == "inherit" && ((hasLengthS && !hasLengthT) || (!hasLengthS && hasLengthT)) ) {
+                            return "none or both values of length must be defined for texture with id=inherit (" + textureId + ")";
+                        }
+                        else if( textureId == "inherit" && (!hasLengthS && !hasLengthT)) {
+                            this.nodes[componentId].textureLength = [];
+                        }
                         else{
                             var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
 							// DEBUG: console.log(textureLS);
@@ -1768,23 +1782,13 @@ class MySceneGraph {
 							if (textureLT <= 0 || textureLS <= 0)
 		                        return "value s and t must be positive on component '" + componentId + "'";
 
-		                    // Check if ID exists
-		                    if(this.textures[textureId] == null && textureId != "inherit" && textureId != "none"){
-								return "ID '" + textureId + "' must match to existing texture";
-							}
-
 
 							this.nodes[componentId].textureLength = [textureLS,textureLT];    
-                        }
-                            
-
-							
+                        }	
 					
 					}
 
                     this.nodes[componentId].textureId = textureId;
-
-
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
@@ -1892,6 +1896,7 @@ class MySceneGraph {
         }
 		else if (node.textureId == "inherit") {
             cTextureId = textureId;
+
 			if(node.textureLength.length == 0)
 				cTextureLength = textureLength;
 			else
@@ -1916,16 +1921,15 @@ class MySceneGraph {
             }
         }
 
-        if (node.primitive != null) {
-			this.materials[cMaterialId].apply();
-			if(cTextureId != null) {
-				if (cTextureId == "none")
-					this.onXMLMinorError("the node '" + node.id + "' can't inerit a 'none' texture");
-				else{
-					node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
-	            	this.textures[cTextureId].bind();
-				}
-			}
+        if( node.primitive != null ) {
+
+            this.materials[cMaterialId].apply();
+            
+			if( cTextureId != null ) {
+                node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
+                this.textures[cTextureId].bind();
+            }
+            
             node.primitive.display();
         }
     }
