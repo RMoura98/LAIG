@@ -73,12 +73,12 @@
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>
 		</omni>
 
-		<spot id="spot0" enabled="0" angle="10" exponent="4">
-			<location x="5" y="5" z="18" w="2"/>
+		<spot id="spot0" enabled="0" angle="15" exponent="50">
+			<location x="5" y="5" z="18" w="0"/>
 			<target x="0" y="2" z="18"/>
-			<ambient r="0.1" g="0.1" b="0.1" a="1"/>
-			<diffuse r="1" g="1" b="1" a="1"/>
-			<specular r="0.5" g="0.5" b="0.5" a="1"/>
+			<ambient r="0" g="0" b="0" a="0"/>
+            <diffuse r="0.5" g="0.5" b="0.5" a="0.5"/>
+            <specular r="0.5" g="0.5" b="0.5" a="0.5"/>
 		</spot>
 	</lights>
 
