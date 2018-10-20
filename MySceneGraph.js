@@ -1753,8 +1753,9 @@ class MySceneGraph {
                     if(textureId == null)
                         return "texture with invalid ID on component '" + componentId + "'";
 					if(textureId != "none"){
-						if(!(!this.reader.hasAttribute(grandChildren[j],'length_s') && textureId == "inherit")){
-							var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
+						if(textureId == "inherit" && !this.reader.hasAttribute(grandChildren[j], 'length_s')){}
+                        else{
+                            var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
 							// DEBUG: console.log(textureLS);
 		                    if(textureLS == null)
 								return "texture with invalid s on component '" + componentId + "'";
@@ -1773,11 +1774,16 @@ class MySceneGraph {
 							}
 
 
-							this.nodes[componentId].textureLength = [textureLS,textureLT];
-						}
+							this.nodes[componentId].textureLength = [textureLS,textureLT];    
+                        }
+                            
+
+							
+					
 					}
 
                     this.nodes[componentId].textureId = textureId;
+
 
                 }
 
@@ -1886,7 +1892,10 @@ class MySceneGraph {
         }
 		else if (node.textureId == "inherit") {
             cTextureId = textureId;
-            cTextureLength = textureLength;
+			if(node.textureLength.length == 0)
+				cTextureLength = textureLength;
+			else
+            	cTextureLength = node.textureLength;
         }
 		else {
             cTextureId = node.textureId;
