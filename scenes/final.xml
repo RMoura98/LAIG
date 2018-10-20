@@ -26,6 +26,26 @@
 			<to x="10.0" y="5.0" z="10.0"/>
 		</perspective>
 
+		<perspective id="presp1" near="0.1" far="500" angle="10">
+			<from x="65.0" y="35.0" z="50.0"/>
+			<to x="20.0" y="10.0" z="10.0"/>
+		</perspective>
+
+		<perspective id="presp2" near="0.1" far="500" angle="90">
+			<from x="7.0" y="6.0" z="2.0"/>
+			<to x="10.0" y="7.0" z="7.0"/>
+		</perspective>
+
+		<perspective id="presp3" near="0.1" far="500" angle="90">
+			<from x="15.0" y="9.5" z="8.0"/>
+			<to x="5.0" y="6.0" z="0.0"/>
+		</perspective>
+
+		<perspective id="presp4" near="0.1" far="500" angle="90">
+			<from x="6.0" y="3" z="23.0"/>
+			<to x="0.0" y="0.0" z="17.0"/>
+		</perspective>
+
 		<ortho id="ortho0" near="0.1" far="500" left="-13" right="13" top="5" bottom="-7">
 			<from x="13.0" y="10.0" z="50.0"/>
 			<to x="13.0" y="5.0" z="0.0"/>
