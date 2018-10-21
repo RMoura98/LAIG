@@ -246,7 +246,7 @@ class MySceneGraph {
             return "at least one perspective or ortho view must be defined";
         }
 
-        
+        //Getting default view camera id
         this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
 
         //Adding a default perpective camera
@@ -292,8 +292,7 @@ class MySceneGraph {
 
                     this.onXMLMinorError("unable to parse value for angle; assuming 'angle = 0'");
                 }
-
-				//passar para radianos
+				//Converte angle to radians
 				angle *= DEGREE_TO_RAD;
 
                 // Get children of perpective view
@@ -477,7 +476,8 @@ class MySceneGraph {
         if( (Object.keys(this.views).length) < 1 )
             return "at least one view (perspective or ortho) must be defined";
 
-		if(this.views[this.defaultViewId] == null){
+
+		if( this.views[this.defaultViewId] == null ) {
 			this.defaultViewId = "default_";
 		}
 
