@@ -28,14 +28,14 @@
 			<to x="0.0" y="0.0" z="17.0"/>
 		</perspective>
 
-		<ortho id="ortho0" near="0.1" far="500" left="-13" right="13" top="5" bottom="-7">
-			<from x="13.0" y="10.0" z="50.0"/>
-			<to x="13.0" y="5.0" z="0.0"/>
+		<ortho id="ortho0" near="0.1" far="500" left="-15" right="15" top="5" bottom="-7">
+			<from x="13.0" y="6.0" z="50.0"/>
+			<to x="13.0" y="6.0" z="0.0"/>
 		</ortho>
 
-		<ortho id="ortho1" near="0.1" far="500" left="-13" right="13" top="5" bottom="-7">
-			<from x="50.0" y="10.0" z="13.0"/>
-			<to x="0.0" y="5.0" z="13.0"/>
+		<ortho id="ortho1" near="0.1" far="500" left="-15" right="15" top="5" bottom="-7">
+			<from x="50.0" y="6.0" z="13.0"/>
+			<to x="0.0" y="6.0" z="13.0"/>
 		</ortho>
 
 	</views>
