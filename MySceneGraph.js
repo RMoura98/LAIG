@@ -232,17 +232,11 @@ class MySceneGraph {
     parseViews(viewsNode) {
         // Parse views node
 
-		this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
-
-
         var children = viewsNode.children;
 
         this.views = [];        //  [[perspectives] [orthos]]
-          //  [[near far angle x y z x y z]]
-         //  [[near far left right top bottom x y z x y z]]
-
-        //Adding a default perpective camera
-        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+                                //  [[near far angle x y z x y z]]
+                                //  [[near far left right top bottom x y z x y z]]
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -252,7 +246,12 @@ class MySceneGraph {
             return "at least one perspective or ortho view must be defined";
         }
 
-        //DEBUG: console.log(nodeNames);
+        
+        this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
+
+        //Adding a default perpective camera
+        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+
 
         for(var i = 0; i < children.length; i++) {
 

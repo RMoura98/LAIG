@@ -118,13 +118,14 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+
+        this.setCamera();
+
         // Adds cameras group.
         this.interface.addCamerasGroup(this.graph.views);
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
-
-		this.setCamera();
 
         this.sceneInited = true;
     }
