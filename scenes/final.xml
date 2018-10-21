@@ -107,6 +107,7 @@
 		<!-- Os identificadores "id" nao podem ser repetidos -->
 
 		<texture id="wood" file="scenes/images/wood.jpg"/>
+		<texture id="life-buoy" file="scenes/images/lifebuoy.png"/>
 		<texture id="metal" file="scenes/images/metal.jpg"/>
 		<texture id="cup" file="scenes/images/cup.jpg"/>
 		<texture id="ball" file="scenes/images/ball.jpg"/>
@@ -888,7 +889,7 @@
 					<material id="red"/>
 				</materials>
 
-				<texture id="none"/>
+				<texture id="life-buoy" length_s="1.0" length_t="1.0"/>
 
 				<children>
 					<primitiveref id="life-buoy"/>
