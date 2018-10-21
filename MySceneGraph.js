@@ -996,7 +996,10 @@ class MySceneGraph {
             if (filePath == null)
                 return "file path undefined for texture with ID = " + textureId;
 
-            var texture = new CGFtexture(this.scene, filePath);
+			var textureFileName = filePath.split('/');
+            textureFileName = textureFileName.pop();
+
+            var texture = new CGFtexture(this.scene, "scenes/images/" + textureFileName);
 
             this.textures[textureId] = texture;
         }
