@@ -43,10 +43,10 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.currentCamera = "default";
-        this.previousCamera = "default";
+        this.currentCamera = "default_";
+        this.previousCamera = "";
 
-        this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+		this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(-50, -50, -50), vec3.fromValues(-100, -100, -100));
 		this.interface.setActiveCamera(this.camera);
     }
     /**
@@ -124,9 +124,17 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
+		this.setCamera();
+
         this.sceneInited = true;
     }
 
+	setCamera(){
+		this.currentCamera = this.graph.defaultViewId;
+        this.previousCamera = "";
+
+		this.camera = this.graph.views[this.graph.defaultViewId];
+	}
 
     /**
      * Displays the scene.
@@ -170,7 +178,7 @@ class XMLscene extends CGFscene {
             if( this.currentCamera != this.previousCamera ) {
                 this.camera = this.graph.views[this.currentCamera];
                 this.previousCamera = this.currentCamera;
-				if (this.currentCamera == "default")
+				if (this.currentCamera == "default_")
 					this.interface.setActiveCamera(this.camera);
             }
 

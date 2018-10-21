@@ -17,7 +17,7 @@
 
 	<scene root="root" axis_length="3.0"/>
 
-	<views default="view0">
+	<views default="presp0">
 		<!-- tem de existir, pelo menos, uma vista de -->
 		<!-- entre as seguintes (perspective ou ortho) -->
 

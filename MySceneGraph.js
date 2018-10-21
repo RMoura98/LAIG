@@ -232,7 +232,8 @@ class MySceneGraph {
     parseViews(viewsNode) {
         // Parse views node
 
-        //DEBUG: console.log(illuminationNode);
+		this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
+
 
         var children = viewsNode.children;
 
@@ -241,7 +242,7 @@ class MySceneGraph {
          //  [[near far left right top bottom x y z x y z]]
 
         //Adding a default perpective camera
-        this.views["default"] = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -356,6 +357,7 @@ class MySceneGraph {
 
                 // Pushing perspective camera to general view array
                 this.views[perspViewId] = new CGFcamera( angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ) );
+
             }
 
             if(children[i].nodeName == "ortho") {
@@ -475,6 +477,10 @@ class MySceneGraph {
 
         if( (Object.keys(this.views).length) < 1 )
             return "at least one view (perspective or ortho) must be defined";
+
+		if(this.views[this.defaultViewId] == null){
+			this.defaultViewId = "default_";
+		}
 
         this.log("Parsed views");
 
@@ -1783,9 +1789,9 @@ class MySceneGraph {
 		                        return "value s and t must be positive on component '" + componentId + "'";
 
 
-							this.nodes[componentId].textureLength = [textureLS,textureLT];    
-                        }	
-					
+							this.nodes[componentId].textureLength = [textureLS,textureLT];
+                        }
+
 					}
 
                     this.nodes[componentId].textureId = textureId;
@@ -1924,12 +1930,12 @@ class MySceneGraph {
         if( node.primitive != null ) {
 
             this.materials[cMaterialId].apply();
-            
+
 			if( cTextureId != null ) {
                 node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
                 this.textures[cTextureId].bind();
             }
-            
+
             node.primitive.display();
         }
     }
