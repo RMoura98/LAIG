@@ -1770,8 +1770,28 @@ class MySceneGraph {
                         var hasLengthS = this.reader.hasAttribute(grandChildren[j], 'length_s');
                         var hasLengthT = this.reader.hasAttribute(grandChildren[j], 'length_t');
 
-						if( textureId == "inherit" && ((hasLengthS && !hasLengthT) || (!hasLengthS && hasLengthT)) ) {
-                            return "none or both values of length must be defined for texture with id=inherit (" + textureId + ")";
+						if( textureId == "inherit" && (hasLengthS && !hasLengthT)) {
+							var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
+							// DEBUG: console.log(textureLS);
+		                    if(textureLS == null)
+								return "texture with invalid s on component '" + componentId + "'";
+
+							if (textureLS <= 0)
+		                        return "value s must be positive on component '" + componentId + "'";
+
+							this.nodes[componentId].textureLength = [textureLS, null];
+                        }
+						else if( textureId == "inherit" && (!hasLengthS && hasLengthT)) {
+							var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
+							// DEBUG: console.log(textureLT);
+							if(textureLT == null)
+		                    	return "texture with invalid t on component '" + componentId + "'";
+
+							if (textureLT <= 0)
+		                        return "value t must be positive on component '" + componentId + "'";
+
+							this.nodes[componentId].textureLength = [null, textureLT];
+
                         }
                         else if( textureId == "inherit" && (!hasLengthS && !hasLengthT)) {
                             this.nodes[componentId].textureLength = [];
@@ -1891,7 +1911,7 @@ class MySceneGraph {
         var sonName;
 		var cTextureId;
         var cMaterialId;
-        var cTextureLength;
+        var cTextureLength = [];
 
 		if (node.materialId[node.materialIdPos] == "inherit")
 			cMaterialId = materialId;
@@ -1907,8 +1927,22 @@ class MySceneGraph {
 
 			if(node.textureLength.length == 0)
 				cTextureLength = textureLength;
-			else
-            	cTextureLength = node.textureLength;
+			else{
+
+				if (node.textureLength[0] == null){
+					console.log(node.textureLength[0]);
+					console.log(textureLength);
+					cTextureLength[0] = textureLength[0];
+					cTextureLength[1] = node.textureLength[1];
+				}
+				else if (node.textureLength[1] == null){
+					cTextureLength[0] = node.textureLength[0];
+					cTextureLength[1] = textureLength[1];
+				}
+				else
+					cTextureLength = node.textureLength;
+
+			}
         }
 		else {
             cTextureId = node.textureId;
