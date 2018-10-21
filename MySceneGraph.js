@@ -232,17 +232,11 @@ class MySceneGraph {
     parseViews(viewsNode) {
         // Parse views node
 
-		this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
-
-
         var children = viewsNode.children;
 
         this.views = [];        //  [[perspectives] [orthos]]
-          //  [[near far angle x y z x y z]]
-         //  [[near far left right top bottom x y z x y z]]
-
-        //Adding a default perpective camera
-        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+                                //  [[near far angle x y z x y z]]
+                                //  [[near far left right top bottom x y z x y z]]
 
         var grandChildren = [];
         var grandChildrenNodeNames = [];
@@ -252,7 +246,12 @@ class MySceneGraph {
             return "at least one perspective or ortho view must be defined";
         }
 
-        //DEBUG: console.log(nodeNames);
+        //Getting default view camera id
+        this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
+
+        //Adding a default perpective camera
+        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+
 
         for(var i = 0; i < children.length; i++) {
 
@@ -293,8 +292,7 @@ class MySceneGraph {
 
                     this.onXMLMinorError("unable to parse value for angle; assuming 'angle = 0'");
                 }
-
-				//passar para radianos
+				//Converte angle to radians
 				angle *= DEGREE_TO_RAD;
 
                 // Get children of perpective view
@@ -478,7 +476,8 @@ class MySceneGraph {
         if( (Object.keys(this.views).length) < 1 )
             return "at least one view (perspective or ortho) must be defined";
 
-		if(this.views[this.defaultViewId] == null){
+
+		if( this.views[this.defaultViewId] == null ) {
 			this.defaultViewId = "default_";
 		}
 

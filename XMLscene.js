@@ -118,6 +118,7 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+
 		this.setCamera();
 
         // Adds cameras group.
@@ -126,10 +127,11 @@ class XMLscene extends CGFscene {
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
 
+        
         this.sceneInited = true;
     }
 
-	setCamera(){
+	setCamera() {
 		this.currentCamera = this.graph.defaultViewId;
         this.previousCamera = "";
 
@@ -174,6 +176,8 @@ class XMLscene extends CGFscene {
                     i++;
                 }
             }
+
+            
 
             if( this.currentCamera != this.previousCamera ) {
                 this.camera = this.graph.views[this.currentCamera];
