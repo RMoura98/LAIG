@@ -11,6 +11,8 @@ class XMLscene extends CGFscene {
     constructor(myinterface) {
         super();
 
+        this.previousTime = 0;
+
         this.interface = myinterface;
         this.lightValues = {};
 
@@ -136,11 +138,17 @@ class XMLscene extends CGFscene {
         this.previousCamera = "";
 
 		this.camera = this.graph.views[this.graph.defaultViewId];
-	}
+    }
+    
+    update(currTime) {
+        this.time = (currTime - this.previousTime) / 1000;
 
-    /**
-     * Displays the scene.
-     */
+        console.log(this.time);
+
+        this.previousTime = currTime;
+    }
+
+
     display() {
         // ---- BEGIN Background, camera and axis setup
 
