@@ -1,10 +1,14 @@
 
-class Animation extends Amination {
+class LinearAnimation extends Animation {
 
     /**
     * @constructor
     */
    constructor() {
        super();
+
+
    }
+
+   
 }
