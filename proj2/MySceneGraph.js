@@ -8,8 +8,9 @@ var lights_INDEX = 3;
 var textures_INDEX = 4;
 var materials_INDEX = 5;
 var transformations_INDEX = 6;
-var primitives_INDEX = 7;
-var components_INDEX = 8;
+var animations_INDEX = 7;
+var primitives_INDEX = 8;
+var components_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -175,6 +176,18 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != animations_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse animations block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -1345,6 +1358,80 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <animations> block.
+     * @param {animations block element} animationsNode
+     */
+    parseAnimations(animationsNode) {
+
+        this.animations = [];       // [span [[xx yy zz] [xx yy zz] ...]]
+                                    // [span center radius startan rotang]
+
+        var children = animationsNode.children;
+        var grandChildren = [];
+
+        for (var i = 0; i < children.length; i++) {
+
+            if( (children[i].nodeName != "linear") && (children[i].nodeName != "circular") ) {
+                this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            if( children[i].nodeName == "linear" ) {
+
+                // Get ID of current animation
+                var animationId = this.reader.getString(children[i], 'id');
+                if (animationId == null)
+                    return "animation with invalid ID";
+
+                // Check for repeated IDs
+                if (this.animations[animationId] != null)
+                    return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+
+                // Get span of current animation
+                var animationSpan = this.reader.getString(children[i], 'span');
+                if (animationSpan == null)
+                    return "animation with invalid span";
+
+                // Get grandsons
+                grandChildren = children[i].children;
+                if(grandChildren.length < 2) {
+                    return "linear animations must have at least 2 child elements (conflict: nChildren = " + grandChildren.length + ")";
+                }
+
+                var controlPoints = [];
+
+                for (var j = 0; j < grandChildren.length; j++) {
+
+                    if( grandChildren[j].nodeName != "controlpoint" ) {
+                        this.onXMLMinorError("unknown tag name <" + grandChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    // Get x/y/z coordinates from linear animation controlpoint
+                    var xx = this.reader.getFloat(grandChildren[j], 'xx');
+                    if( (xx == null) || (isNaN(xx)) ) {
+                        return "unable to parse x-coodinate from the <controlpoint> element of <linear> animation";
+                    }
+
+                    var yy = this.reader.getFloat(grandChildren[j], 'yy');
+                    if( (yy == null) || (isNaN(yy)) ) {
+                        return "unable to parse y-coodinate from the <controlpoint> element of <linear> animation";
+                    }
+
+                    var zz = this.reader.getFloat(grandChildren[j], 'zz');
+                    if( (zz == null) || (isNaN(zz)) ) {
+                        return "unable to parse z-coodinate from the <controlpoint> element of <linear> animation";
+                    }
+
+                    controlPoints.push(vec3.fromValues(xx, yy, zz));
+                }
+
+                this.animations[animationId] = [animationSpan, controlPoints];
+            }
+        }
+    }
+
+    /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
      */
@@ -1600,7 +1687,8 @@ class MySceneGraph {
 
             for (var j = 0; j < grandChildren.length; j++) {
 
-                if( (grandChildren[j].nodeName != "transformation") && (grandChildren[j].nodeName != "materials") && (grandChildren[j].nodeName != "texture") && (grandChildren[j].nodeName != "children") ) {
+                if( (grandChildren[j].nodeName != "transformation") && (grandChildren[j].nodeName != "materials") && (grandChildren[j].nodeName != "texture") &&
+                (grandChildren[j].nodeName != "animations") && (grandChildren[j].nodeName != "children") ) {
 
                     this.onXMLMinorError("unknown tag name <" + grandChildren[j].nodeName + ">");
                     continue;
@@ -1771,8 +1859,7 @@ class MySceneGraph {
                         var hasLengthT = this.reader.hasAttribute(grandChildren[j], 'length_t');
 
 						if( textureId == "inherit" && (hasLengthS && !hasLengthT)) {
-							var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
-							// DEBUG: console.log(textureLS);
+                            var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
 		                    if(textureLS == null)
 								return "texture with invalid s on component '" + componentId + "'";
 
@@ -1783,7 +1870,6 @@ class MySceneGraph {
                         }
 						else if( textureId == "inherit" && (!hasLengthS && hasLengthT)) {
 							var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
-							// DEBUG: console.log(textureLT);
 							if(textureLT == null)
 		                    	return "texture with invalid t on component '" + componentId + "'";
 
@@ -1798,12 +1884,10 @@ class MySceneGraph {
                         }
                         else{
                             var textureLS = this.reader.getFloat(grandChildren[j], 'length_s');
-							// DEBUG: console.log(textureLS);
 		                    if(textureLS == null)
 								return "texture with invalid s on component '" + componentId + "'";
 
 							var textureLT = this.reader.getFloat(grandChildren[j], 'length_t');
-							// DEBUG: console.log(textureLT);
 							if(textureLT == null)
 		                    	return "texture with invalid t on component '" + componentId + "'";
 
@@ -1817,6 +1901,27 @@ class MySceneGraph {
 					}
 
                     this.nodes[componentId].textureId = textureId;
+                }
+
+                if( grandChildren[j].nodeName == "animations") {
+
+                    // Get grandsons
+                    grandGrandChildren = grandChildren[j].children;
+
+                    for (var k = 0; k < grandGrandChildren.length; k++) {
+
+                        if( grandGrandChildren[k].nodeName != "animationref" ) {
+                            this.onXMLMinorError("unknown tag name <" + grandGrandChildren[k].nodeName + ">");
+                            continue;
+                        }
+
+                        // Get ID of current animationref
+                        var animationRefId = this.reader.getString(grandGrandChildren[k], 'id');
+                        if(animationRefId == null)
+                            return "animationref with invalid ID"
+
+                        this.nodes[componentId].animationId = animationRefId;
+                    }
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {
@@ -1918,37 +2023,32 @@ class MySceneGraph {
 		else
             cMaterialId = node.materialId[node.materialIdPos];
 
-		if (node.textureId == "none") {
+		if( node.textureId == "none" ) {
             cTextureId = null;
             cTextureLength = [];
         }
-		else if (node.textureId == "inherit") {
+		else if( node.textureId == "inherit" ) {
             cTextureId = textureId;
 
 			if(node.textureLength.length == 0)
 				cTextureLength = textureLength;
-			else{
-
-				if (node.textureLength[0] == null){
-					console.log(node.textureLength[0]);
-					console.log(textureLength);
+			else {
+				if( node.textureLength[0] == null ) {
 					cTextureLength[0] = textureLength[0];
 					cTextureLength[1] = node.textureLength[1];
 				}
-				else if (node.textureLength[1] == null){
+				else if( node.textureLength[1] == null ) {
 					cTextureLength[0] = node.textureLength[0];
 					cTextureLength[1] = textureLength[1];
 				}
 				else
 					cTextureLength = node.textureLength;
-
 			}
         }
 		else {
             cTextureId = node.textureId;
             cTextureLength = node.textureLength;
         }
-
 
         this.scene.multMatrix(node.matTransf);
 

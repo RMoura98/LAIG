@@ -145,7 +145,7 @@ class XMLscene extends CGFscene {
     update(currTime) {
         this.time = (currTime - this.previousTime) / 1000;
 
-        console.log(this.time);
+        //console.log(this.time);
 
         this.previousTime = currTime;
     }

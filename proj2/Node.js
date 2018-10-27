@@ -20,6 +20,8 @@
   this.descendants = [];                //Every direct descendant
 
   this.primitive = null;                //Primitive
+
+  this.animationId = null;              //Id to animation
 }
 
 MyNode.prototype.insertChild = function (nodeId) {
