@@ -27,3 +27,18 @@
 MyNode.prototype.insertChild = function (nodeId) {
   this.descendants.push(nodeId);
 }
+
+MyNode.prototype.setPosition = function (x, y, z) {
+  var newMatrix = mat4.create();      
+  mat4.identity(newMatrix);
+
+  mat4.identity(this.matTransf);
+
+  mat4.translate(this.matTransf, this.matTransf, [x, y, z]);
+
+
+}
+
+MyNode.prototype.updateMatrix = function (newMatrix) {
+  mat4.multiply(this.matTransf, this.matTransf, newMatrix);
+}
