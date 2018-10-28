@@ -338,6 +338,10 @@
 
 			<texture id="none"/>
 
+			<animations>
+				<animationref id="ani0"/>
+			</animations>
+
 			<children>
 				<componentref id="top"/>
 				<componentref id="table-legs"/>
@@ -623,10 +627,6 @@
 			</materials>
 
 			<texture id="paper-plane" length_s="1.0" length_t="1.0"/>
-
-			<animations>
-				<animationref id="ani0"/>
-			</animations>
 
 			<children>
 				<componentref id="left-wing"/>
