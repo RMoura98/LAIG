@@ -1363,8 +1363,7 @@ class MySceneGraph {
      */
     parseAnimations(animationsNode) {
 
-        this.animations = [];       // [span [[xx yy zz] [xx yy zz] ...]]
-                                    // [span center radius startan rotang]
+        this.animations = [];       // [linear circular]
 
         var children = animationsNode.children;
         var grandChildren = [];
@@ -1426,7 +1425,9 @@ class MySceneGraph {
                     controlPoints.push(vec3.fromValues(xx, yy, zz));
                 }
 
-                this.animations[animationId] = [animationSpan, controlPoints];
+                var animation = new LinearAnimation(animationSpan, controlPoints);
+
+                this.animations[animationId] = animation;
             }
         }
     }
@@ -1921,6 +1922,12 @@ class MySceneGraph {
                             return "animationref with invalid ID"
 
                         this.nodes[componentId].animationId = animationRefId;
+
+                        // this.nodes[componentId].setPosition(
+                        //     this.animations[animationRefId].controlPoints[0][0],
+                        //     this.animations[animationRefId].controlPoints[0][1],
+                        //     this.animations[animationRefId].controlPoints[0][2]
+                        // );
                     }
                 }
 
