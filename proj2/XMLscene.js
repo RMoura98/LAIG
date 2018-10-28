@@ -145,7 +145,22 @@ class XMLscene extends CGFscene {
     update(currTime) {
         this.time = (currTime - this.previousTime) / 1000;
 
-        //console.log(this.time);
+        var nodeName;
+        var newMatrix;
+
+        for(var i=0; i<Object.keys(this.graph.nodes).length; i++) {
+            
+            nodeName = Object.keys(this.graph.nodes)[i];
+
+            if( this.graph.nodes[nodeName].animationId != null ) {
+
+                //gets new position matrix
+                newMatrix = this.graph.animations[this.graph.nodes[nodeName].animationId].getMatrix(this.time);
+                
+                //updates object position matrix
+                this.graph.nodes[nodeName].updateMatrix(newMatrix);
+            }
+        }
 
         this.previousTime = currTime;
     }
