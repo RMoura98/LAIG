@@ -161,7 +161,7 @@
 	</transformations>
 
 	<animations>
-		<linear id="aniL0" span="1">
+		<linear id="aniL0" span="10">
 			<controlpoint xx="0" yy="0" zz="0"/>
 			<controlpoint xx="1" yy="0" zz="0"/>
 			<controlpoint xx="1" yy="2" zz="0"/>
@@ -343,7 +343,7 @@
 
 			<animations>
 				<animationref id="aniL0"/>
-				<animationref id="aniL0"/>
+				<!-- <animationref id="aniL0"/> -->
 			</animations>
 
 			<children>

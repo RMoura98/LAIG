@@ -1471,7 +1471,6 @@ class MySceneGraph {
                 }
 
                 animationCenter = (vec3.fromValues(xx, yy, zz));
-                console.log(animationCenter);
 
                 let animationRadius = this.reader.getFloat(children[i], 'radius');
                 if( (animationRadius == null) || (isNaN(animationRadius)) ) {
@@ -1491,8 +1490,6 @@ class MySceneGraph {
                 var animation = new CircularAnimation(animationSpan, animationCenter, animationRadius, animationStartang, animationRotang);
 
                 this.animations[animationId] = animation;
-
-                console.log(animation); 
                     
             }
             

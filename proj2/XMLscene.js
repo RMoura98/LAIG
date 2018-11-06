@@ -142,7 +142,7 @@ class XMLscene extends CGFscene {
             if (this.graph.nodes[nodeName].animations.length != 0) {
 
                 for (let k = 0; k < this.graph.nodes[nodeName].animations.length; k++) {
-                    console.log(this.graph.nodes[nodeName].animations);
+                    
                     if (this.graph.nodes[nodeName].animations[k].hasEnded)
                         continue;
 
