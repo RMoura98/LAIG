@@ -1387,9 +1387,10 @@ class MySceneGraph {
                     return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
 
                 // Get span of current animation
-                var animationSpan = this.reader.getString(children[i], 'span');
-                if (animationSpan == null)
-                    return "animation with invalid span";
+                var animationSpan = this.reader.getFloat(children[i], 'span');
+                if( (animationSpan == null) || (isNaN(animationSpan)) ) {
+                    return "unable to parse span  of <linear> animation (conflict: nChildren = " + grandChildren.length + ")";
+                }
 
                 // Get grandsons
                 grandChildren = children[i].children;
@@ -1442,9 +1443,10 @@ class MySceneGraph {
                     return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
 
                 // Get span of current animation
-                var animationSpan = this.reader.getString(children[i], 'span');
-                if (animationSpan == null)
-                    return "animation with invalid span";
+                var animationSpan = this.reader.getFloat(children[i], 'span');
+                if( (animationSpan == null) || (isNaN(animationSpan)) ) {
+                    return "unable to parse span  of <linear> animation (conflict: nChildren = " + grandChildren.length + ")";
+                }
 
                 var animationCenter = this.reader.getString(children[i], 'center');
                 if (animationCenter == null)

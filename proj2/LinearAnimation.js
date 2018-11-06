@@ -33,7 +33,7 @@ class LinearAnimation extends Animation {
 		}
 
 		for (let j = 0; j < d_CP.length; j++) {
-			this.TperCP[j] = span * (d_CP[j] / d_Total);
+			this.TperCP[j] = this.animationSpan * (d_CP[j] / d_Total);
 		}
 
 		this.velocityX = 0;
@@ -85,10 +85,10 @@ class LinearAnimation extends Animation {
 			var dy = this.velocityY * time;
 			var dz = this.velocityZ * time;
 		}
-
+		
 		mat4.translate(animationMat, animationMat, [dx, dy, dz]);
 
-		return animationMat;6
+		return animationMat;
 	}
 
 	updateValues(timeLeft) {
@@ -101,11 +101,20 @@ class LinearAnimation extends Animation {
 			else
 				this.TperCPSum = 0;
 
-			this.velocityX = Math.pow(this.controlPoints[this.CPTransition + 1][0] - this.controlPoints[this.CPTransition][0], 2) / this.TperCP[this.CPTransition];
+			this.velocityX = Math.sqrt(Math.pow(this.controlPoints[this.CPTransition + 1][0] - this.controlPoints[this.CPTransition][0], 2)) / this.TperCP[this.CPTransition];
 
-			this.velocityY = Math.pow(this.controlPoints[this.CPTransition + 1][1] - this.controlPoints[this.CPTransition][1], 2) / this.TperCP[this.CPTransition];
+			if (this.controlPoints[this.CPTransition + 1][0] < this.controlPoints[this.CPTransition][0])
+				this.velocityX *= -1;
 
-			this.velocityZ = Math.pow(this.controlPoints[this.CPTransition + 1][2] - this.controlPoints[this.CPTransition][2], 2) / this.TperCP[this.CPTransition];
+			this.velocityY = Math.sqrt(Math.pow(this.controlPoints[this.CPTransition + 1][1] - this.controlPoints[this.CPTransition][1], 2)) / this.TperCP[this.CPTransition];
+
+			if (this.controlPoints[this.CPTransition + 1][1] < this.controlPoints[this.CPTransition][1])
+				this.velocityY *= -1;
+
+			this.velocityZ = Math.sqrt(Math.pow(this.controlPoints[this.CPTransition + 1][2] - this.controlPoints[this.CPTransition][2], 2)) / this.TperCP[this.CPTransition];
+
+			if (this.controlPoints[this.CPTransition + 1][2] < this.controlPoints[this.CPTransition][2])
+				this.velocityZ *= -1;
 
 			this.CPTransition++;
 

@@ -9,19 +9,30 @@ class CircularAnimation extends Animation {
         super("circular");
 
         this.animationSpan = span;
-        this.animationCenter = center;
+		this.animationCenter = center;
+		console.log(this.animationCenter[0]);
         this.animationRadius = radius;
-        this.animationStartang = startang;
-        this.animationRotang = rotang;
+		this.animationStartang = startang; // Ângulo Inicial graus
+        this.animationRotang = rotang; // Ângulo de rotação graus
 
         this.hasEnded = false;
+
+        console.log(Math.PI);
 
     }
 
     getMatrix(time) {
 
         var animationMat = mat4.create();       
-        mat4.identity(animationMat);
+		mat4.identity(animationMat);
+		
+		let ang = this.startang + this.angularSpeed * time;
+
+        mat4.translate(animationMat, animationMat, [this.animationCenter[0], this.animationCenter[1], this.animationCenter[2]]);
+        mat4.rotate(animationMat, animationMat, ang, [0, 1, 0]); 		//rotacao eixo vertical (a unica rotacao possivel)
+        mat4.translate(animationMat, animationMat, [this.animationRadius, 0, 0]);
+
+
        
         return animationMat;
     }
