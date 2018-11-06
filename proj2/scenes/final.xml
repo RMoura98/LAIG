@@ -164,7 +164,7 @@
 		<linear id="aniL0" span="10">
 			<controlpoint xx="0" yy="0" zz="0"/>
 			<controlpoint xx="1" yy="0" zz="0"/>
-			<controlpoint xx="1" yy="2" zz="0"/>
+			<controlpoint xx="1" yy="0" zz="1"/>
 		</linear>
 
 		<linear id="aniL1" span="10">
@@ -180,7 +180,7 @@
 
 		</linear>
 
-		<circular id="aniC0" span="10"  center="1 1 1" radius="2" startang="10" rotang="360" />
+		<circular id="aniC0" span="2" center="1 1 1" radius="2" startang="10" rotang="1.5" />
 
 	</animations>
 
@@ -356,7 +356,7 @@
 
 			<animations>
 				<animationref id="aniL0"/>
-				<animationref id="aniL1"/>
+				<!-- <animationref id="aniL1"/> -->
 			</animations>
 
 			<children>
@@ -606,6 +606,10 @@
 			</materials>
 
 			<texture id="ball" length_s="1" length_t="1.0"/>
+
+			<animations>
+				<animationref id="aniC0"/>
+			</animations>
 
 			<children>
 				<primitiveref id="ball"/>
