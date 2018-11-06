@@ -343,7 +343,7 @@
 
 			<animations>
 				<animationref id="aniL0"/>
-				<!-- <animationref id="aniL0"/> -->
+				<animationref id="aniL0"/>
 			</animations>
 
 			<children>

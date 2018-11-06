@@ -5,81 +5,115 @@ class LinearAnimation extends Animation {
     * @constructor
     */
 
-    constructor(span, controlPoints) {
-        
-        // TODO 
-        // Need to fix starting position for animation
-        // For now when positioned in the starting position the scales and rotates disappear
-        // See commented code in line 1926 MySceneGraph
+	constructor(span, controlPoints) {
+
+		// TODO 
+		// Need to fix starting position for animation
+		// For now when positioned in the starting position the scales and rotates disappear
+		// See commented code in line 1926 MySceneGraph
 
 
-        super("linear");
+		super("linear");
 
-        this.animationSpan = span;
-        this.controlPoints = controlPoints;
+		this.animationSpan = span;
+		this.controlPoints = controlPoints;
 
-        this.TperCP = this.animationSpan / (this.controlPoints.length - 1);
 
-        this.velocityX = Math.pow(this.controlPoints[1][0] - this.controlPoints[0][0], 2) / this.TperCP;
+		this.TperCP = [];
+		this.CPTransition = 0;
 
-        this.velocityY = Math.pow(this.controlPoints[1][1] - this.controlPoints[0][1], 2)/this.TperCP;
+		let d_CP = [];
+		let d_Total = 0;
 
-        this.velocityZ = Math.pow(this.controlPoints[1][2] - this.controlPoints[0][2], 2)/this.TperCP;
+		for (let i = 0; i < controlPoints.length - 1; i++) {
+			//calcular a dist entre dois CP
+			d_CP.push(Math.sqrt(Math.pow(this.controlPoints[i + 1][0] - this.controlPoints[i][0], 2) + Math.pow(this.controlPoints[i + 1][1] - this.controlPoints[i][1], 2) + Math.pow(this.controlPoints[i + 1][2] - this.controlPoints[i][2], 2)));
+			//calcular a dist total percorrida na animacao
+			d_Total += d_CP[i];
+		}
 
-        this.CPTransition = 1;
+		for (let j = 0; j < d_CP.length; j++) {
+			this.TperCP[j] = span * (d_CP[j] / d_Total);
+		}
 
-        this.TperCPSum = 0;
+		this.velocityX = 0;
+		this.velocityY = 0;
+		this.velocityZ = 0;
 
-        this.hasEnded = false;
+		this.TperCPSum = 0;
 
-    }
+		this.hasEnded = false;
 
-    getMatrix(time) {
+		this.CPTransition = 0;
+		this.updateValues();
 
-        var animationMat = mat4.create();       
-        mat4.identity(animationMat);
+	}
 
-        if( (this.TperCPSum + time) >= this.TperCP )
-            this.updateValues();
-        else 
-            this.TperCPSum += time;
+	getMatrix(time) {
 
-        //acho que isto ja se pode tirar
-        if(this.hasEnded) 
-            return animationMat;
-        
-        var dx = this.velocityX * time;
-        var dy = this.velocityY * time;
-        var dz = this.velocityZ * time;
+		var animationMat = mat4.create();
+		mat4.identity(animationMat);
 
-        mat4.translate(animationMat, animationMat, [dx, dy, dz]);
-        
-        
-       
-        return animationMat;
-    }
+		var dx;
+		var dy;
+		var dz;
 
-    updateValues() {
+		if ((this.TperCPSum + time) >= this.TperCP[this.CPTransition-1]){
+			var ans = (this.TperCPSum + time) - this.TperCP[this.CPTransition-1];
+			var ans2 = time - ans;
 
-        if( (this.CPTransition + 1) >= this.controlPoints.length)
-            this.hasEnded = true;
-        else {
+			dx = this.velocityX * ans2;
+			dy = this.velocityY * ans2;
+			dz = this.velocityZ * ans2;
 
-            this.TperCPSum = 0;
+			this.updateValues(ans);
+			
+			if (this.hasEnded){
+				mat4.translate(animationMat, animationMat, [dx, dy, dz]);
+				return animationMat;
+			}
+				
+			dx += this.velocityX * ans;
+			dy += this.velocityY * ans;
+			dz += this.velocityZ * ans;
+		}
+		else{
 
-            this.velocityX = Math.pow(this.controlPoints[this.CPTransition+1][0] - this.controlPoints[this.CPTransition][0], 2) / this.TperCP;
+			this.TperCPSum += time;
 
-            this.velocityY = Math.pow(this.controlPoints[this.CPTransition+1][1] - this.controlPoints[this.CPTransition][1], 2) / this.TperCP;
+			var dx = this.velocityX * time;
+			var dy = this.velocityY * time;
+			var dz = this.velocityZ * time;
+		}
 
-            this.velocityZ = Math.pow(this.controlPoints[this.CPTransition+1][2] - this.controlPoints[this.CPTransition][2], 2) / this.TperCP;
+		mat4.translate(animationMat, animationMat, [dx, dy, dz]);
 
-            this.CPTransition++;
+		return animationMat;6
+	}
 
-        }
-    }
+	updateValues(timeLeft) {
 
-    clone() {
-        return new LinearAnimation(this.animationSpan, this.controlPoints);
-    }
+		if (this.CPTransition+1 >= this.controlPoints.length)
+			this.hasEnded = true;
+		else {
+			if(timeLeft != null)
+				this.TperCPSum = timeLeft;
+			else
+				this.TperCPSum = 0;
+
+			this.velocityX = Math.pow(this.controlPoints[this.CPTransition + 1][0] - this.controlPoints[this.CPTransition][0], 2) / this.TperCP[this.CPTransition];
+
+			this.velocityY = Math.pow(this.controlPoints[this.CPTransition + 1][1] - this.controlPoints[this.CPTransition][1], 2) / this.TperCP[this.CPTransition];
+
+			this.velocityZ = Math.pow(this.controlPoints[this.CPTransition + 1][2] - this.controlPoints[this.CPTransition][2], 2) / this.TperCP[this.CPTransition];
+
+			this.CPTransition++;
+
+		}
+	}
+
+	clone() {
+		return new LinearAnimation(this.animationSpan, this.controlPoints);
+	}
 
 }
