@@ -39,20 +39,22 @@ class LinearAnimation extends Animation {
         var animationMat = mat4.create();       
         mat4.identity(animationMat);
 
+        if( (this.TperCPSum + time) >= this.TperCP )
+            this.updateValues();
+        else 
+            this.TperCPSum += time;
+
+        //acho que isto ja se pode tirar
         if(this.hasEnded) 
             return animationMat;
         
-
         var dx = this.velocityX * time;
         var dy = this.velocityY * time;
         var dz = this.velocityZ * time;
 
         mat4.translate(animationMat, animationMat, [dx, dy, dz]);
         
-        if( (this.TperCPSum + time) >= this.TperCP )
-            this.updateValues();
-        else 
-            this.TperCPSum += time;
+        
        
         return animationMat;
     }
@@ -76,8 +78,8 @@ class LinearAnimation extends Animation {
         }
     }
 
+    clone() {
+        return new LinearAnimation(this.animationSpan, this.controlPoints);
+    }
 
-
-
-   
 }

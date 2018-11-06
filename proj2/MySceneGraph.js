@@ -1429,8 +1429,76 @@ class MySceneGraph {
 
                 this.animations[animationId] = animation;
             }
+
+            if( children[i].nodeName == "circular" ) {
+
+                // Get ID of current animation
+                var animationId = this.reader.getString(children[i], 'id');
+                if (animationId == null)
+                    return "animation with invalid ID";
+
+                // Check for repeated IDs
+                if (this.animations[animationId] != null)
+                    return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+
+                // Get span of current animation
+                var animationSpan = this.reader.getString(children[i], 'span');
+                if (animationSpan == null)
+                    return "animation with invalid span";
+
+                var animationCenter = this.reader.getString(children[i], 'center');
+                if (animationCenter == null)
+                    return "animation with invalid center";
+
+                let centerCoord = animationCenter.split(" ");
+
+                if (centerCoord.length != 3)
+                    return "unable to parse the <center> element of <circular> animation (conflict: ID = " + animationId + ")";
+                
+                let xx = parseFloat(centerCoord[0]);
+                if( (xx == null) || (isNaN(xx)) ) {
+                    return "unable to parse x-coodinate from the <center> element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                let yy = parseFloat(centerCoord[1]);
+                if( (yy == null) || (isNaN(yy)) ) {
+                    return "unable to parse y-coodinate from the <center> element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                let zz = parseFloat(centerCoord[2]);
+                if( (zz == null) || (isNaN(zz)) ) {
+                    return "unable to parse z-coodinate from the <center> element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                animationCenter = (vec3.fromValues(xx, yy, zz));
+                console.log(animationCenter);
+
+                let animationRadius = this.reader.getFloat(children[i], 'radius');
+                if( (animationRadius == null) || (isNaN(animationRadius)) ) {
+                    return "unable to parse radius from the element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                let animationStartang = this.reader.getFloat(children[i], 'startang');
+                if( (animationStartang == null) || (isNaN(animationStartang)) ) {
+                    return "unable to parse startang from the element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                let animationRotang = this.reader.getFloat(children[i], 'rotang');
+                if( (animationRotang == null) || (isNaN(animationRotang)) ) {
+                    return "unable to parse rotang from the element of <circular> animation (conflict: ID = " + animationId + ")";
+                }
+
+                var animation = new CircularAnimation(animationSpan, animationCenter, animationRadius, animationStartang, animationRotang);
+
+                this.animations[animationId] = animation;
+
+                console.log(animation); 
+                    
+            }
+            
         }
     }
+
 
     /**
      * Parses the <primitives> block.
@@ -1909,6 +1977,8 @@ class MySceneGraph {
                     // Get grandsons
                     grandGrandChildren = grandChildren[j].children;
 
+                    let animationSeq = []; //sequencia de animacoes 
+
                     for (var k = 0; k < grandGrandChildren.length; k++) {
 
                         if( grandGrandChildren[k].nodeName != "animationref" ) {
@@ -1921,7 +1991,13 @@ class MySceneGraph {
                         if(animationRefId == null)
                             return "animationref with invalid ID"
 
-                        this.nodes[componentId].animationId = animationRefId;
+                        // Check if ID exists
+                        if(this.animations[animationRefId] == null)
+                            return "ID must match to existing primitive";
+
+
+
+                        animationSeq.push(this.animations[animationRefId].clone()); 
 
                         // this.nodes[componentId].setPosition(
                         //     this.animations[animationRefId].controlPoints[0][0],
@@ -1929,6 +2005,8 @@ class MySceneGraph {
                         //     this.animations[animationRefId].controlPoints[0][2]
                         // );
                     }
+
+                    this.nodes[componentId].animations = animationSeq; 
                 }
 
                 if( grandChildren[j].nodeName == "children" ) {

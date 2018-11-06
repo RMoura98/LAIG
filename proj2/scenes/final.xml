@@ -161,11 +161,14 @@
 	</transformations>
 
 	<animations>
-		<linear id="ani0" span="10">
+		<linear id="aniL0" span="1">
 			<controlpoint xx="0" yy="0" zz="0"/>
 			<controlpoint xx="1" yy="0" zz="0"/>
-			<controlpoint xx="1" yy="1" zz="0"/>
+			<controlpoint xx="1" yy="2" zz="0"/>
 		</linear>
+
+		<circular id="aniC0" span="10"  center="1 1 1" radius="2" startang="10" rotang="360" />
+
 	</animations>
 
 	<primitives>
@@ -339,7 +342,8 @@
 			<texture id="none"/>
 
 			<animations>
-				<animationref id="ani0"/>
+				<animationref id="aniL0"/>
+				<animationref id="aniL0"/>
 			</animations>
 
 			<children>
