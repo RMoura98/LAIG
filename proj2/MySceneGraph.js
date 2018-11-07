@@ -1705,6 +1705,21 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "plane") {
+                var npartsU = this.reader.getFloat(children[i], 'npartsU');
+                if( (npartsU == null) || (isNaN(npartsU)) ) {
+                    return "value for npartsU in <plane> of <primitive> is invalid";
+                }
+
+                var npartsV = this.reader.getFloat(children[i], 'npartsV');
+                if( (npartsV == null) || (isNaN(npartsV)) ) {
+                    return "value for npartsV in <plane> of <primitive> is invalid";
+                }
+
+                var primitive = new Plane(this.scene,)
+
+                this.primitives[primitiveId] = primitive;
+            }
 
 
         }
