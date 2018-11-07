@@ -1,9 +1,9 @@
 
 class LinearAnimation extends Animation {
 
-    /**
-    * @constructor
-    */
+	/**
+	* @constructor
+	*/
 
 	constructor(span, controlPoints) {
 
@@ -46,6 +46,7 @@ class LinearAnimation extends Animation {
 
 		this.CPTransition = 0;
 		this.updateValues();
+		this.angle = 0;
 
 	}
 
@@ -58,26 +59,32 @@ class LinearAnimation extends Animation {
 		var dy;
 		var dz;
 
-		if ((this.TperCPSum + time) >= this.TperCP[this.CPTransition-1]){
-			var ans = (this.TperCPSum + time) - this.TperCP[this.CPTransition-1];
+		if (this.TperCPSum == 0 && this.CPTransition - 1 == 0){
+			this.getAngle(0);
+			mat4.rotate(animationMat, animationMat, Math.PI / 2 - this.angle, [0, 1, 0]); 
+		}
+
+		if ((this.TperCPSum + time) >= this.TperCP[this.CPTransition - 1]) {
+			var ans = (this.TperCPSum + time) - this.TperCP[this.CPTransition - 1];
 			var ans2 = time - ans;
 
 			dx = this.velocityX * ans2;
 			dy = this.velocityY * ans2;
 			dz = this.velocityZ * ans2;
 
-			this.updateValues(ans);
+			this.updateValues();
 			
-			if (this.hasEnded){
-				mat4.translate(animationMat, animationMat, [dx, dy, dz]);
-				return animationMat;
+			
+
+			if (!this.hasEnded) {
+				this.getAngle(this.CPTransition-1);
+				mat4.rotate(animationMat, animationMat, -this.angle, [0, 1, 0]);
+				dx += this.velocityX * ans;
+				dy += this.velocityY * ans;
+				dz += this.velocityZ * ans;
 			}
-				
-			dx += this.velocityX * ans;
-			dy += this.velocityY * ans;
-			dz += this.velocityZ * ans;
 		}
-		else{
+		else {
 
 			this.TperCPSum += time;
 
@@ -85,21 +92,21 @@ class LinearAnimation extends Animation {
 			var dy = this.velocityY * time;
 			var dz = this.velocityZ * time;
 		}
-		
+
+		mat4.rotate(animationMat, animationMat, -(Math.PI / 2 - this.angle), [0, 1, 0]);
 		mat4.translate(animationMat, animationMat, [dx, dy, dz]);
+		mat4.rotate(animationMat, animationMat, (Math.PI / 2 - this.angle), [0, 1, 0]);
+
 
 		return animationMat;
 	}
 
-	updateValues(timeLeft) {
+	updateValues() {
 
-		if (this.CPTransition+1 >= this.controlPoints.length)
+		if (this.CPTransition + 1 >= this.controlPoints.length)
 			this.hasEnded = true;
 		else {
-			if(timeLeft != null)
-				this.TperCPSum = timeLeft;
-			else
-				this.TperCPSum = 0;
+			this.TperCPSum = 0;
 
 			this.velocityX = Math.sqrt(Math.pow(this.controlPoints[this.CPTransition + 1][0] - this.controlPoints[this.CPTransition][0], 2)) / this.TperCP[this.CPTransition];
 
@@ -123,12 +130,12 @@ class LinearAnimation extends Animation {
 
 	clone() {
 		return new LinearAnimation(this.animationSpan, this.controlPoints);
-    }
-    
-    getAngle(cp){
-        var dX = this.controlPoints[this.cp + 1][0] - this.controlPoints[this.cp][0];
-        var dZ = this.controlPoints[this.cp + 1][2] - this.controlPoints[this.cp][2];
-        return Math.atan2(dZ, dX);
-    }
+	}
+
+	getAngle(cp) {
+		var dX = this.controlPoints[cp + 1][0] - this.controlPoints[cp][0];
+		var dZ = this.controlPoints[cp + 1][2] - this.controlPoints[cp][2];
+		this.angle = Math.atan2(dZ, dX);
+	}
 
 }
