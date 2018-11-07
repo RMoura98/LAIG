@@ -180,7 +180,7 @@
 
 		</linear>
 
-		<circular id="aniC0" span="2" center="1 1 1" radius="2" startang="10" rotang="1.5" />
+		<circular id="aniC0" span="10" center="0 0 0" radius="2" startang="180" rotang="360" />
 
 	</animations>
 
@@ -355,7 +355,7 @@
 			<texture id="none"/>
 
 			<animations>
-				<animationref id="aniL0"/>
+				<!-- <animationref id="aniL0"/> -->
 				<!-- <animationref id="aniL1"/> -->
 			</animations>
 

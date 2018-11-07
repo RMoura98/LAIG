@@ -123,6 +123,12 @@ class LinearAnimation extends Animation {
 
 	clone() {
 		return new LinearAnimation(this.animationSpan, this.controlPoints);
-	}
+    }
+    
+    getAngle(cp){
+        var dX = this.controlPoints[this.cp + 1][0] - this.controlPoints[this.cp][0];
+        var dZ = this.controlPoints[this.cp + 1][2] - this.controlPoints[this.cp][2];
+        return Math.atan2(dZ, dX);
+    }
 
 }

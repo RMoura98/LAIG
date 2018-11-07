@@ -13,11 +13,18 @@ class CircularAnimation extends Animation {
 		this.animationRadius = radius;
 		this.animationStartang = startang; // Ângulo Inicial graus
 		this.animationRotang = rotang; // Ângulo de rotação graus
+		
+		this.animationRotangDEFAULT = this.animationRotang;
+		this.animationStartangDEFAULT = this.animationStartang;
+
+		this.animationRotang = DEGREE_TO_RAD * this.animationRotang;
+		this.animationStartang = DEGREE_TO_RAD * this.animationStartang;
 
 		this.TSum = 0;
+		this.gSum = 0;
 		this.hasEnded = false;
 
-		this.vel = (DEGREE_TO_RAD * this.animationRotang) / this.animationSpan;	//nao esta bem
+		this.vel = this.animationRotang  / this.animationSpan;
 	}
 
 	getMatrix(time) {
@@ -31,21 +38,26 @@ class CircularAnimation extends Animation {
 		if (this.TSum > this.animationSpan) {
 			let ans = this.TSum - this.animationSpan;
 			var ans2 = time - ans;
-			ang = this.animationStartang + this.vel * ans2;
+			ang = this.vel * ans2;
 			this.hasEnded = true;
 		}
 		else {
-			ang = this.animationStartang + this.vel * time;
+			ang = this.vel * time;
 		}
 
-		mat4.translate(animationMat, animationMat, [this.animationCenter[0], this.animationCenter[1], this.animationCenter[2]]);
-		mat4.rotate(animationMat, animationMat, DEGREE_TO_RAD * ang, [0, 1, 0]);
-		//mat4.translate(animationMat, animationMat, [this.animationRadius,0,0] );
-		mat4.translate(animationMat, animationMat, [-this.animationCenter[0], -this.animationCenter[1], -this.animationCenter[2]]);
+		if (this.TSum - time == 0) {
+			mat4.translate(animationMat, animationMat, [this.animationCenter[0], this.animationCenter[1], this.animationCenter[2]]);
+			mat4.rotate(animationMat, animationMat, this.animationStartang, [0, 1, 0]);
+			mat4.translate(animationMat, animationMat, [this.animationRadius, 0, 0]);
+		}
+		else{
+			mat4.translate(animationMat, animationMat, [-this.animationRadius, 0, 0]);
+			mat4.rotate(animationMat, animationMat, ang, [0, 1, 0]);
+			mat4.translate(animationMat, animationMat, [this.animationRadius, 0, 0]);
+		}
 
-		/* mat4.translate(animationMat, animationMat, [-this.animationCenter[0], -this.animationCenter[1], -this.animationCenter[2]]);
-		mat4.rotate(animationMat, animationMat, ang, [0, 1, 0]);
-		mat4.translate(animationMat, animationMat, [this.animationCenter[0], this.animationCenter[1], this.animationCenter[2]]); */
+
+		
 
 
 		return animationMat;
@@ -71,7 +83,7 @@ class CircularAnimation extends Animation {
 	}
 
 	clone() {
-		return new CircularAnimation(this.animationSpan, this.animationCenter, this.animationRadius, this.animationStartang, this.animationRotang);
+		return new CircularAnimation(this.animationSpan, this.animationCenter, this.animationRadius, this.animationStartangDEFAULT, this.animationRotangDEFAULT);
 	}
 
 }
