@@ -223,6 +223,8 @@
 		<primitive id="life-buoy">
 			<torus inner="2" outer="4" slices="30" loops="30"/>
 		</primitive>
+
+        <plane id="plane" npartsU="5" npartsV="8" />
 	</primitives >
 
 	<components>

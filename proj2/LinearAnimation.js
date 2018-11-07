@@ -16,8 +16,7 @@ class LinearAnimation extends Animation {
 		super("linear");
 
 		this.animationSpan = span;
-		this.controlPoints = controlPoints;
-
+        this.controlPoints = controlPoints;
 
 		this.TperCP = [];
 		this.CPTransition = 0;

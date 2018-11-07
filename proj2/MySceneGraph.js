@@ -1389,13 +1389,13 @@ class MySceneGraph {
                 // Get span of current animation
                 var animationSpan = this.reader.getFloat(children[i], 'span');
                 if( (animationSpan == null) || (isNaN(animationSpan)) ) {
-                    return "unable to parse span  of <linear> animation (conflict: nChildren = " + grandChildren.length + ")";
+                    return "unable to parse span  of <linear> animation (conflict: nChildren = " + children[i].nodeName + ")";
                 }
 
                 // Get grandsons
                 grandChildren = children[i].children;
                 if(grandChildren.length < 2) {
-                    return "linear animations must have at least 2 child elements (conflict: nChildren = " + grandChildren.length + ")";
+                    return "linear animations must have at least 2 child elements (conflict: nChildren = " + children[i].nodeName + ")";
                 }
 
                 var controlPoints = [];
@@ -1410,21 +1410,26 @@ class MySceneGraph {
                     // Get x/y/z coordinates from linear animation controlpoint
                     var xx = this.reader.getFloat(grandChildren[j], 'xx');
                     if( (xx == null) || (isNaN(xx)) ) {
-                        return "unable to parse x-coodinate from the <controlpoint> element of <linear> animation";
+                        return "unable to parse x-coodinate from the <controlpoint> element of <" + animationId + "> animation";
                     }
 
                     var yy = this.reader.getFloat(grandChildren[j], 'yy');
                     if( (yy == null) || (isNaN(yy)) ) {
-                        return "unable to parse y-coodinate from the <controlpoint> element of <linear> animation";
+                        return "unable to parse y-coodinate from the <controlpoint> element of <" + animationId + "> animation";
                     }
 
                     var zz = this.reader.getFloat(grandChildren[j], 'zz');
                     if( (zz == null) || (isNaN(zz)) ) {
-                        return "unable to parse z-coodinate from the <controlpoint> element of <linear> animation";
+                        return "unable to parse z-coodinate from the <controlpoint> element of <" + animationId + "> animation";
                     }
 
                     controlPoints.push(vec3.fromValues(xx, yy, zz));
                 }
+
+                for (let i = 0; i < controlPoints.length - 1; i++) 
+                    if(controlPoints[i].toString() == controlPoints[i + 1].toString())
+                        return "unable to parse <controlpoint> element of <" + children[i].nodeName + "> animation";
+                
 
                 var animation = new LinearAnimation(animationSpan, controlPoints);
 
