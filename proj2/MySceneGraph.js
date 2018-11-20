@@ -1706,17 +1706,77 @@ class MySceneGraph {
             }
 
             if(grandChildren[0].nodeName == "plane") {
-                var npartsU = this.reader.getFloat(children[i], 'npartsU');
+
+                var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
                 if( (npartsU == null) || (isNaN(npartsU)) ) {
                     return "value for npartsU in <plane> of <primitive> is invalid";
                 }
 
-                var npartsV = this.reader.getFloat(children[i], 'npartsV');
+                var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
                 if( (npartsV == null) || (isNaN(npartsV)) ) {
                     return "value for npartsV in <plane> of <primitive> is invalid";
                 }
 
-                var primitive = new Plane(this.scene,)
+                var primitive = new Plane(this.scene, npartsU, npartsV);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+            if(grandChildren[0].nodeName == "patch") {
+
+                var npointsU = this.reader.getFloat(grandChildren[0], 'npointsU');
+                if( (npointsU == null) || (isNaN(npointsU)) ) {
+                    return "value for npointsU in <patch> of <primitive> is invalid";
+                }
+
+                var npointsV = this.reader.getFloat(grandChildren[0], 'npointsV');
+                if( (npointsV == null) || (isNaN(npointsV)) ) {
+                    return "value for npointsV in <patch> of <primitive> is invalid";
+                }
+
+                var npartsU = this.reader.getFloat(grandChildren[0], 'npartsU');
+                if( (npartsU == null) || (isNaN(npartsU)) ) {
+                    return "value for npartsU in <patch> of <primitive> is invalid";
+                }
+
+                var npartsV = this.reader.getFloat(grandChildren[0], 'npartsV');
+                if( (npartsV == null) || (isNaN(npartsV)) ) {
+                    return "value for npartsV in <patch> of <primitive> is invalid";
+                }
+
+                var granGranChildren = grandChildren[0].children;
+
+                var controlPoints = [];
+
+                for (var j = 0; j < granGranChildren.length; j++) {
+
+                    if (granGranChildren[j].nodeName != "controlpoint") {
+                        this.onXMLMinorError("unknown tag name <" + granGranChildren[j].nodeName + ">");
+                        continue;
+                    }
+
+                    var xx = this.reader.getFloat(granGranChildren[j], 'xx');
+                    if( (xx == null) || (isNaN(xx)) ) {
+                        return "value for xx in <patch> of <primitive> is invalid";
+                    }
+
+                    var yy = this.reader.getFloat(granGranChildren[j], 'yy');
+                    if( (yy == null) || (isNaN(yy)) ) {
+                        return "value for yy in <patch> of <primitive> is invalid";
+                    }
+
+                    var zz = this.reader.getFloat(granGranChildren[j], 'zz');
+                    if( (zz == null) || (isNaN(zz)) ) {
+                        return "value for zz in <patch> of <primitive> is invalid";
+                    }
+
+                    controlPoints.push([xx, yy, zz, 1]);
+                }
+
+                if( (npointsU * npointsV) != controlPoints.length)
+                    return "invalid number of control points in <patch> of <primitive>";
+
+                var primitive = new Patch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
 
                 this.primitives[primitiveId] = primitive;
             }
@@ -2012,7 +2072,7 @@ class MySceneGraph {
 
                         // Check if ID exists
                         if(this.animations[animationRefId] == null)
-                            return "ID must match to existing primitive";
+                            return ("ID must match to existing animation" + animationRefId);
 
 
 
@@ -2062,7 +2122,7 @@ class MySceneGraph {
 
                             // Check if ID exists
                             if(this.primitives[primitiveRefId] == null)
-                                return "ID must match to existing primitive";
+                                return ("ID must match to existing primitive " + primitiveRefId);
 
                             this.nodes[componentId].primitive = this.primitives[primitiveRefId];
                         }

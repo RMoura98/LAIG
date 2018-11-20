@@ -224,7 +224,20 @@
 			<torus inner="2" outer="4" slices="30" loops="30"/>
 		</primitive>
 
-        <plane id="plane" npartsU="5" npartsV="8" />
+		<primitive id="nurb">
+        	<plane npartsU="5" npartsV="8" />
+		</primitive>
+
+		<primitive id="nurb2">
+        	<patch npointsU="3" npointsV="2" npartsU="20" npartsV="20">
+				<controlpoint xx="-1.5" yy="-1.5" zz="0" />
+				<controlpoint xx="-1.5" yy="1.5" zz="0" />
+				<controlpoint xx="0" yy="-1.5" zz="3" />
+				<controlpoint xx="0" yy="1.5" zz="3" />
+				<controlpoint xx="1.5" yy="-1.5" zz="0" />
+				<controlpoint xx="1.5" yy="1.5" zz="0" />
+			</patch>
+		</primitive>
         
 	</primitives >
 
@@ -241,7 +254,8 @@
 			<texture id="none" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="room"/>
+				<primitiveref id="nurb2"/> 
+			<!--	<componentref id="room"/> -->
 			</children>
 		</component>
 
