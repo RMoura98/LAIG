@@ -1781,6 +1781,57 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "terrain") {
+
+                var textureId = this.reader.getString(grandChildren[0], 'idtexture');
+                if (textureId == null)
+                    return "primitive with invalid texture ID";
+
+                var heightmapId = this.reader.getString(grandChildren[0], 'idheightmap');
+                if (heightmapId == null)
+                    return "primitive with invalid heightmap ID";    
+
+                var parts = this.reader.getInteger(grandChildren[0], 'parts');
+                if( (parts == null) || (isNaN(parts)) ) 
+                    return "value for parts in <terrain> of <primitive> is invalid";
+                
+                var heightScale = this.reader.getFloat(grandChildren[0], 'heightscale');
+                if( (heightScale == null) || (isNaN(heightScale)) ) 
+                    return "value for slices in <heightscale> of <primitive> is invalid";
+                
+
+                var primitive = new Terrain(this.scene, textureId, heightmapId, parts, heightScale);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+            if(grandChildren[0].nodeName == "water") {
+
+                var textureId = this.reader.getString(grandChildren[0], 'idtexture');
+                if (textureId == null)
+                    return "primitive with invalid texture ID";
+
+                var heightmapId = this.reader.getString(grandChildren[0], 'idwavemap');
+                if (heightmapId == null)
+                    return "primitive with invalid heightmap ID";    
+
+                var parts = this.reader.getInteger(grandChildren[0], 'parts');
+                if( (parts == null) || (isNaN(parts)) ) 
+                    return "value for parts in <terrain> of <primitive> is invalid";
+                
+                var heightScale = this.reader.getFloat(grandChildren[0], 'heightscale');
+                if( (heightScale == null) || (isNaN(heightScale)) ) 
+                    return "value for slices in <heightscale> of <primitive> is invalid";
+                    
+                var texScale = this.reader.getFloat(grandChildren[0], 'texscale');
+                if( (texScale == null) || (isNaN(texScale)) ) 
+                    return "value for slices in <heightscale> of <primitive> is invalid";
+                
+
+                var primitive = new Water(this.scene, textureId, heightmapId, parts, heightScale, texScale);
+
+                this.primitives[primitiveId] = primitive;
+            }
 
         }
         if(Object.keys(this.primitives).length < 1) {
