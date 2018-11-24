@@ -1781,6 +1781,45 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "cylinder2") {
+
+                var base = this.reader.getFloat(grandChildren[0], 'base');
+                if( (base == null) || (isNaN(base)) ) {
+                    return "value for base in <cylinder> of <primitive> is invalid";
+                }
+
+                var top = this.reader.getFloat(grandChildren[0], 'top');
+                if( (top == null) || (isNaN(top)) ) {
+                    return "value for top in <cylinder> of <primitive> is invalid";
+                }
+
+                var height = this.reader.getFloat(grandChildren[0], 'height');
+                if( (height == null) || (isNaN(height)) ) {
+                    return "value for height in <cylinder> of <primitive> is invalid";
+                }
+
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if( (slices == null) || (isNaN(slices)) ) {
+                    return "value for slices in <cylinder> of <primitive> is invalid";
+                }
+
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if( (stacks == null) || (isNaN(stacks)) ) {
+                    return "value for stacks in <cylinder> of <primitive> is invalid";
+                }
+
+                var primitive = new Cylinder2(this.scene, base, top, height, slices, stacks);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
+            if(grandChildren[0].nodeName == "vehicle") {
+
+                var primitive = new Vehicle(this.scene);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
             if(grandChildren[0].nodeName == "terrain") {
 
                 var textureId = this.reader.getString(grandChildren[0], 'idtexture');
@@ -2280,14 +2319,24 @@ class MySceneGraph {
 
         if( node.primitive != null ) {
 
-            this.materials[cMaterialId].apply();
+            if(node.primitive.constructor != Vehicle) {
+                this.materials[cMaterialId].apply();
 
-			if( cTextureId != null ) {
-                node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
-                this.textures[cTextureId].bind();
+                if( cTextureId != null ) {
+                    node.primitive.updateTexCoords(cTextureLength[0], cTextureLength[1]);
+                    this.textures[cTextureId].bind();
+                }
+
+                node.primitive.display();
             }
 
-            node.primitive.display();
+            else {
+                node.primitive.applyMaterial(this.materials[cMaterialId]);
+                node.primitive.applyTexture(this.textures[cTextureId]);
+                node.primitive.display();
+            }
+
+            
         }
     }
 }
