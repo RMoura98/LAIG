@@ -263,7 +263,7 @@ class MySceneGraph {
         this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
 
         //Adding a default perpective camera
-        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(1.5, 1, 1.5), vec3.fromValues(1, 0, 1));
+        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(2.5, 2, 6), vec3.fromValues(2.5, 0, 1));
 
 
         for(var i = 0; i < children.length; i++) {
@@ -2319,7 +2319,13 @@ class MySceneGraph {
 
         if( node.primitive != null ) {
 
-            if(node.primitive.constructor != Vehicle) {
+            if(node.primitive.constructor == Vehicle) {
+                node.primitive.applyMaterial(this.materials[cMaterialId]);
+                node.primitive.applyTexture(this.textures[cTextureId]);
+                node.primitive.display();
+            }
+
+            else {
                 this.materials[cMaterialId].apply();
 
                 if( cTextureId != null ) {
@@ -2329,14 +2335,6 @@ class MySceneGraph {
 
                 node.primitive.display();
             }
-
-            else {
-                node.primitive.applyMaterial(this.materials[cMaterialId]);
-                node.primitive.applyTexture(this.textures[cTextureId]);
-                node.primitive.display();
-            }
-
-            
         }
     }
 }

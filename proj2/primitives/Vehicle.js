@@ -285,4 +285,6 @@ class Vehicle extends CGFobject {
         this.CustomTexture = texture;
     }
 
+    updateTexCoords(){}
+
 };

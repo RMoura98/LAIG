@@ -34,6 +34,8 @@ class Plane extends CGFobject {
     display() {
         this.surface.display();
     }
+
+    updateTexCoords(){}
     
 
 }

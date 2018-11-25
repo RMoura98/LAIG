@@ -40,6 +40,8 @@ class Patch extends CGFobject {
     display() {
         this.surface.display();
     }
+
+    updateTexCoords(){}
     
 
 }

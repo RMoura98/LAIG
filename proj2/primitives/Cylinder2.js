@@ -61,4 +61,6 @@ class Cylinder2 extends CGFobject {
         this.surface.display();
     }
 
+    updateTexCoords(){}
+
 };
