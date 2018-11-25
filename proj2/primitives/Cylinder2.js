@@ -12,8 +12,8 @@ class Cylinder2 extends CGFobject {
 
         this.npointsU = this.slices + 1;
         this.npointsV = this.stacks + 1;
-        this.npartsU = 20;
-        this.npartsV = 20;
+        this.npartsU = this.slices;
+        this.npartsV = this.stacks;
         this.cp = [];
 
         this.surface;
