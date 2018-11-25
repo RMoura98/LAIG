@@ -263,7 +263,7 @@ class MySceneGraph {
         this.defaultViewId = this.reader.hasAttribute(viewsNode, 'default') ? this.reader.getString(viewsNode, 'default') : "default_";
 
         //Adding a default perpective camera
-        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(24, 27, 43), vec3.fromValues(20, 0, 0));
+        this.views["default_"] = this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(1.5, 1, 1.5), vec3.fromValues(1, 0, 1));
 
 
         for(var i = 0; i < children.length; i++) {

@@ -3,32 +3,32 @@
 
 	<views default="presp0">
 		<perspective id="presp0" near="0.1" far="500" angle="76">
-			<from x="0.14" y="0.15" z="0.3" />
-            <to x="2" y="0.7" z="1" />
+			<from x="2.5" y="2" z="6" />
+            <to x="2.5" y="0" z="1" />
 		</perspective>
 
 		<perspective id="presp1" near="0.1" far="500" angle="76">
-            <from x="1.5" y="1" z="1.5" />
-            <to x="1" y="0" z="1" />
+            <from x="6" y="1" z="0" />
+            <to x="0" y="0" z="4" />
         </perspective>
 
 		<perspective id="presp2" near="0.1" far="500" angle="76">
-			<from x="0.7" y="1" z="-0.7" />
-            <to x="1" y="0" z="1" />
+			<from x="0.1" y="1" z="6" />
+            <to x="4" y="0" z="0" />
 		</perspective>
 
 		<perspective id="presp3" near="0.1" far="500" angle="76">
-			<from x="-1.5" y="1" z="-1.5" />
-            <to x="1" y="0" z="1" />
+			<from x="4.5" y="3" z="4.5" />
+            <to x="1.5" y="0" z="1.5" />
 		</perspective>
 
 		<perspective id="presp4" near="0.1" far="500" angle="90">
-			<from x="1.5" y="1" z="1.5"/>
-			<to x="1" y="0.0" z="1"/>
+			<from x="3" y="3" z="3"/>
+			<to x="2" y="0.0" z="2"/>
 		</perspective>
 
-		<ortho id="ortho0" near="0.1" far="500" left="-15" right="15" top="5" bottom="-7">
-			<from x="13.0" y="6.0" z="50.0"/>
+		<ortho id="ortho0" near="0.1" far="500" left="-14" right="3" top="10" bottom="-8">
+			<from x="5.0" y="6.0" z="10.0"/>
 			<to x="13.0" y="6.0" z="0.0"/>
 		</ortho>
 
@@ -166,11 +166,16 @@
 	</transformations>
 
 	<animations>
-		<linear id="liftoff" span="7">
+		<linear id="arrival" span="6">
 			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="3" />
+			<controlpoint xx="8" yy="0" zz="0" />
+		</linear>
+
+		<circular id="rotation" span="30" center="0 0 -0.7" radius="1" startang="-90" rotang="-360" />
+
+		<linear id="blastoff" span="5">
 			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="6" />
+			<controlpoint xx="0" yy="0" zz="8" />
 		</linear>
 	</animations>
 
@@ -191,7 +196,6 @@
 	<components>
 		<component id="root">
 			<transformation>
-				<transformationref id="globalDescale"/>
 			</transformation>
 
 			<animations>
@@ -212,13 +216,14 @@
 
 		<component id="vehicle">
 			<transformation>
-				<scale x="0.02" y="0.02" z="0.02" />
-				<translate x="60" y="23" z="70" />
-				<rotate axis="x" angle="-90"/>
+				<!-- <translate x="1.24" y="0.466" z="1.35" /> -->
+				<translate x="-5" y="1" z="2" />
 			</transformation>
 
 			<animations>
-				<animationref id="liftoff" />
+				<animationref id="arrival" />
+				<animationref id="rotation" />
+				<animationref id="blastoff" />
 			</animations>
 
 			<materials>

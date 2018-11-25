@@ -123,148 +123,155 @@ class Vehicle extends CGFobject {
     display() {
 
         this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(0.1, 0, -5.7);
-            this.scene.scale(1.35, 1.35, 1);
-            this.scene.rotate(Math.PI, 0, 1, 0);
-            this.rocketBoosterLid.display();
-        this.scene.popMatrix();
-        
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, -7);
-            this.rocketBooster.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(0, 0, -5.5);
-            this.rocketBackBack.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(0, 0, -3.5);
-            this.rocketBackFront.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, -1.5);
-            this.rocketMidBack.display();
-        this.scene.popMatrix();
-
-        this.appearance.setTexture(this.textureWhite);
-        this.appearance.apply();
-        this.rocketMid.display();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 5);
-            this.rocketFront.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(-2, 0.7, -1.7);
-            this.scene.rotate(-Math.PI/6.5, 0, 1, 0);
-            this.rocketTopLeftBoosterSupportTop.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(-2, 0.7, -1.7);
-            this.scene.rotate(-Math.PI/6.5, 0, 1, 0);
-            this.rocketTopLeftBoosterSupportBot.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(2.4, 0.7, -1.7);
-            this.scene.rotate(Math.PI/6.5, 0, 1, 0);
-            this.rocketTopRightBoosterSupportTop.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.textureBlack);
-            this.appearance.apply();
-            this.scene.translate(2.4, 0.7, -1.7);
-            this.scene.rotate(Math.PI/6.5, 0, 1, 0);
-            this.rocketTopRightBoosterSupportBot.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(-4.43, 2.5, -5.5);
-            this.scene.rotate(Math.PI/20, 0, 1, 0);
-            this.extraBoosterMid.display();
-
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 3);
-            this.extraBoosterMidFront.display();
-
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 0.4);
-            this.extraBoosterFrontBack.display();
-
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 0.1);
-            this.extraBoosterFrontFront.display();
+            this.scene.scale(0.02, 0.02, 0.02);
+            //this.scene.translate(62, 23.4, 68);
+            //this.scene.rotate(-Math.PI, 0, 1, 1);
+            //this.scene.rotate(Math.PI, 0, 0, 1);
 
             this.scene.pushMatrix();
                 this.appearance.setTexture(this.textureBlack);
                 this.appearance.apply();
-                this.scene.translate(0.03, 0, -3.5);
-                this.scene.scale(0.35, 0.35, 1);
+                this.scene.translate(0.1, 0, -5.7);
+                this.scene.scale(1.35, 1.35, 1);
                 this.scene.rotate(Math.PI, 0, 1, 0);
-                this.scene.rotate(Math.PI/100, 0, 0, 1);
-                this.extraBoosterLid.display();
+                this.rocketBoosterLid.display();
             this.scene.popMatrix();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(4.77, 2.5, -5.5);
-            this.scene.rotate(-Math.PI/20, 0, 1, 0);
-            this.extraBoosterMid.display();
-
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 3);
-            this.extraBoosterMidFront.display();
-
-            this.appearance.setTexture(this.CustomTexture);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 0.4);
-            this.extraBoosterFrontBack.display();
-
-            this.appearance.setTexture(this.textureWhite);
-            this.appearance.apply();
-            this.scene.translate(0, 0, 0.1);
-            this.extraBoosterFrontFront.display();
+            
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, -7);
+                this.rocketBooster.display();
+            this.scene.popMatrix();
 
             this.scene.pushMatrix();
                 this.appearance.setTexture(this.textureBlack);
                 this.appearance.apply();
-                this.scene.translate(0.03, 0, -3.5);
-                this.scene.scale(0.35, 0.35, 1);
-                this.scene.rotate(Math.PI, 0, 1, 0);
-                this.scene.rotate(Math.PI/100, 0, 0, 1);
-                this.extraBoosterLid.display();
+                this.scene.translate(0, 0, -5.5);
+                this.rocketBackBack.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(0, 0, -3.5);
+                this.rocketBackFront.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, -1.5);
+                this.rocketMidBack.display();
+            this.scene.popMatrix();
+
+            this.appearance.setTexture(this.textureWhite);
+            this.appearance.apply();
+            this.rocketMid.display();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 5);
+                this.rocketFront.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureBlack);
+                this.appearance.apply();
+                this.scene.translate(-2, 0.7, -1.7);
+                this.scene.rotate(-Math.PI/6.5, 0, 1, 0);
+                this.rocketTopLeftBoosterSupportTop.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureBlack);
+                this.appearance.apply();
+                this.scene.translate(-2, 0.7, -1.7);
+                this.scene.rotate(-Math.PI/6.5, 0, 1, 0);
+                this.rocketTopLeftBoosterSupportBot.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureBlack);
+                this.appearance.apply();
+                this.scene.translate(2.4, 0.7, -1.7);
+                this.scene.rotate(Math.PI/6.5, 0, 1, 0);
+                this.rocketTopRightBoosterSupportTop.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.textureBlack);
+                this.appearance.apply();
+                this.scene.translate(2.4, 0.7, -1.7);
+                this.scene.rotate(Math.PI/6.5, 0, 1, 0);
+                this.rocketTopRightBoosterSupportBot.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(-4.43, 2.5, -5.5);
+                this.scene.rotate(Math.PI/20, 0, 1, 0);
+                this.extraBoosterMid.display();
+
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 3);
+                this.extraBoosterMidFront.display();
+
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 0.4);
+                this.extraBoosterFrontBack.display();
+
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 0.1);
+                this.extraBoosterFrontFront.display();
+
+                this.scene.pushMatrix();
+                    this.appearance.setTexture(this.textureBlack);
+                    this.appearance.apply();
+                    this.scene.translate(0.03, 0, -3.5);
+                    this.scene.scale(0.35, 0.35, 1);
+                    this.scene.rotate(Math.PI, 0, 1, 0);
+                    this.scene.rotate(Math.PI/100, 0, 0, 1);
+                    this.extraBoosterLid.display();
+                this.scene.popMatrix();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(4.77, 2.5, -5.5);
+                this.scene.rotate(-Math.PI/20, 0, 1, 0);
+                this.extraBoosterMid.display();
+
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 3);
+                this.extraBoosterMidFront.display();
+
+                this.appearance.setTexture(this.CustomTexture);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 0.4);
+                this.extraBoosterFrontBack.display();
+
+                this.appearance.setTexture(this.textureWhite);
+                this.appearance.apply();
+                this.scene.translate(0, 0, 0.1);
+                this.extraBoosterFrontFront.display();
+
+                this.scene.pushMatrix();
+                    this.appearance.setTexture(this.textureBlack);
+                    this.appearance.apply();
+                    this.scene.translate(0.03, 0, -3.5);
+                    this.scene.scale(0.35, 0.35, 1);
+                    this.scene.rotate(Math.PI, 0, 1, 0);
+                    this.scene.rotate(Math.PI/100, 0, 0, 1);
+                    this.extraBoosterLid.display();
+                this.scene.popMatrix();
             this.scene.popMatrix();
         this.scene.popMatrix();
     };
