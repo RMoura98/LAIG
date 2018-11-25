@@ -167,9 +167,37 @@
 	</transformations>
 
 	<animations>
-		<linear id="arrival" span="6">
+		<linear id="arrival1" span="4">
 			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="8" yy="0" zz="0" />
+			<controlpoint xx="3" yy="0" zz="0" />
+		</linear>
+
+		<circular id="arrivalRotation1" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="90" />
+
+		<linear id="arrival2" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="0" zz="3" />
+		</linear>
+
+		<circular id="arrivalRotation2" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="-90" />
+
+		<linear id="arrival3" span="3">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="0" zz="2" />
+		</linear>
+
+		<circular id="arrivalRotation3" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="-90" />
+
+		<linear id="arrival4" span="3">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="0" zz="3" />
+		</linear>
+
+		<circular id="arrivalRotation4" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="90" />
+
+		<linear id="arrival5" span="3">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="0" zz="3" />
 		</linear>
 
 		<circular id="rotation" span="30" center="0 0 -0.7" radius="1" startang="-90" rotang="-360" />
@@ -187,7 +215,7 @@
 		</primitive>
 
 		<primitive id="patch">
-        	<patch npointsU="5" npointsV="2" npartsU="20" npartsV="20">
+        	<patch npointsU="5" npointsV="2" npartsU="2" npartsV="2">
 				<controlpoint xx="-2" yy="1.5" zz="0" />
 				<controlpoint xx="-3.5" yy="1.5" zz="-2" />
 
@@ -263,7 +291,7 @@
 				<material id="red"/>
 			</materials>
 
-			<texture id="example" length_s="1.0" length_t="1.0"/>
+			<texture id="example" length_s="0.2" length_t="1.0"/>
 
 			<children>
 				<primitiveref id="plane" />
@@ -324,7 +352,15 @@
 			</transformation>
 
 			<animations>
-				<animationref id="arrival" />
+				<animationref id="arrival1" />
+				<animationref id="arrivalRotation1" />
+				<animationref id="arrival2" />
+				<animationref id="arrivalRotation2" />
+				<animationref id="arrival3" />
+				<animationref id="arrivalRotation3" />
+				<animationref id="arrival4" />
+				<animationref id="arrivalRotation4" />
+				<animationref id="arrival5" />
 				<animationref id="rotation" />
 				<animationref id="blastoff" />
 			</animations>
