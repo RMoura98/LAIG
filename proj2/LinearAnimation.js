@@ -45,8 +45,10 @@ class LinearAnimation extends Animation {
 
 		this.CPTransition = 0;
         this.updateValues();
-		this.angle = 0;
+		this.angle = Math.PI/2;
         this.aiiii = false;
+        this.hmm= false;
+
 	}
 
 	getMatrix(time) {
@@ -61,7 +63,8 @@ class LinearAnimation extends Animation {
         var oldAngle = this.angle;
 
 		if (this.TperCPSum == 0 && this.CPTransition - 1 == 0){
-			this.getAngle(0);
+            this.getAngle(0);
+            this.hmm = true;
 			/* mat4.rotate(animationMat, animationMat, Math.PI / 2 - this.angle, [0, 1, 0]);  */
 		}
 
@@ -98,11 +101,16 @@ class LinearAnimation extends Animation {
         mat4.rotateY(animationMat, animationMat, -oldAngle);
         mat4.translate(animationMat, animationMat, [dx, dy, dz]);
         mat4.rotateY(animationMat, animationMat, oldAngle);
+        
+        if(this.hmm){
+            this.hmm = false;
+			mat4.rotateY(animationMat, animationMat, Math.PI/2);
+        }
 
         if(this.aiiii){
             this.aiiii = false;
-            mat4.rotateY(animationMat, animationMat, -oldAngle + (Math.PI/2));
-			mat4.rotateY(animationMat, animationMat, this.angle - (Math.PI/2));
+            mat4.rotateY(animationMat, animationMat, -oldAngle);
+			mat4.rotateY(animationMat, animationMat, this.angle);
         }
 
 		return animationMat;

@@ -200,7 +200,16 @@
 			<controlpoint xx="0" yy="0" zz="3" />
 		</linear>
 
-		<circular id="rotation" span="30" center="0 0 -0.7" radius="1" startang="-90" rotang="-360" />
+		<linear id="arrival6" span="10">
+			<controlpoint xx="0" yy="0" zz="0"/>
+			<controlpoint xx="3" yy="0" zz="0"/>
+			<controlpoint xx="3" yy="0" zz="-3"/>
+			<controlpoint xx="5" yy="0" zz="-3"/>
+			<controlpoint xx="5" yy="0" zz="0"/>
+			<controlpoint xx="8" yy="0" zz="0"/>
+		</linear>
+
+		<circular id="rotation" span="30" center="0 0 -1" radius="1" startang="-90" rotang="-360" />
 
 		<linear id="blastoff" span="5">
 			<controlpoint xx="0" yy="0" zz="0" />
@@ -349,10 +358,11 @@
 			<transformation>
 				<!-- <translate x="1.24" y="0.466" z="1.35" /> -->
 				<translate x="-5" y="1" z="2" />
+                
 			</transformation>
 
 			<animations>
-				<animationref id="arrival1" />
+				<!-- <animationref id="arrival1" />
 				<animationref id="arrivalRotation1" />
 				<animationref id="arrival2" />
 				<animationref id="arrivalRotation2" />
@@ -360,7 +370,8 @@
 				<animationref id="arrivalRotation3" />
 				<animationref id="arrival4" />
 				<animationref id="arrivalRotation4" />
-				<animationref id="arrival5" />
+				<animationref id="arrival5" /> -->
+				<animationref id="arrival6" /> 
 				<animationref id="rotation" />
 				<animationref id="blastoff" />
 			</animations>
