@@ -101,8 +101,8 @@ class LinearAnimation extends Animation {
 
         if(this.aiiii){
             this.aiiii = false;
-            mat4.rotateY(animationMat, animationMat, -oldAngle);
-			mat4.rotateY(animationMat, animationMat, this.angle);
+            mat4.rotateY(animationMat, animationMat, -oldAngle + (Math.PI/2));
+			mat4.rotateY(animationMat, animationMat, this.angle - (Math.PI/2));
         }
 
 		return animationMat;
