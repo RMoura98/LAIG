@@ -162,27 +162,11 @@
 	</transformations>
 
 	<animations>
-
-        <linear id="aniL0" span="10">
+		<linear id="aniL0" span="10">
 			<controlpoint xx="0" yy="0" zz="0"/>
-			<controlpoint xx="3" yy="0" zz="0"/>
-			<controlpoint xx="3" yy="0" zz="-1"/>
-			<controlpoint xx="5" yy="0" zz="-1"/>
-			<controlpoint xx="5" yy="0" zz="2"/>
-			<controlpoint xx="8" yy="0" zz="2"/>
-<!-- 
-            <controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="8" /> -->
-		</linear>
-		
-        <!-- <linear id="aniL0" span="20">
-			<controlpoint xx="0" yy="0" zz="0"/>
-			<controlpoint xx="0" yy="0" zz="1"/>
+			<controlpoint xx="1" yy="0" zz="0"/>
 			<controlpoint xx="1" yy="0" zz="1"/>
-			<controlpoint xx="1" yy="0" zz="-1"/>
-			<controlpoint xx="0" yy="0" zz="-1"/>
-			<controlpoint xx="0" yy="0" zz="0"/>
-		</linear> -->
+		</linear>
 
 		<circular id="aniC0" span="10" center="0 0 0" radius="2" startang="180" rotang="360" />
 	</animations>
@@ -306,7 +290,7 @@
 			<texture id="rocket-red" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="room"/>
+				<primitiveref id="vehicle" />
 			</children>
 		</component>
 

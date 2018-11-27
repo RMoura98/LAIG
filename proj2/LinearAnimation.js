@@ -44,10 +44,8 @@ class LinearAnimation extends Animation {
 		this.hasEnded = false;
 
 		this.CPTransition = 0;
-        this.updateValues();
-		this.angle = Math.PI/2;
-        this.aiiii = false;
-        this.hmm= false;
+		this.updateValues();
+		this.angle = 0;
 
 	}
 
@@ -58,14 +56,11 @@ class LinearAnimation extends Animation {
 
 		var dx;
 		var dy;
-        var dz;
-        
-        var oldAngle = this.angle;
+		var dz;
 
 		if (this.TperCPSum == 0 && this.CPTransition - 1 == 0){
-            this.getAngle(0);
-            this.hmm = true;
-			/* mat4.rotate(animationMat, animationMat, Math.PI / 2 - this.angle, [0, 1, 0]);  */
+			this.getAngle(0);
+			mat4.rotate(animationMat, animationMat, Math.PI / 2 - this.angle, [0, 1, 0]); 
 		}
 
 		if ((this.TperCPSum + time) >= this.TperCP[this.CPTransition - 1]) {
@@ -81,8 +76,8 @@ class LinearAnimation extends Animation {
 			
 
 			if (!this.hasEnded) {
-                this.getAngle(this.CPTransition-1);
-                this.aiiii = true;
+				this.getAngle(this.CPTransition-1);
+				mat4.rotate(animationMat, animationMat, -this.angle, [0, 1, 0]);
 				dx += this.velocityX * ans;
 				dy += this.velocityY * ans;
 				dz += this.velocityZ * ans;
@@ -95,23 +90,12 @@ class LinearAnimation extends Animation {
 			var dx = this.velocityX * time;
 			var dy = this.velocityY * time;
 			var dz = this.velocityZ * time;
-        }
+		}
 
-       
-        mat4.rotateY(animationMat, animationMat, -oldAngle);
-        mat4.translate(animationMat, animationMat, [dx, dy, dz]);
-        mat4.rotateY(animationMat, animationMat, oldAngle);
-        
-        if(this.hmm){
-            this.hmm = false;
-			mat4.rotateY(animationMat, animationMat, Math.PI/2);
-        }
+		mat4.rotate(animationMat, animationMat, -(Math.PI / 2 - this.angle), [0, 1, 0]);
+		mat4.translate(animationMat, animationMat, [dx, dy, dz]);
+		mat4.rotate(animationMat, animationMat, (Math.PI / 2 - this.angle), [0, 1, 0]);
 
-        if(this.aiiii){
-            this.aiiii = false;
-            mat4.rotateY(animationMat, animationMat, -oldAngle);
-			mat4.rotateY(animationMat, animationMat, this.angle);
-        }
 
 		return animationMat;
 	}
@@ -148,39 +132,9 @@ class LinearAnimation extends Animation {
 	}
 
 	getAngle(cp) {
-        var dX = this.controlPoints[cp + 1][0] - this.controlPoints[cp][0];
-        var dZ = this.controlPoints[cp + 1][2] - this.controlPoints[cp][2];
-        
-        this.angle = this.angle2V([dX,0,dZ ],[0,0,1]);
-/*         this.angle = Math.atan2(dZ, dX); */
-        if(dX < 0)
-            this.angle *= -1;
-        /*if(dX == 0 && dZ == 0)
-            this.angle = 0;
- */
-       /*  if (Math.abs(dZ) < 0.01){
-            this.angle *= -1;
-            console.log(dZ);
-            console.log(this.angle);
-        } */
- 
-    }
-
-    angle2V(a, b) {
-        let tempA = vec3.fromValues(a[0], a[1], a[2]);
-        let tempB = vec3.fromValues(b[0], b[1], b[2]);
-        vec3.normalize(tempA, tempA);
-        vec3.normalize(tempB, tempB);
-        let cosine = vec3.dot(tempA, tempB);
-        if(cosine > 1.0) {
-          return 0;
-        }
-        else if(cosine < -1.0) {
-          return Math.PI;
-        } else {
-          return Math.acos(cosine);
-        }
-    }
-   
+		var dX = this.controlPoints[cp + 1][0] - this.controlPoints[cp][0];
+		var dZ = this.controlPoints[cp + 1][2] - this.controlPoints[cp][2];
+		this.angle = Math.atan2(dZ, dX);
+	}
 
 }
