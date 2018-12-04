@@ -209,49 +209,40 @@
 	</animations>
 
 	<primitives>	
-
-		<primitive id="plane">
-        	<plane npartsU="5" npartsV="8" />
+		<primitive id="quad">
+			<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
 		</primitive>
 
-		<primitive id="patch">
-        	<patch npointsU="5" npointsV="2" npartsU="2" npartsV="2">
-				<controlpoint xx="-2" yy="1.5" zz="0" />
-				<controlpoint xx="-3.5" yy="1.5" zz="-2" />
+		<primitive id="cylinder-leg">
+			<cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30"/>
+		</primitive>  
 
-				<controlpoint xx="-2" yy="0.6" zz="0" />
-				<controlpoint xx="-2" yy="0.6" zz="-2" />
-
-				<controlpoint xx="-1" yy="0.5" zz="0" />
-				<controlpoint xx="-1" yy="0.5" zz="-2" />
-
-				<controlpoint xx="-0.5" yy="0.5" zz="0" />
-				<controlpoint xx="-0.5" yy="0.5" zz="-1.5" />
-
-				<controlpoint xx="0" yy="0.5" zz="0" />
-				<controlpoint xx="0" yy="0.5" zz="-1.5" />
-			</patch>
+		<primitive id="board">
+			<board />
 		</primitive>
-
-		<primitive id="cylinder2">
-        	<cylinder2 base="0.5" top="0.5" height="1" slices="25" stacks="25"/>
-		</primitive>
-
-		<primitive id="vehicle">
-			<vehicle />
-		</primitive>
-
-		<primitive id="terrain">
-            <terrain idtexture="terrain_t" idheightmap="terrain_h" parts="50" heightscale="0.15"/>
-        </primitive >
-
-		<primitive id="water_prim">
-            <water idtexture="water_t" idwavemap="water_h" parts="100" heightscale="0.05" texscale="2"/>
-        </primitive >   
 	</primitives >
 
 	<components>
 		<component id="root">
+			<transformation>
+				<transformationref id="globalDescale"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="room"/>
+			</children>
+		</component>
+
+		<component id="room">
 			<transformation>
 			</transformation>
 
@@ -265,18 +256,176 @@
 			<texture id="none" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="plane"/>
-				<componentref id="patch"/>
-				<componentref id="cylinder2"/>
-				<componentref id="vehicle"/>
-				<componentref id="terrain"/>
-				<componentref id="water"/>
+				<componentref id="table"/>
 			</children>
 		</component>
 
-		<component id="plane">
+		<component id="table">
 			<transformation>
-				<translate x="4" y="1" z="8.4" />
+				<translate x="2" y="0" z="2"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none"/>
+
+			<children>
+				<componentref id="top" />
+				<componentref id="table-legs" />
+				<primitiveref id="board" />
+			</children>
+		</component>
+
+		<component id="top">
+			<transformation>
+				<translate x="0.0" y="1.60" z="0.0"/>
+				<scale x="4.0" y="0.2" z="2.3"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="wood" length_s="1" length_t="1"/>
+
+			<children>
+				<componentref id="cube"/>
+			</children>
+		</component>
+
+		<component id="cube">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<componentref id="quad-front"/>
+				<componentref id="quad-back"/>
+				<componentref id="quad-left"/>
+				<componentref id="quad-right"/>
+				<componentref id="quad-top"/>
+				<componentref id="quad-bot"/>
+			</children>
+		</component>
+
+		<component id="quad-front">
+			<transformation>
+				<translate x="0.0" y="0.0" z="0.5"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1" length_t="7"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="quad-back">
+			<transformation>
+				<translate x="0.0" y="0.0" z="-0.5"/>
+				<rotate axis="y" angle="180"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="quad-left">
+			<transformation>
+				<translate x="-0.5" y="0.0" z="0.0"/>
+				<rotate axis="y" angle="270"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="quad-right">
+			<transformation>
+				<translate x="0.5" y="0.0" z="0.0"/>
+				<rotate axis="y" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="quad-top">
+			<transformation>
+				<translate x="0.0" y="0.5" z="0.0"/>
+				<rotate axis="x" angle="270"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="quad-bot">
+			<transformation>
+				<translate x="0.0" y="-0.5" z="0.0"/>
 				<rotate axis="x" angle="90"/>
 			</transformation>
 
@@ -284,141 +433,119 @@
 			</animations>
 
 			<materials>
-				<material id="mater0"/>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="example" length_s="0.2" length_t="1.0"/>
+			<texture id="inherit"/>
 
 			<children>
-				<primitiveref id="plane" />
+				<primitiveref id="quad"/>
 			</children>
 		</component>
 
-		<component id="patch">
+		<component id="table-legs">
 			<transformation>
-				<translate x="5.4" y="1" z="8.4" />
 			</transformation>
 
 			<animations>
 			</animations>
 
 			<materials>
-				<material id="mater0"/>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="example" length_s="1.0" length_t="1.0"/>
+			<texture id="metal" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="patch" />
+				<componentref id="front-left-leg"/>
+				<componentref id="front-right-leg"/>
+				<componentref id="back-left-leg"/>
+				<componentref id="back-right-leg"/>
 			</children>
 		</component>
 
-		<component id="cylinder2">
+		<component id="front-left-leg">
 			<transformation>
-				<translate x="5.4" y="1" z="8.4" />
-				<rotate axis="x" angle="-90"/>
+				<translate x="-1.6" y="0" z="0.75"/>
+				<rotate axis="x" angle="270"/>
+				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
 			<animations>
 			</animations>
 
 			<materials>
-				<material id="mater0"/>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="example" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="cylinder2" />
+				<primitiveref id="cylinder-leg"/>
 			</children>
 		</component>
 
-		<component id="vehicle">
+		<component id="front-right-leg">
 			<transformation>
-				<!-- <translate x="1.24" y="0.466" z="1.35" /> -->
-				<translate x="-5" y="1" z="2" />
+				<translate x="1.6" y="0" z="0.75"/>
+				<rotate axis="x" angle="270"/>
+				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
 			<animations>
-				<animationref id="arrival1" />
-				<animationref id="arrivalRotation1" />
-				<animationref id="arrival2" />
-				<animationref id="arrivalRotation2" />
-				<animationref id="arrival3" />
-				<animationref id="arrivalRotation3" />
-				<animationref id="arrival4" />
-				<animationref id="arrivalRotation4" />
-				<animationref id="arrival5" />
-				<animationref id="rotation" />
-				<animationref id="blastoff" />
 			</animations>
 
 			<materials>
-				<material id="mater0"/>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="rocket-red" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="vehicle" />
+				<primitiveref id="cylinder-leg"/>
 			</children>
 		</component>
 
-		<component id="terrain">
-            <transformation>
-                <scale x="3" y="5" z="3" />
-                <translate x="0.8" y="-0.0229" z="0.8" />
+		<component id="back-left-leg">
+			<transformation>
+				<translate x="-1.6" y="0" z="-0.75"/>
+				<rotate axis="x" angle="270"/>
+				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
 			<animations>
-            </animations>
+			</animations>
 
-            <materials>
-                <material id="mater0" />
-            </materials>
+			<materials>
+				<material id="inherit"/>
+			</materials>
 
-            <texture id="terrain_t" length_s="1" length_t="0.3" />
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
-            <children>
-                <primitiveref id="terrain" />
-            </children>
-        </component>
-		
-        <component id="water">
-            <transformation>
-				<scale x="5" y="3" z="5" />
-				<translate x="0.5" y="-0.0229" z="0.5" />
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="back-right-leg">
+			<transformation>
+				<translate x="1.6" y="0" z="-0.75"/>
+				<rotate axis="x" angle="270"/>
+				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
 			<animations>
-            </animations>
+			</animations>
 
-            <materials>
-                <material id="mater0" />
-            </materials>
+			<materials>
+				<material id="inherit"/>
+			</materials>
 
-            <texture id="water_t" length_s="1" length_t="0.3" />
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
-            <children>
-                <primitiveref id="water_prim" />
-            </children>
-        </component>
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
 	</components>
-
 </yas>
