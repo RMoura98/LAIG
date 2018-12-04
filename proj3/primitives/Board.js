@@ -39,54 +39,48 @@ class Board extends CGFobject {
     display() {
 
         this.scene.pushMatrix();
-            this.scene.translate(0,1.75,0);
-            this.scene.scale(1.3,1,1.3);
-            this.appearance.apply();
-            this.plane.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0,1.75,0);
+                this.scene.scale(1.3,1,1.3);
+                this.appearance.apply();
+                this.plane.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.translate(0,1.73,0.65);
-            this.scene.scale(1.3,0.04,1);
-            this.appearanceSides.apply();
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.translate(0,1.73,0.65);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(Math.PI/2,0,1,0);
-            this.scene.translate(0,1.73,0.65);
-            this.scene.scale(1.3,0.04,1);
-            this.appearanceSides.apply();
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/2,0,1,0);
+                this.scene.translate(0,1.73,0.65);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.scene.rotate(-Math.PI/2,0,1,0);
-            this.scene.translate(0,1.73,0.65);
-            this.scene.scale(1.3,0.04,1);
-            this.appearanceSides.apply();
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/2,0,1,0);
+                this.scene.translate(0,1.73,0.65);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI,0,1,0);
-            this.scene.translate(0,1.73,0.65);
-            this.scene.scale(1.3,0.04,1);
-            this.appearanceSides.apply();
-            this.quad.display();
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI,0,1,0);
+                this.scene.translate(0,1.73,0.65);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
 
-        this.piece.display();
+            this.piece.display();
+
+        this.scene.popMatrix();
     };
-
-    applyMaterial(material) {
-        this.appearance = material;
-
-    }
-
-    applyTexture(texture) {
-        this.CustomTexture = texture;
-    }
 
     updateTexCoords(){}
 

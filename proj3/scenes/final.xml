@@ -167,49 +167,14 @@
 	</transformations>
 
 	<animations>
-		<linear id="arrival1" span="4">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="3" yy="0" zz="0" />
-		</linear>
-
-		<circular id="arrivalRotation1" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="90" />
-
-		<linear id="arrival2" span="4">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="3" />
-		</linear>
-
-		<circular id="arrivalRotation2" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="-90" />
-
-		<linear id="arrival3" span="3">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="2" />
-		</linear>
-
-		<circular id="arrivalRotation3" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="-90" />
-
-		<linear id="arrival4" span="3">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="3" />
-		</linear>
-
-		<circular id="arrivalRotation4" span="0.5" center="0 0 0" radius="0.01" startang="0" rotang="90" />
-
-		<linear id="arrival5" span="3">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="3" />
-		</linear>
-
-		<circular id="rotation" span="30" center="0 0 -0.7" radius="1" startang="-90" rotang="-360" />
-
-		<linear id="blastoff" span="5">
-			<controlpoint xx="0" yy="0" zz="0" />
-			<controlpoint xx="0" yy="0" zz="8" />
-		</linear>
 	</animations>
 
 	<primitives>	
 		<primitive id="quad">
+			<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+		</primitive>
+
+		<primitive id="box-lid">
 			<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
 		</primitive>
 
@@ -219,6 +184,14 @@
 
 		<primitive id="board">
 			<board />
+		</primitive>
+
+		<primitive id="pieceBox1">
+			<box />
+		</primitive>
+
+		<primitive id="pieceBox2">
+			<box />
 		</primitive>
 	</primitives >
 
@@ -277,6 +250,8 @@
 			<children>
 				<componentref id="top" />
 				<componentref id="table-legs" />
+				<componentref id="box1" />
+				<componentref id="box2" />
 				<primitiveref id="board" />
 			</children>
 		</component>
@@ -545,6 +520,203 @@
 
 			<children>
 				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="box1">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="pieceBox1" />
+				<componentref id="box-lid-1" />
+			</children>
+		</component>
+
+		<component id="pieceBox1">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="pieceBox1"/>
+			</children>
+		</component>
+
+		<component id="box-lid-1">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="box-lid-top-1" />
+				<componentref id="box-lid-bottom-1" />
+			</children>
+		</component>
+
+		<component id="box-lid-top-1">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="-90"  />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="box-lid-bottom-1">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="90" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="box2">
+			<transformation>
+				<translate x="-2.2" y="0" z="-0.5" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="pieceBox2" />
+				<componentref id="box-lid-2" />
+			</children>
+		</component>
+
+		<component id="pieceBox2">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="pieceBox2"/>
+			</children>
+		</component>
+
+		<component id="box-lid-2">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="box-lid-top-2" />
+				<componentref id="box-lid-bottom-2" />
+			</children>
+		</component>
+
+		<component id="box-lid-top-2">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="-90"  />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="box-lid-bottom-2">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="90" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
 			</children>
 		</component>
 	</components>

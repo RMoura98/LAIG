@@ -1879,6 +1879,13 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "box") {
+
+                var primitive = new PieceBox(this.scene);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
         }
         if(Object.keys(this.primitives).length < 1) {
             return "at least one primitive should exist";
