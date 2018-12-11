@@ -132,6 +132,7 @@ class XMLscene extends CGFscene {
                         var customId = this.pickResults[i][1];			
                         let customIdc = Math.floor(customId / 10);	
                         let customIdr = customId % 10;	
+                        //1 a 7 vai ser pesitios do tabuleiro apartir dai e para butoes e outras cenas 
                         console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
                     }
 
