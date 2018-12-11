@@ -12,6 +12,7 @@ class Board extends CGFobject {
         this.plane = new Plane(this.scene,20,20);
         this.quad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.piece = new Piece(this.scene);
+        this.pickingQuad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
 
         this.quad.updateTexCoords(0.1, 1);
 
@@ -37,14 +38,39 @@ class Board extends CGFobject {
     }
 
     display() {
+        
+        this.scene.logPicking();
+	    
 
         this.scene.pushMatrix();
+
             this.scene.pushMatrix();
                 this.scene.translate(0,1.75,0);
                 this.scene.scale(1.3,1,1.3);
                 this.appearance.apply();
                 this.plane.display();
             this.scene.popMatrix();
+
+            if (this.scene.pickMode){
+                
+                this.scene.pushMatrix();
+                for (let i = 0; i < 7; i++) {
+                    if (i == 0) this.scene.translate(-1.3/7 * 3, 0, -1.3/7 * 3);
+                    else this.scene.translate(0 , 0, 1.3/7); 
+                    for (let j = 0; j < 7; j++) {
+                        this.scene.registerForPick((i+1)*10+(j+1), this.pickingQuad);
+                        this.scene.pushMatrix();
+                            this.scene.translate(1.3/7 * j,1.76,0);
+                            this.scene.rotate(-Math.PI/2,1,0,0);
+                            this.scene.scale(1.3/7,1.3/7,1);
+                            this.pickingQuad.display();
+                        this.scene.popMatrix();
+                    }
+                }
+                this.scene.popMatrix();
+                
+                this.scene.clearPickRegistration();
+            }
 
             this.scene.pushMatrix();
                 this.scene.translate(0,1.73,0.65);

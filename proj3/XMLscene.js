@@ -122,6 +122,25 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+    logPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i=0; i< this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj)
+                    {
+                        var customId = this.pickResults[i][1];			
+                        let customIdc = Math.floor(customId / 10);	
+                        let customIdr = customId % 10;	
+                        console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
+                    }
+
+                }
+                this.pickResults.splice(0,this.pickResults.length);
+            }		
+        }
+    }
+
     setCamera() {
         this.currentCamera = this.graph.defaultViewId;
         this.previousCamera = "";
@@ -174,6 +193,8 @@ class XMLscene extends CGFscene {
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.clearPickRegistration();
 
         this.pushMatrix();
 
