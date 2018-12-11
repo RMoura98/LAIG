@@ -73,7 +73,15 @@ class Board extends CGFobject {
             }
 
             this.scene.pushMatrix();
-                this.scene.translate(0,1.73,0.65);
+                this.scene.translate(0,1.73,0.7);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0,1.75,0.7);
+                this.scene.rotate(-Math.PI/2,1,0,0);
                 this.scene.scale(1.3,0.04,1);
                 this.appearanceSides.apply();
                 this.quad.display();
