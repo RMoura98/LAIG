@@ -18,6 +18,14 @@ class XMLscene extends CGFscene {
 
         this.currentCamera = null;
         this.previousCamera = null;
+
+            //Handle the Reply Option 2
+        this.handleReplyBoard = function handleReplyBoard(data){
+            console.log(this.board);
+            this.board = this.stringToArray(data.target.response);
+            console.log(this.board);
+        }
+        this.handleReplyBoard = this.handleReplyBoard.bind(this);
     }
 
     /**
@@ -41,6 +49,10 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
 
         this.setUpdatePeriod(33.33);
+
+        this.board = [['border','border','border','border','border','border','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','border','border','border','border','border','border']];
+
+        console.log(this.arrayToString(this.board));
     }
 
     /**
@@ -136,10 +148,10 @@ class XMLscene extends CGFscene {
         request.send();
     }
 		
-    makeRequest(requestString)
+    makeRequest(requestString, handleReply)
     {
         // Make Request
-        this.getPrologRequest(requestString, this.handleReply);
+        this.getPrologRequest(requestString, handleReply);
     }
     
     //Handle the Reply
@@ -147,7 +159,47 @@ class XMLscene extends CGFscene {
         console.log( data.target.response);
     }
 
+
     //para o server fim
+
+    arrayToString(array){
+        let res = ""; 
+        for (let i = 0; i < array.length; i++) {
+            if(i == 0)
+                res += "[";
+            for (let j = 0; j < array[i].length; j++) {
+                if(j == 0)
+                    res += "[";
+                res += array[i][j];
+                if(j != array[i].length - 1)
+                    res += ",";
+            }
+            res += "]";
+            if(i != array.length - 1)
+                res += ",";
+        }
+        res += "]";
+        return res;
+    }
+
+    stringToArray(string){
+        let array = []; 
+        let tmpString = string.substring(1, string.length - 1);
+        let arrayStr = tmpString.split(',');
+        let tmpArray = [];
+        for (let i = 0; i < arrayStr.length; i++) {
+            if (i%7 == 0)  
+                tmpArray.push(arrayStr[i].substring(1, arrayStr[i].length));
+            else if (i%7 == 6)  {
+                tmpArray.push(arrayStr[i].substring(0, arrayStr[i].length-1));
+                array.push(tmpArray);
+                tmpArray = [];
+            }
+            else
+                tmpArray.push(arrayStr[i]);
+        }
+        return array;
+    }
 
     logPicking() {
         if (this.pickMode == false) {
@@ -161,6 +213,7 @@ class XMLscene extends CGFscene {
                         let customIdr = customId % 10;	
                         //1 a 7 vai ser pesitios do tabuleiro apartir dai e para butoes e outras cenas 
                         console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
+                        this.makeRequest("changeElement(" + this.arrayToString(this.board) + ","+customIdc+","+customIdr+",'red')",this.handleReplyBoard);
                     }
 
                 }
@@ -178,7 +231,7 @@ class XMLscene extends CGFscene {
 
     update(currTime) {
         this.time = (currTime - this.previousTime) / 1000;
-        this.makeRequest('handshake');
+        /* this.makeRequest("valid_moves(" + this.arrayToString(this.board) +")", this.handleReply); */
         var nodeName;
         var newMatrix;
 

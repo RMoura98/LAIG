@@ -102,11 +102,17 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
+:-consult('flume.pl').
+
 
 %TODO: mudar aqui para as nossas coisas 
 
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
+parse_input(board, Res) :- board(Res).
+parse_input(valid_moves(Board), Res) :- valid_moves(Board,1,1,[],Res,0).
+parse_input(changeElement(Board,Row,Col,Player), NewBoard) :- changeElement(Board, Row, Col, Player, NewBoard).
+
 parse_input(quit, goodbye).
 
 test(_,[],N) :- N =< 0.

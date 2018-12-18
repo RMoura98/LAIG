@@ -8,7 +8,7 @@ getBotDif(Player,Dif):-
 
 
 start_game(Player1,Player2) :-										
-	midboard(Board),
+	board(Board),
 	game(Board, Player1,Player2).
 	
 
