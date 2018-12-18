@@ -144,7 +144,7 @@ class XMLscene extends CGFscene {
     
     //Handle the Reply
     handleReply(data){
-        console.log(data);
+        console.log( data.target.response);
     }
 
     //para o server fim
@@ -178,7 +178,7 @@ class XMLscene extends CGFscene {
 
     update(currTime) {
         this.time = (currTime - this.previousTime) / 1000;
-        
+        this.makeRequest('handshake');
         var nodeName;
         var newMatrix;
 

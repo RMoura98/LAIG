@@ -32,8 +32,6 @@ class Patch extends CGFobject {
             formatedCP.push(tempCP);
         }
 
-        console.log(formatedCP);
-
         var nurbSurface = new CGFnurbsSurface(this.npointsU-1, this.npointsV-1, formatedCP);
         this.surface = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbSurface);
         
