@@ -19,8 +19,18 @@ class XMLscene extends CGFscene {
         this.currentCamera = null;
         this.previousCamera = null;
 
-            //Handle the Reply Option 2
-        this.handleReplyBoard = function handleReplyBoard(data){
+        this.gameMode = {};
+        this.gameDifficulty = {};
+        this.rotatingCamera = true;
+
+        this.startGame = function() {
+            
+        };
+        this.undoMove = function() {
+        };
+
+        //Handle the Reply Option 2
+        this.handleReplyBoard = function handleReplyBoard(data) {
             console.log(this.board);
             this.board = this.stringToArray(data.target.response);
             console.log(this.board);
@@ -130,6 +140,12 @@ class XMLscene extends CGFscene {
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
+
+        // Adds game setting group
+        this.interface.addGameSettingsGroup();
+
+        // Adds game options group
+        this.interface.addGameActionsGroup();
 
         this.sceneInited = true;
     }
@@ -307,7 +323,8 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
-        } else {
+        } 
+        else {
             // Draw axis
             this.axis.display();
         }

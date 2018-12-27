@@ -29,12 +29,21 @@ class Board extends CGFobject {
 		this.appearanceSides.setDiffuse(0.5, 0.5, 0.5, 1);
         this.appearanceSides.setSpecular(0.5, 0.5, 0.5, 1);
         this.appearanceSides.setShininess(1);
+
+        this.appearancePiece = new CGFappearance(this.scene);
+        this.appearance.setEmission(0, 0, 0, 1);
+        this.appearance.setAmbient(0.2, 0.2, 0.2, 1);
+		this.appearance.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.appearance.setSpecular(0.5, 0.5, 0.5, 1);
+        this.appearance.setShininess(1);
         
         this.boardTexture = new CGFtexture(this.scene, "../scenes/images/board.png");
         this.boardSideTexture = new CGFtexture(this.scene, "../scenes/images/boardSides.jpg");
+        this.borderPieceTexture = new CGFtexture(this.scene, "../scenes/images/greenPiece.png");
 
         this.appearance.setTexture(this.boardTexture);
         this.appearanceSides.setTexture(this.boardSideTexture);
+        this.appearancePiece.setTexture(this.borderPieceTexture);
     }
 
     display() {
@@ -51,7 +60,7 @@ class Board extends CGFobject {
                 this.plane.display();
             this.scene.popMatrix();
 
-            if (this.scene.pickMode){
+            if (this.scene.pickMode) {
                 
                 this.scene.pushMatrix();
                 for (let i = 0; i < 7; i++) {
@@ -78,7 +87,59 @@ class Board extends CGFobject {
                 this.appearanceSides.apply();
                 this.quad.display();
             this.scene.popMatrix();
+
             this.scene.pushMatrix();
+                this.scene.translate(0,1.75,0.67);
+                this.scene.rotate(-Math.PI/2,1,0,0);
+                this.scene.scale(1.3,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/2,0,1,0);
+                this.scene.translate(0,1.73,0.69);
+                this.scene.scale(1.38,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/2,0,1,0);
+                this.scene.translate(0,1.75,0.67);
+                this.scene.rotate(-Math.PI/2,1,0,0);
+                this.scene.scale(1.38,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/2,0,1,0);
+                this.scene.translate(0,1.73,0.69);
+                this.scene.scale(1.38,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/2,0,1,0);
+                this.scene.translate(0,1.75,0.67);
+                this.scene.rotate(-Math.PI/2,1,0,0);
+                this.scene.scale(1.38,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI,0,1,0);
+                this.scene.translate(0,1.73,0.69);
+                this.scene.scale(1.38,0.04,1);
+                this.appearanceSides.apply();
+                this.quad.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI,0,1,0);
                 this.scene.translate(0,1.75,0.67);
                 this.scene.rotate(-Math.PI/2,1,0,0);
                 this.scene.scale(1.3,0.04,1);
@@ -86,57 +147,94 @@ class Board extends CGFobject {
                 this.quad.display();
             this.scene.popMatrix();
             
+            
+            this.boderPiecePlacement();
+            
 
-            this.scene.pushMatrix();
-                this.scene.rotate(Math.PI/2,0,1,0);
-                this.scene.translate(0,1.73,0.69);
-                this.scene.scale(1.38,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
-            this.scene.pushMatrix();
-                this.scene.rotate(Math.PI/2,0,1,0);
-                this.scene.translate(0,1.75,0.67);
-                this.scene.rotate(-Math.PI/2,1,0,0);
-                this.scene.scale(1.38,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
+        this.scene.popMatrix();
+    };
 
-            this.scene.pushMatrix();
-                this.scene.rotate(-Math.PI/2,0,1,0);
-                this.scene.translate(0,1.73,0.69);
-                this.scene.scale(1.38,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
-            this.scene.pushMatrix();
-                this.scene.rotate(-Math.PI/2,0,1,0);
-                this.scene.translate(0,1.75,0.67);
-                this.scene.rotate(-Math.PI/2,1,0,0);
-                this.scene.scale(1.38,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
+    boderPiecePlacement() {
 
-            this.scene.pushMatrix();
-                this.scene.rotate(Math.PI,0,1,0);
-                this.scene.translate(0,1.73,0.69);
-                this.scene.scale(1.38,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
-            this.scene.pushMatrix();
-                this.scene.rotate(Math.PI,0,1,0);
-                this.scene.translate(0,1.75,0.67);
-                this.scene.rotate(-Math.PI/2,1,0,0);
-                this.scene.scale(1.3,0.04,1);
-                this.appearanceSides.apply();
-                this.quad.display();
-            this.scene.popMatrix();
+        //Border pieces placement
+        //Starts from topmid counter-clock wise
 
+        this.scene.pushMatrix();
+            this.scene.translate(0.006, 1.78, -0.555);
+            this.scene.scale(0.09, 0.09, 0.09);
+            this.appearancePiece.apply();
             this.piece.display();
 
+            this.scene.pushMatrix();
+                this.scene.translate(-2.05, 0, 0)
+                this.piece.display();
+        
+                this.scene.translate(-2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(-2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, 2.05)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(0, 0, -2.05)
+                this.piece.display();
+
+                this.scene.translate(-2.05, 0, 0)
+                this.piece.display();
+
+                this.scene.translate(-2.05, 0, 0)
+                this.piece.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
     };
 

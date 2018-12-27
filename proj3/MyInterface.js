@@ -74,5 +74,26 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+
+    addGameSettingsGroup() {
+
+        var group = this.gui.addFolder("Game Settings");
+        group.open();
+
+        group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode");
+
+        group.add(this.scene, 'gameDifficulty', [ 'Easy', 'Hard'] ).name("Difficulty");
+
+        group.add(this.scene, 'rotatingCamera').name("Rotating Camera");
+    }
+
+    addGameActionsGroup() {
+        var group = this.gui.addFolder("Game Actions");
+        group.open();
+
+        group.add(this.scene, 'startGame').name("Start Game");
+        group.add(this.scene, 'undoMove').name("Undo Move");
+    }
     
 }
