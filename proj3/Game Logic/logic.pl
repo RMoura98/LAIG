@@ -14,7 +14,7 @@ start_game(Player1,Player2) :-
 
 %option = p2 ou ce ou ch
 game(Board, CurrPlayer,Option) :-
-	printBoard(Board),
+	%printBoard(Board),
 	count(Board,1,1,0,0,P1S,P2S),
 	showNStones(P1S, P2S, Option),
 	showCurrentPlayer(CurrPlayer),

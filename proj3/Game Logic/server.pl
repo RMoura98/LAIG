@@ -112,6 +112,12 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(board, Res) :- board(Res).
 parse_input(valid_moves(Board), Res) :- valid_moves(Board,1,1,[],Res,0).
 parse_input(changeElement(Board,Row,Col,Player), NewBoard) :- changeElement(Board, Row, Col, Player, NewBoard).
+parse_input(gameRound(Board,Row,Col,CurrPlayer, Option), [NewBoard,NextPlayer]) :-
+    placeStone(Board, Row, Col, NewBoard, CurrPlayer, NextPlayer, Option). %option vai ser no js
+parse_input(getCompPlay(Board, CurrPlayer, Option), [NewBoard,NextPlayer]) :-
+    getBotDif(CurrPlayer, Dif),
+    choose_move(Row, Col, Dif, Board,CurrPlayer),
+    placeStone(Board, Row, Col, NewBoard, CurrPlayer, NextPlayer, Option). %option vai ser no js
 
 parse_input(quit, goodbye).
 

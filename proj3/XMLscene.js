@@ -30,12 +30,22 @@ class XMLscene extends CGFscene {
         };
 
         //Handle the Reply Option 2
-        this.handleReplyBoard = function handleReplyBoard(data) {
+        this.handleReplyGameRound = function handleReplyGameRound(data){
+            let comArray = data.target.response.split(',');
+            let currPlayer = comArray.pop().slice(0, -1);
+            let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
             console.log(this.board);
-            this.board = this.stringToArray(data.target.response);
-            console.log(this.board);
+            console.log(this.currPlayer);
+            console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
+            if((board.match(/empty/g) || []).length == 0){
+                console.log('we have a winner! ou algo do genero');
+                console.log('red: ' + (board.match(/red/g) || []).length)
+                console.log('blue: ' + (board.match(/blue/g) || []).length)
+            }
+            this.board = this.stringToArray(board);
+            this.currPlayer = currPlayer;
         }
-        this.handleReplyBoard = this.handleReplyBoard.bind(this);
+        this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
     }
 
     /**
@@ -61,8 +71,8 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(33.33);
 
         this.board = [['border','border','border','border','border','border','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','border','border','border','border','border','border']];
-
-        console.log(this.arrayToString(this.board));
+        this.currPlayer = 'p1';
+        this.option = 'ch';
     }
 
     /**
@@ -204,9 +214,9 @@ class XMLscene extends CGFscene {
         let arrayStr = tmpString.split(',');
         let tmpArray = [];
         for (let i = 0; i < arrayStr.length; i++) {
-            if (i%7 == 0)  
+            if (i % 7 == 0)  
                 tmpArray.push(arrayStr[i].substring(1, arrayStr[i].length));
-            else if (i%7 == 6)  {
+            else if (i % 7 == 6)  {
                 tmpArray.push(arrayStr[i].substring(0, arrayStr[i].length-1));
                 array.push(tmpArray);
                 tmpArray = [];
@@ -228,8 +238,14 @@ class XMLscene extends CGFscene {
                         let customIdc = Math.floor(customId / 10);	
                         let customIdr = customId % 10;	
                         //1 a 7 vai ser pesitios do tabuleiro apartir dai e para butoes e outras cenas 
+                        customIdc--;    
+                        customIdr--;
                         console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
-                        this.makeRequest("changeElement(" + this.arrayToString(this.board) + ","+customIdc+","+customIdr+",'red')",this.handleReplyBoard);
+                        if(this.board[customIdc][customIdr] == 'empty'){
+                            this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdc + "," + customIdr + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+                        }
+                        else 
+                            console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
                     }
 
                 }
@@ -275,6 +291,17 @@ class XMLscene extends CGFscene {
         }
 
         this.previousTime = currTime;
+        
+        if(this.currPlayer.charAt(0) == 'c'){
+            if(this.lastIsComp == 0){
+                this.lastIsComp = 1;
+                this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+            }
+        }
+        else {
+            this.lastIsComp = 0;
+        }
+    
     }
 
     display() {
