@@ -11,7 +11,9 @@ class Board extends CGFobject {
 
         this.plane = new Plane(this.scene,20,20);
         this.quad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
-        this.piece = new Piece(this.scene);
+        this.greenPiece = new Piece(this.scene, null, 'green');
+        this.redPiece = new Piece(this.scene, null, 'red');
+        this.bluePiece = new Piece(this.scene, null, 'blue');
         this.pickingQuad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
 
         this.quad.updateTexCoords(0.1, 1);
@@ -30,20 +32,13 @@ class Board extends CGFobject {
         this.appearanceSides.setSpecular(0.5, 0.5, 0.5, 1);
         this.appearanceSides.setShininess(1);
 
-        this.appearancePiece = new CGFappearance(this.scene);
-        this.appearance.setEmission(0, 0, 0, 1);
-        this.appearance.setAmbient(0.2, 0.2, 0.2, 1);
-		this.appearance.setDiffuse(0.5, 0.5, 0.5, 1);
-        this.appearance.setSpecular(0.5, 0.5, 0.5, 1);
-        this.appearance.setShininess(1);
+       
         
         this.boardTexture = new CGFtexture(this.scene, "../scenes/images/board.png");
         this.boardSideTexture = new CGFtexture(this.scene, "../scenes/images/boardSides.jpg");
-        this.borderPieceTexture = new CGFtexture(this.scene, "../scenes/images/greenPiece.png");
 
         this.appearance.setTexture(this.boardTexture);
         this.appearanceSides.setTexture(this.boardSideTexture);
-        this.appearancePiece.setTexture(this.borderPieceTexture);
     }
 
     display() {
@@ -149,6 +144,10 @@ class Board extends CGFobject {
             
             
             this.boderPiecePlacement();
+
+            this.redBoxPiecePlacement();
+
+            this.blueBoxPiecePlacement();
             
 
         this.scene.popMatrix();
@@ -162,82 +161,218 @@ class Board extends CGFobject {
         this.scene.pushMatrix();
             this.scene.translate(0.006, 1.78, -0.555);
             this.scene.scale(0.09, 0.09, 0.09);
-            this.appearancePiece.apply();
-            this.piece.display();
+            this.greenPiece.display();
 
             this.scene.pushMatrix();
                 this.scene.translate(-2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
         
                 this.scene.translate(-2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(-2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, 2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(0, 0, -2.05)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(-2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
 
                 this.scene.translate(-2.05, 0, 0)
-                this.piece.display();
+                this.greenPiece.display();
             this.scene.popMatrix();
+
         this.scene.popMatrix();
     };
 
-    updateTexCoords(){}
+    redBoxPiecePlacement() {
+        
+        this.scene.pushMatrix();
+            this.scene.translate(1, 1.73, 0.41);
+            this.scene.scale(0.09, 0.09, 0.09);
+            this.redPiece.display();
 
+            this.scene.translate(0, 0, -1.8);
+            this.redPiece.display();
+
+            this.scene.translate(0, 0, -1.8);
+            this.redPiece.display();
+
+            this.scene.translate(1.9, 0, 0);
+            this.redPiece.display();
+
+            this.scene.translate(0, 0, 1.8);
+            this.redPiece.display();
+
+            this.scene.translate(0, 0, 1.8);
+            this.redPiece.display();
+
+            this.scene.translate(0.5, 0.65, 0);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/8, 0, 0, 1);
+                this.redPiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-1.5, 0, -1);
+            this.redPiece.display();
+
+            this.scene.translate(-0.3, 0.25, 1.2);
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/4, 1, 0, 0);
+                this.redPiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(1.7, -0.3, -2.4);
+            this.redPiece.display();
+
+            this.scene.translate(-2, 0, -0.5);
+            this.redPiece.display();
+
+            this.scene.translate(2.2, 0, -1);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/4, 1, 0, 1);
+                this.redPiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-2, 0, -0.18);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/4, 1, 0, 0);
+                this.redPiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-0.9, 0.15, 2.7);
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/4, 0, 0, 1);
+                this.redPiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(2.5, 0.4, -0.2);
+            this.redPiece.display();
+
+        this.scene.popMatrix();
+    }
+
+    blueBoxPiecePlacement() {
+
+        this.scene.translate(-2.2, 0, -0.5);
+        
+        this.scene.pushMatrix();
+            this.scene.translate(1, 1.73, 0.41);
+            this.scene.scale(0.09, 0.09, 0.09);
+            this.bluePiece.display();
+
+            this.scene.translate(0, 0, -1.8);
+            this.bluePiece.display();
+
+            this.scene.translate(0, 0, -1.8);
+            this.bluePiece.display();
+
+            this.scene.translate(1.9, 0, 0);
+            this.bluePiece.display();
+
+            this.scene.translate(0, 0, 1.8);
+            this.bluePiece.display();
+
+            this.scene.translate(0, 0, 1.8);
+            this.bluePiece.display();
+
+            this.scene.translate(0.5, 0.65, 0);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/8, 0, 0, 1);
+                this.bluePiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-1.5, 0, -1);
+            this.bluePiece.display();
+
+            this.scene.translate(-0.3, 0.25, 1.2);
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/4, 1, 0, 0);
+                this.bluePiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(1.7, -0.3, -2.4);
+            this.bluePiece.display();
+
+            this.scene.translate(-2, 0, -0.5);
+            this.bluePiece.display();
+
+            this.scene.translate(2.2, 0, -1);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/4, 1, 0, 1);
+                this.bluePiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-2, 0, -0.18);
+            this.scene.pushMatrix();
+                this.scene.rotate(-Math.PI/4, 1, 0, 0);
+                this.bluePiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(-0.9, 0.15, 2.7);
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI/4, 0, 0, 1);
+                this.bluePiece.display();
+            this.scene.popMatrix();
+
+            this.scene.translate(2.5, 0.4, -0.2);
+            this.bluePiece.display();
+
+        this.scene.popMatrix();
+
+    }
+
+    updateTexCoords(){}
 };

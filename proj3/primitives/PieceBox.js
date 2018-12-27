@@ -10,6 +10,7 @@ class PieceBox extends CGFobject {
     init() {
 
         this.quad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
+        this.piece = new Piece(this.scene);
 
 
         this.appearance = new CGFappearance(this.scene);
@@ -32,7 +33,6 @@ class PieceBox extends CGFobject {
 		this.appearance3.setDiffuse(0.2, 0.05, 0.05, 1);
         this.appearance3.setSpecular(0.2, 0.05, 0.05, 1);
         this.appearance3.setShininess(30);
-
     }
 
     display() {
@@ -97,7 +97,7 @@ class PieceBox extends CGFobject {
                 this.scene.scale(0.4, 1, 0.5);
                 this.scene.rotate(-Math.PI/2, 1, 0, 0);
                 this.quad.display();
-            this.scene.popMatrix();
+            this.scene.popMatrix();            
             
         this.scene.popMatrix();
     };

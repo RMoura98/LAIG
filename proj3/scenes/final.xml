@@ -538,7 +538,7 @@
 
 			<children>
 				<componentref id="pieceBox1" />
-				<componentref id="box-lid-1" />
+				<!-- <componentref id="box-lid-1" /> -->
 			</children>
 		</component>
 
@@ -637,7 +637,7 @@
 
 			<children>
 				<componentref id="pieceBox2" />
-				<componentref id="box-lid-2" />
+				<!-- <componentref id="box-lid-2" /> -->
 			</children>
 		</component>
 

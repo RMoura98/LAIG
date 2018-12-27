@@ -29,6 +29,8 @@ class XMLscene extends CGFscene {
         this.undoMove = function() {
         };
 
+        this.pieces = [];
+
         //Handle the Reply Option 2
         this.handleReplyGameRound = function handleReplyGameRound(data){
             let comArray = data.target.response.split(',');
@@ -243,6 +245,12 @@ class XMLscene extends CGFscene {
                         console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
                         if(this.board[customIdc][customIdr] == 'empty'){
                             this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdc + "," + customIdr + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+
+                            var piece;
+                            piece = new Piece(this, 'red', 'red');
+
+                            this.pieces.push(piece);
+
                         }
                         else 
                             console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
@@ -267,7 +275,7 @@ class XMLscene extends CGFscene {
         var nodeName;
         var newMatrix;
 
-        for (var i = 0; i < Object.keys(this.graph.nodes).length; i++) {
+        for (let i = 0; i < Object.keys(this.graph.nodes).length; i++) {
 
             nodeName = Object.keys(this.graph.nodes)[i];
 
@@ -286,7 +294,6 @@ class XMLscene extends CGFscene {
 
                     break;
                 }
-
             }
         }
 
@@ -301,6 +308,8 @@ class XMLscene extends CGFscene {
         else {
             this.lastIsComp = 0;
         }
+
+
     
     }
 
@@ -354,6 +363,10 @@ class XMLscene extends CGFscene {
         else {
             // Draw axis
             this.axis.display();
+        }
+
+        for (let i = 0; i < this.pieces.length; i++) {
+            this.pieces[i].display();
         }
 
         this.popMatrix();
