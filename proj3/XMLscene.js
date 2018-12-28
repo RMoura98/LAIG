@@ -81,6 +81,7 @@ class XMLscene extends CGFscene {
                 console.log('we have a winner! ou algo do genero');
                 console.log('red: ' + (board.match(/red/g) || []).length)
                 console.log('blue: ' + (board.match(/blue/g) || []).length)
+                //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
             }
 
 
@@ -290,21 +291,11 @@ class XMLscene extends CGFscene {
                         if(this.board[customIdc][customIdr] == 'empty'){
                             this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
 
-                            var ascencion = new LinearAnimation(2, [[0, 0, 0], [0, 0.2, 0]]);
+                            var piece;
+                            piece = new Piece(this, 'red', 'red');
 
-                            var positioning = this.getPositioningAnimation(customIdr, customIdc);
+                            this.pieces.push(piece);
 
-                            var descending = new LinearAnimation(2, [[0, 0, 0], [0, -0.27, 0]]);
-
-                            this.redPieces[this.redPieceIndex].animations.push(ascencion);
-
-                            this.redPieces[this.redPieceIndex].animations.push(positioning);
-
-                            this.redPieces[this.redPieceIndex].animations.push(descending);
-
-                            this.graph.nodes[this.redPieces[this.bluePieceIndex].id] = this.redPieces[this.bluePieceIndex]
-
-                            this.redPieceIndex++;
                         }
                         else 
                             console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
