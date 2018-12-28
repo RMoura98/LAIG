@@ -5,9 +5,6 @@ class Piece extends CGFobject {
         this.player = player || null;
         this.colour = colour;
         this.scene = scene;
-
-        this.matTransf = mat4.create();    
-        mat4.identity(this.matTransf);
         
         this.animations = [];
 
@@ -86,7 +83,6 @@ class Piece extends CGFobject {
 
         else if( this.player == 'red' ) {
             this.scene.pushMatrix();
-                this.scene.translate(3.1, 1.88, 2.3);
 
                 this.scene.pushMatrix();   
                     this.scene.scale(0.09, 0.09, 0.09);
@@ -105,7 +101,6 @@ class Piece extends CGFobject {
 
         else if( this.player == 'blue' ) {
             this.scene.pushMatrix();
-                this.scene.translate(0.9, 1.86, 1.65);
 
                 this.scene.pushMatrix();   
                     this.appearancePiece.apply();
@@ -134,13 +129,5 @@ class Piece extends CGFobject {
     applyTexture(texture) {
         this.CustomTexture = texture;
     };
-
-    addAnimations(animations) {
-        this.animations = animations;
-    }
-
-    updateMatrix(newMatrix) {
-        mat4.multiply(this.matTransf, this.matTransf, newMatrix);
-    }
 
 };

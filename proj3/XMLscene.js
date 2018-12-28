@@ -23,27 +23,67 @@ class XMLscene extends CGFscene {
         this.gameDifficulty = {};
         this.rotatingCamera = true;
 
+        this.originalPieces = [];
+        
+        this.redPieces = []
+        this.redPieceIndex = null;
+
+        this.bluePieces = [];
+        this.bluePieceIndex = null;
+
+        this.gameRunning = false;
+
         this.startGame = function() {
+
+            var originalPieceIndex = 0;
+
+            this.redPieces = [];
+            this.bluePieces = [];
             
+            for(let i in this.graph.nodes) {
+
+                if(this.graph.nodes[i].primitive instanceof Piece ) {
+                    this.graph.nodes[i] = this.originalPieces[originalPieceIndex];
+
+                    originalPieceIndex++;
+    
+                    if(this.graph.nodes[i].primitive.colour == 'red')
+                        this.redPieces.push(this.graph.nodes[i]);
+    
+                    else if(this.graph.nodes[i].primitive.colour == 'blue')
+                        this.bluePieces.push(this.graph.nodes[i]);
+
+                }
+           }
+    
+           this.redPieceIndex = 0;
+           this.bluePieceIndex = 0;
+
+           this.gameRunning = true;
+
         };
+
         this.undoMove = function() {
         };
 
-        this.pieces = [];
 
         //Handle the Reply Option 2
         this.handleReplyGameRound = function handleReplyGameRound(data){
             let comArray = data.target.response.split(',');
             let currPlayer = comArray.pop().slice(0, -1);
             let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
+
             console.table(this.stringToArray(board));
             console.log("next Player:" + currPlayer);
             console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
+
             if((board.match(/empty/g) || []).length == 0){
                 console.log('we have a winner! ou algo do genero');
                 console.log('red: ' + (board.match(/red/g) || []).length)
                 console.log('blue: ' + (board.match(/blue/g) || []).length)
             }
+
+
             this.previousBoard = this.board;
             this.board = this.stringToArray(board);
             this.currPlayer = currPlayer;
@@ -162,6 +202,8 @@ class XMLscene extends CGFscene {
         this.interface.addGameActionsGroup();
 
         this.sceneInited = true;
+
+        this.getPieces();
     }
 
     //para o server inicio
@@ -239,20 +281,30 @@ class XMLscene extends CGFscene {
                     if (obj)
                     {
                         var customId = this.pickResults[i][1];			
-                        let customIdc = Math.floor(customId / 10);	
-                        let customIdr = customId % 10;	
+                        let customIdc = customId % 10;	
+                        let customIdr = Math.floor(customId / 10);
                         //1 a 7 vai ser pesitios do tabuleiro apartir dai e para butoes e outras cenas 
                         customIdc--;    
                         customIdr--;
-                        console.log("Picked object: " + obj + ", with pick position [" + customIdc + ", " + customIdr + "]");
+                        console.log("Picked object: " + obj + ", with pick position [" + customIdr + ", " + customIdc + "]");
                         if(this.board[customIdc][customIdr] == 'empty'){
-                            this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdc + "," + customIdr + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+                            this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
 
-                            var piece;
-                            piece = new Piece(this, 'red', 'red');
+                            var ascencion = new LinearAnimation(2, [[0, 0, 0], [0, 0.2, 0]]);
 
-                            this.pieces.push(piece);
+                            var positioning = this.getPositioningAnimation(customIdr, customIdc);
 
+                            var descending = new LinearAnimation(2, [[0, 0, 0], [0, -0.27, 0]]);
+
+                            this.redPieces[this.redPieceIndex].animations.push(ascencion);
+
+                            this.redPieces[this.redPieceIndex].animations.push(positioning);
+
+                            this.redPieces[this.redPieceIndex].animations.push(descending);
+
+                            this.graph.nodes[this.redPieces[this.bluePieceIndex].id] = this.redPieces[this.bluePieceIndex]
+
+                            this.redPieceIndex++;
                         }
                         else 
                             console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
@@ -368,11 +420,45 @@ class XMLscene extends CGFscene {
             this.axis.display();
         }
 
-        for (let i = 0; i < this.pieces.length; i++) {
-            this.pieces[i].display();
-        }
-
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    getPieces() {
+       for(let i in this.graph.nodes) {
+
+            if(this.graph.nodes[i].primitive instanceof Piece ) {
+
+                this.originalPieces.push(this.graph.nodes[i]);
+
+                if(this.graph.nodes[i].primitive.colour == 'red')
+                    this.redPieces.push(this.graph.nodes[i]);
+
+                else if(this.graph.nodes[i].primitive.colour == 'blue')
+                    this.bluePieces.push(this.graph.nodes[i]);
+            }
+       }
+
+       this.redPieceIndex = 0;
+       this.bluePieceIndex = 0;
+    }
+
+    getPositioningAnimation(row, column) {
+        var x = 0.56;
+        var z = -1.42;
+
+        while(column > 1) {
+            z += 0.185;
+            column--;
+        }
+
+        while(row > 1) {
+            x -= 0.19;
+            row--;
+        }
+
+        var animation = new LinearAnimation(4, [[0, 0, 0], [x, 0, z]]);
+
+        return animation;
     }
 }

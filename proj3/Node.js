@@ -8,20 +8,20 @@ function MyNode(id) {
 	this.id = id;
 
 	this.materialId = [];			      	    //Id to the material
-	this.materialIdPos = null;            //Position of current material
+	this.materialIdPos = null;            		//Position of current material
 
 	this.textureId = null;				        //Id to the texture
 
-	this.textureLength = [];				      //texture factor s and t [s,t]
+	this.textureLength = [];				    //texture factor s and t [s,t]
 
-	this.matTransf = mat4.create();       //Transformation matrix
+	this.matTransf = mat4.create();       		//Transformation matrix
 	mat4.identity(this.matTransf);
 
-	this.descendants = [];                //Every direct descendant
+	this.descendants = [];               		//Every direct descendant
 
-	this.primitive = null;                //Primitive
+	this.primitive = null;                		//Primitive
 
-	this.animations = [];                 //Id to animation
+	this.animations = [];                 		//Id to animation
 }
 
 MyNode.prototype.insertChild = function (nodeId) {

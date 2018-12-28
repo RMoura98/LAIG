@@ -2,33 +2,33 @@
 	<scene root="root" axis_length="3.0"/>
 
 	<views default="presp0">
-		<perspective id="presp0" near="0.1" far="500" angle="10">
-			<from x="70.0" y="35.0" z="110.0"/>
-			<to x="10.0" y="5.0" z="10.0"/>
+		<perspective id="presp0" near="0.1" far="500" angle="76">
+			<from x="2.5" y="2" z="6" />
+            <to x="2.5" y="0" z="1" />
 		</perspective>
 
-		<perspective id="presp1" near="0.1" far="500" angle="10">
-			<from x="65.0" y="35.0" z="50.0"/>
-			<to x="20.0" y="10.0" z="10.0"/>
+		<perspective id="presp1" near="0.1" far="500" angle="76">
+            <from x="6" y="1" z="0" />
+            <to x="0" y="0" z="4" />
+        </perspective>
+
+		<perspective id="presp2" near="0.1" far="500" angle="76">
+			<from x="0.1" y="1" z="6" />
+            <to x="4" y="0" z="0" />
 		</perspective>
 
-		<perspective id="presp2" near="0.1" far="500" angle="90">
-			<from x="7.0" y="6.0" z="2.0"/>
-			<to x="10.0" y="7.0" z="7.0"/>
-		</perspective>
-
-		<perspective id="presp3" near="0.1" far="500" angle="90">
-			<from x="15.0" y="9.5" z="8.0"/>
-			<to x="5.0" y="6.0" z="0.0"/>
+		<perspective id="presp3" near="0.1" far="500" angle="76">
+			<from x="4.5" y="3" z="4.5" />
+            <to x="1.5" y="0" z="1.5" />
 		</perspective>
 
 		<perspective id="presp4" near="0.1" far="500" angle="90">
-			<from x="6.0" y="3" z="23.0"/>
-			<to x="0.0" y="0.0" z="17.0"/>
+			<from x="6" y="2" z="10"/>
+			<to x="4" y="0.0" z="8"/>
 		</perspective>
 
-		<ortho id="ortho0" near="0.1" far="500" left="-15" right="15" top="5" bottom="-7">
-			<from x="13.0" y="6.0" z="50.0"/>
+		<ortho id="ortho0" near="0.1" far="500" left="-14" right="3" top="10" bottom="-8">
+			<from x="5.0" y="6.0" z="10.0"/>
 			<to x="13.0" y="6.0" z="0.0"/>
 		</ortho>
 
@@ -92,6 +92,11 @@
 		<texture id="blackboard" file="scenes/images/blackboard.jpg"/>
 		<texture id="paper-plane" file="scenes/images/paper-plane.jpg"/>
 		<texture id="rocket-red" file="scenes/images/rocketRed.jpg"/>
+		<texture id="example" file="scenes/images/example.jpg"/>
+		<texture id="terrain_t" file="scenes/images/downldoad.jpg" />
+		<texture id="terrain_h" file="scenes/images/heightmap_128.jpg" />
+        <texture id="water_t" file="scenes/images/download.jpg" />
+		<texture id="water_h" file="scenes/images/downloadH.png" />
 	</textures>
 
 	<materials>
@@ -162,109 +167,312 @@
 	</transformations>
 
 	<animations>
-		<linear id="aniL0" span="10">
-			<controlpoint xx="0" yy="0" zz="0"/>
-			<controlpoint xx="1" yy="0" zz="0"/>
-			<controlpoint xx="1" yy="0" zz="1"/>
+		<linear id="ascension" span="2">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="0.2" zz="0" />
 		</linear>
 
-		<circular id="aniC0" span="10" center="0 0 0" radius="2" startang="180" rotang="360" />
+		<linear id="redPositioning1" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.56" yy="0" zz="-1.42" />
+		</linear>
+
+		<linear id="redPositioning2" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.56" yy="0" zz="-1.235" />
+		</linear>
+
+		<linear id="redPositioning3" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.56" yy="0" zz="-1.05" />
+		</linear>
+
+		<linear id="redPositioning4" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.56" yy="0" zz="-0.865" />
+		</linear>
+
+		<linear id="redPositioning5" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.56" yy="0" zz="-0.68" />
+		</linear>
+
+		<linear id="redPositioning6" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.37" yy="0" zz="-1.42" />
+		</linear>
+
+		<linear id="redPositioning7" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.37" yy="0" zz="-1.235" />
+		</linear>
+
+		<linear id="redPositioning8" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.37" yy="0" zz="-1.05" />
+		</linear>
+
+		<linear id="redPositioning9" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.37" yy="0" zz="-0.865" />
+		</linear>
+
+		<linear id="redPositioning10" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.37" yy="0" zz="-0.68" />
+		</linear>
+
+		<linear id="redPositioning11" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.18" yy="0" zz="-1.42" />
+		</linear>
+
+		<linear id="redPositioning12" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.18" yy="0" zz="-1.235" />
+		</linear>
+
+		<linear id="redPositioning13" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.18" yy="0" zz="-1.05" />
+		</linear>
+
+		<linear id="redPositioning14" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.18" yy="0" zz="-0.865" />
+		</linear>
+
+		<linear id="redPositioning15" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.18" yy="0" zz="-0.68" />
+		</linear>
+
+		<linear id="redPositioning16" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.01" yy="0" zz="-1.42" />
+		</linear>
+
+		<linear id="redPositioning17" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.01" yy="0" zz="-1.235" />
+		</linear>
+
+		<linear id="redPositioning18" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.01" yy="0" zz="-1.05" />
+		</linear>
+
+		<linear id="redPositioning19" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.01" yy="0" zz="-0.865" />
+		</linear>
+
+		<linear id="redPositioning20" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.01" yy="0" zz="-0.68" />
+		</linear>
+
+		<linear id="redPositioning21" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.2" yy="0" zz="-1.42" />
+		</linear>
+
+		<linear id="redPositioning22" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.2" yy="0" zz="-1.235" />
+		</linear>
+
+		<linear id="redPositioning23" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.2" yy="0" zz="-1.05" />
+		</linear>
+
+		<linear id="redPositioning24" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.2" yy="0" zz="-0.865" />
+		</linear>
+
+		<linear id="redPositioning25" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.2" yy="0" zz="-0.68" />
+		</linear>
+
+		<linear id="bluePositioning1" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.053" yy="0" zz="0.78" />
+		</linear>
+
+		<linear id="bluePositioning2" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.053" yy="0" zz="0.966" />
+		</linear>
+
+		<linear id="bluePositioning3" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.053" yy="0" zz="1.152" />
+		</linear>
+
+		<linear id="bluePositioning4" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.053" yy="0" zz="1.338" />
+		</linear>
+
+		<linear id="bluePositioning5" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0.053" yy="0" zz="1.524" />
+		</linear>
+
+		<linear id="bluePositioning6" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.132" yy="0" zz="0.78" />
+		</linear>
+
+		<linear id="bluePositioning7" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.132" yy="0" zz="0.966" />
+		</linear>
+
+		<linear id="bluePositioning8" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.132" yy="0" zz="1.152" />
+		</linear>
+
+		<linear id="bluePositioning9" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.132" yy="0" zz="1.338" />
+		</linear>
+
+		<linear id="bluePositioning10" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.132" yy="0" zz="1.524" />
+		</linear>
+
+		<linear id="bluePositioning11" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.317" yy="0" zz="0.78" />
+		</linear>
+
+		<linear id="bluePositioning12" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.317" yy="0" zz="0.966" />
+		</linear>
+
+		<linear id="bluePositioning13" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.317" yy="0" zz="1.152" />
+		</linear>
+
+		<linear id="bluePositioning14" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.317" yy="0" zz="1.338" />
+		</linear>
+
+		<linear id="bluePositioning15" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.317" yy="0" zz="1.524" />
+		</linear>
+
+		<linear id="bluePositioning16" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.502" yy="0" zz="0.78" />
+		</linear>
+
+		<linear id="bluePositioning17" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.502" yy="0" zz="0.966" />
+		</linear>
+
+		<linear id="bluePositioning18" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.502" yy="0" zz="1.152" />
+		</linear>
+
+		<linear id="bluePositioning19" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.502" yy="0" zz="1.338" />
+		</linear>
+
+		<linear id="bluePositioning20" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.502" yy="0" zz="1.524" />
+		</linear>
+
+		<linear id="bluePositioning21" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.687" yy="0" zz="0.78" />
+		</linear>
+
+		<linear id="bluePositioning22" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.687" yy="0" zz="0.966" />
+		</linear>
+
+		<linear id="bluePositioning23" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.687" yy="0" zz="1.152" />
+		</linear>
+
+		<linear id="bluePositioning24" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.687" yy="0" zz="1.338" />
+		</linear>
+
+		<linear id="bluePositioning25" span="4">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="-0.687" yy="0" zz="1.524" />
+		</linear>
+
+		<linear id="descendance" span="2">
+			<controlpoint xx="0" yy="0" zz="0" />
+			<controlpoint xx="0" yy="-0.27" zz="0" />
+		</linear>
+
 	</animations>
 
-	<primitives>
+	<primitives>	
 		<primitive id="quad">
+			<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+		</primitive>
+
+		<primitive id="box-lid">
 			<rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
 		</primitive>
 
 		<primitive id="cylinder-leg">
 			<cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30"/>
+		</primitive>  
+
+		<primitive id="board">
+			<board />
 		</primitive>
 
-		<primitive id="cylinder-cup">
-			<cylinder base="0.11" top="0.2" height="0.6" slices="30" stacks="30"/>
+		<primitive id="pieceBox1">
+			<box />
 		</primitive>
 
-		<primitive id="ball">
-			<sphere radius="1.0" slices="30" stacks="30"/>
+		<primitive id="pieceBox2">
+			<box />
 		</primitive>
 
-		<primitive id="left-wing-up">
-			<triangle x1="-1" y1="0" z1="0" x2="0" y2="0" z2="0" x3="0.05" y3="-3.16227" z3="-3"/>
+		<primitive id="redPiece">
+			<piece player="red" colour="red"/>
 		</primitive>
 
-		<primitive id="right-wing-up">
-			<triangle x1="1.1" y1="0" z1="0" x2="0.05" y2="-3.16227" z2="-3" x3="0.1" y3="0" z3="0"/>
+		<primitive id="bluePiece">
+			<piece player="blue" colour="blue"/>
 		</primitive>
-
-		<primitive id="left-wing-down">
-			<triangle x1="-1" y1="0" z1="0" x2="0.05" y2="-3.16227" z2="-3" x3="0" y3="0" z3="0"/>
-		</primitive>
-
-		<primitive id="right-wing-down">
-			<triangle x1="1.1" y1="0" z1="0" x2="0.1" y2="0" z2="0" x3="0.05" y3="-3.16227" z3="-3"/>
-		</primitive>
-
-		<primitive id="middle-left-out">
-			<triangle x1="0" y1="0" z1="0" x2="0.05" y2="-3.16227" z2="-3" x3="0.05" y3="-1" z3="0"/>
-		</primitive>
-
-		<primitive id="middle-right-out">
-			<triangle x1="0.1" y1="0" z1="0" x2="0.05" y2="-1" z2="0" x3="0.05" y3="-3.16227" z3="-3"/>
-		</primitive>
-
-		<primitive id="middle-left-in">
-			<triangle x1="0" y1="0" z1="0" x2="0.05" y2="-1" z2="0" x3="0.05" y3="-3.16227" z3="-3"/>
-		</primitive>
-
-		<primitive id="middle-right-in">
-			<triangle x1="0.1" y1="0" z1="0" x2="0.05" y2="-3.16227" z2="-3" x3="0.05" y3="-1" z3="0"/>
-		</primitive>
-
-		<primitive id="life-buoy">
-			<torus inner="2" outer="4" slices="30" loops="30"/>
-		</primitive>
-
-		<primitive id="nurb">
-        	<plane npartsU="5" npartsV="8" />
-		</primitive>
-
-		<primitive id="nurb2">
-        	<patch npointsU="5" npointsV="2" npartsU="20" npartsV="20">
-
-				<controlpoint xx="-2" yy="1.5" zz="0" />
-				<controlpoint xx="-3.5" yy="1.5" zz="-2" />
-
-				<controlpoint xx="-2" yy="0.6" zz="0" />
-				<controlpoint xx="-2" yy="0.6" zz="-2" />
-
-				<controlpoint xx="-1" yy="0.5" zz="0" />
-				<controlpoint xx="-1" yy="0.5" zz="-2" />
-
-				<controlpoint xx="-0.5" yy="0.5" zz="0" />
-				<controlpoint xx="-0.5" yy="0.5" zz="-1.5" />
-
-				<controlpoint xx="0" yy="0.5" zz="0" />
-				<controlpoint xx="0" yy="0.5" zz="-1.5" />
-
-			</patch>
-		</primitive>
-
-		<primitive id="nurb3">
-        	<cylinder2 base="10" top="0" height="5" slices="25" stacks="25"/>
-		</primitive>
-
-		<primitive id="vehicle">
-			<vehicle />
-		</primitive>
-        
 	</primitives >
 
 	<components>
+		
 		<component id="root">
 			<transformation>
 				<transformationref id="globalDescale"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="mater0"/>
 			</materials>
@@ -272,30 +480,16 @@
 			<texture id="none" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="vehicle"/>
-			</children>
-		</component>
-
-		<component id="vehicle">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
-			</materials>
-
-			<texture id="rocket-red" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="vehicle" />
+				<componentref id="room"/>
 			</children>
 		</component>
 
 		<component id="room">
-			<transformation></transformation>
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="mater0"/>
@@ -304,88 +498,17 @@
 			<texture id="none" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="walls"/>
 				<componentref id="table"/>
-				<componentref id="plane"/>
-				<componentref id="blackboard"/>
-				<componentref id="life-buoy"/>
-			</children>
-		</component>
-
-		<component id="walls">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="wall" length_s="0.05" length_t="0.1"/>
-
-			<children>
-				<componentref id="wall-bot"/>
-				<componentref id="wall-left"/>
-				<componentref id="wall-back"/>
-			</children>
-		</component>
-
-		<component id="wall-bot">
-			<transformation>
-				<scale x="90" y="1" z="90"/>
-				<translate x="0.5" y="0" z="0.5"/>
-				<rotate axis="x" angle="270"/>
-			</transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="floor" length_s="0.1" length_t="0.1"/>
-
-			<children>
-				<primitiveref id="quad"/>
-			</children>
-		</component>
-
-		<component id="wall-left">
-			<transformation>
-				<scale x="1" y="35" z="90"/>
-				<translate x="0" y="0.5" z="0.5"/>
-				<rotate axis="y" angle="90"/>
-			</transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit"/>
-
-			<children>
-				<primitiveref id="quad"/>
-			</children>
-		</component>
-
-		<component id="wall-back">
-			<transformation>
-				<scale x="90" y="35" z="1"/>
-				<translate x="0.5" y="0.5" z="0"/>
-			</transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit"/>
-
-			<children>
-				<primitiveref id="quad"/>
 			</children>
 		</component>
 
 		<component id="table">
 			<transformation>
-				<translate x="45" y="0" z="30"/>
-				<scale x="10" y="10" z="10"/>
+				<translate x="2" y="0" z="2"/>
 			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="mater0"/>
@@ -393,15 +516,12 @@
 
 			<texture id="none"/>
 
-			<animations>
-				<animationref id="aniL0"/>
-			</animations>
-
 			<children>
-				<componentref id="top"/>
-				<componentref id="table-legs"/>
-				<componentref id="ball"/>
-				<componentref id="cup"/>
+				<componentref id="top" />
+				<componentref id="table-legs" />
+				<componentref id="box1" />
+				<componentref id="box2" />
+				<primitiveref id="board" />
 			</children>
 		</component>
 
@@ -410,6 +530,9 @@
 				<translate x="0.0" y="1.60" z="0.0"/>
 				<scale x="4.0" y="0.2" z="2.3"/>
 			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -423,7 +546,11 @@
 		</component>
 
 		<component id="cube">
-			<transformation></transformation>
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -446,6 +573,9 @@
 				<translate x="0.0" y="0.0" z="0.5"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -462,6 +592,9 @@
 				<translate x="0.0" y="0.0" z="-0.5"/>
 				<rotate axis="y" angle="180"/>
 			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -480,6 +613,9 @@
 				<rotate axis="y" angle="270"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -496,6 +632,9 @@
 				<translate x="0.5" y="0.0" z="0.0"/>
 				<rotate axis="y" angle="90"/>
 			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -514,6 +653,9 @@
 				<rotate axis="x" angle="270"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -531,6 +673,9 @@
 				<rotate axis="x" angle="90"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -543,7 +688,11 @@
 		</component>
 
 		<component id="table-legs">
-			<transformation></transformation>
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -566,6 +715,9 @@
 				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -583,6 +735,9 @@
 				<rotate axis="x" angle="270"/>
 				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
+
+			<animations>
+			</animations>
 
 			<materials>
 				<material id="inherit"/>
@@ -602,6 +757,9 @@
 				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -620,6 +778,9 @@
 				<scale x="1.0" y="1.0" z="1.0"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
 				<material id="inherit"/>
 			</materials>
@@ -631,294 +792,1001 @@
 			</children>
 		</component>
 
-		<component id="ball">
+		<component id="box1">
 			<transformation>
-				<translate x="-1.2" y="2" z="-0.6"/>
-				<scale x="0.3" y="0.3" z="0.3"/>
 			</transformation>
 
-			<materials>
-				<material id="mater0"/>
-				<material id="mater1"/>
-				<material id="mater2"/>
-			</materials>
-
-			<texture id="ball" length_s="1" length_t="1.0"/>
-
-            
 			<animations>
-				<animationref id="aniC0"/>
 			</animations>
 
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
 			<children>
-				<primitiveref id="ball"/>
+				<componentref id="pieceBox1" />
+				<!-- <componentref id="box-lid-1" /> -->
+				<componentref id="redPiece1" />
+				<componentref id="redPiece2" />
+				<componentref id="redPiece3" />
+				<componentref id="redPiece4" />
+				<componentref id="redPiece5" />
+				<componentref id="redPiece6" />
+				<componentref id="redPiece7" />
+				<componentref id="redPiece8" />
+				<componentref id="redPiece9" />
+				<componentref id="redPiece10" />
+				<componentref id="redPiece11" />
+				<componentref id="redPiece12" />
+				<componentref id="redPiece13" />
+				<componentref id="redPiece14" />
+				<componentref id="redPiece15" />
+				<componentref id="redPiece16" />
+				<componentref id="redPiece17" />
+				<componentref id="redPiece18" />
+				<componentref id="redPiece19" />
+				<componentref id="redPiece20" />
 			</children>
 		</component>
 
-		<component id="cup">
+		<component id="pieceBox1">
 			<transformation>
-				<translate x="0.8" y="1.7" z="-0.23"/>
-				<rotate axis="x" angle="270"/>
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
-				<material id="mater0"/>
-				<material id="mater1"/>
-				<material id="mater3"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="cup" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="cylinder-cup"/>
+				<primitiveref id="pieceBox1"/>
 			</children>
 		</component>
 
-		<component id="plane">
+		<component id="box-lid-1">
 			<transformation>
-				<translate x="45" y="28" z="18"/>
-				<rotate axis="y" angle="150"/>
-				<rotate axis="x" angle="40"/>
-				<scale x="2" y="2" z="2"/>
 			</transformation>
 
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="paper-plane" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="left-wing"/>
-				<componentref id="right-wing"/>
-				<componentref id="middle"/>
-			</children>
-		</component>
-
-		<component id="left-wing">
-			<transformation></transformation>
+			<animations>
+			</animations>
 
 			<materials>
-				<material id="mater0"/>
+				<material id="inherit"/>
 			</materials>
 
 			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<componentref id="left-wing-up"/>
-				<componentref id="left-wing-down"/>
+				<componentref id="box-lid-top-1" />
+				<componentref id="box-lid-bottom-1" />
 			</children>
 		</component>
 
-		<component id="left-wing-up">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="left-wing-up"/>
-			</children>
-		</component>
-
-		<component id="left-wing-down">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="left-wing-down"/>
-			</children>
-		</component>
-
-		<component id="right-wing">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="right-wing-up"/>
-				<componentref id="right-wing-down"/>
-			</children>
-		</component>
-
-		<component id="right-wing-up">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="right-wing-up"/>
-			</children>
-		</component>
-
-		<component id="right-wing-down">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="right-wing-down"/>
-			</children>
-		</component>
-
-		<component id="middle">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="middle-left"/>
-				<componentref id="middle-right"/>
-			</children>
-		</component>
-
-		<component id="middle-left">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="middle-left-out"/>
-				<componentref id="middle-left-in"/>
-			</children>
-		</component>
-
-		<component id="middle-left-out">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="middle-left-out"/>
-			</children>
-		</component>
-
-		<component id="middle-left-in">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="middle-left-in"/>
-			</children>
-		</component>
-
-		<component id="middle-right">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="middle-right-out"/>
-				<componentref id="middle-right-in"/>
-			</children>
-		</component>
-
-		<component id="middle-right-out">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="middle-right-out"/>
-			</children>
-		</component>
-
-		<component id="middle-right-in">
-			<transformation></transformation>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="middle-right-in"/>
-			</children>
-		</component>
-
-		<component id="blackboard">
+		<component id="box-lid-top-1">
 			<transformation>
-				<translate x="45" y="20" z="0.5"/>
-				<scale x="40" y="20" z="1"/>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="-90"  />
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
-				<material id="mater2"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="blackboard" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="quad"/>
+				<primitiveref id="box-lid"/>
 			</children>
 		</component>
 
-		<component id="life-buoy">
+		<component id="box-lid-bottom-1">
 			<transformation>
-				<translate x="4" y="5.5" z="60"/>
-				<rotate axis="y" angle="90"/>
-				<rotate axis="x" angle="-30"/>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="90" />
 			</transformation>
 
+			<animations>
+			</animations>
+
 			<materials>
-				<material id="mater2"/>
-				<material id="orange"/>
-				<material id="blue"/>
-				<material id="red"/>
+				<material id="inherit"/>
 			</materials>
 
-			<texture id="life-buoy" length_s="1.0" length_t="1.0"/>
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
 
 			<children>
-				<primitiveref id="life-buoy"/>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="redPiece1">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece2">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece3">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece4">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece5">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece6">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece7">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece8">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece9">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece10">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece11">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece12">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece13">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece14">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece15">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece16">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece17">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece18">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece19">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="redPiece20">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+		<component id="box2">
+			<transformation>
+				<translate x="-2.2" y="0" z="-0.5" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="pieceBox2" />
+				<!-- <componentref id="box-lid-2" /> -->
+				<componentref id="bluePiece1" />
+				<componentref id="bluePiece2" />
+				<componentref id="bluePiece3" />
+				<componentref id="bluePiece4" />
+				<componentref id="bluePiece5" />
+				<componentref id="bluePiece6" />
+				<componentref id="bluePiece7" />
+				<componentref id="bluePiece8" />
+				<componentref id="bluePiece9" />
+				<componentref id="bluePiece10" />
+				<componentref id="bluePiece11" />
+				<componentref id="bluePiece12" />
+				<componentref id="bluePiece13" />
+				<componentref id="bluePiece14" />
+				<componentref id="bluePiece15" />
+				<componentref id="bluePiece16" />
+				<componentref id="bluePiece17" />
+				<componentref id="bluePiece18" />
+				<componentref id="bluePiece19" />
+				<componentref id="bluePiece20" />
+			</children>
+		</component>
+
+		<component id="pieceBox2">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="pieceBox2"/>
+			</children>
+		</component>
+
+		<component id="box-lid-2">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="box-lid-top-2" />
+				<componentref id="box-lid-bottom-2" />
+			</children>
+		</component>
+
+		<component id="box-lid-top-2">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="-90"  />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="box-lid-bottom-2">
+			<transformation>
+				<translate x="1.1" y="1.9" z="0.25" />
+				<scale x="0.4" y="1" z="0.5" />
+				<rotate axis="x" angle="90" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="box-lid"/>
+			</children>
+		</component>
+
+		<component id="bluePiece1">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece2">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece3">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece4">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece5">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece6">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece7">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece8">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece9">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece10">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece11">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece12">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece13">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece14">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece15">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece16">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece17">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece18">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece19">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="bluePiece20">
+			<transformation>
+				<translate x="1.05" y="1.85" z="0.18" />
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="bluePiece"/>
 			</children>
 		</component>
 	</components>
-
 </yas>

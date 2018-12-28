@@ -1886,6 +1886,21 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "piece") {
+
+                var player = this.reader.getString(grandChildren[0], 'player');
+                if( (player == null) ) 
+                    return "value for player in <piece> of <primitive> is invalid";
+                    
+                var colour = this.reader.getString(grandChildren[0], 'colour');
+                if( (colour == null) ) 
+                    return "value for colour in <piece> of <primitive> is invalid";
+
+                var primitive = new Piece(this.scene, player, colour);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
         }
         if(Object.keys(this.primitives).length < 1) {
             return "at least one primitive should exist";
@@ -2270,7 +2285,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        var rootNodeName = Object.keys(this.nodes)[0];
+        var rootNodeName = Object.keys(this.nodes)[2];
 		if (this.nodes[rootNodeName].textureId == "inherit")
 			this.onXMLError("On " + rootNodeName + " the texture id cant be '" + this.nodes[rootNodeName].textureId + "'" );
 		else if (this.nodes[rootNodeName].materialId == "inherit")
