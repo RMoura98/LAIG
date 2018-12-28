@@ -36,16 +36,18 @@ class XMLscene extends CGFscene {
             let comArray = data.target.response.split(',');
             let currPlayer = comArray.pop().slice(0, -1);
             let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
-            console.log(this.board);
-            console.log(this.currPlayer);
+            console.table(this.stringToArray(board));
+            console.log("next Player:" + currPlayer);
             console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
             if((board.match(/empty/g) || []).length == 0){
                 console.log('we have a winner! ou algo do genero');
                 console.log('red: ' + (board.match(/red/g) || []).length)
                 console.log('blue: ' + (board.match(/blue/g) || []).length)
             }
+            this.previousBoard = this.board;
             this.board = this.stringToArray(board);
             this.currPlayer = currPlayer;
+            this.alronit = 0;
         }
         this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
     }
@@ -71,7 +73,7 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
 
         this.setUpdatePeriod(33.33);
-
+        this.previousBoard = [];
         this.board = [['border','border','border','border','border','border','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','border','border','border','border','border','border']];
         this.currPlayer = 'p1';
         this.option = 'ch';
@@ -299,14 +301,15 @@ class XMLscene extends CGFscene {
 
         this.previousTime = currTime;
         
+        //is the bot already on it
         if(this.currPlayer.charAt(0) == 'c'){
-            if(this.lastIsComp == 0){
-                this.lastIsComp = 1;
+            if(this.alronit == 0){
+                this.alronit = 1;
                 this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
             }
         }
         else {
-            this.lastIsComp = 0;
+            this.alronit = 0;
         }
 
 

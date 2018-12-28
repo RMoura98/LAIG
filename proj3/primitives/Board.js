@@ -16,7 +16,7 @@ class Board extends CGFobject {
         this.bluePiece = new Piece(this.scene, null, 'blue');
         this.pickingQuad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
 
-        this.quad.updateTexCoords(0.1, 1);
+        this.quad.updateTexCoords(0.1, 4);
 
         this.appearance = new CGFappearance(this.scene);
         this.appearance.setEmission(0, 0, 0, 1);
