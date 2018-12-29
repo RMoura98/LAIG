@@ -52,9 +52,9 @@ class Piece extends CGFobject {
             this.appearancePiece.setSpecular(0.5, 0.5, 0.5, 1);
             this.appearancePiece.setShininess(1);
             
-            this.borderPieceTexture = new CGFtexture(this.scene, "../scenes/images/greenPiece.png");
-            this.redPieceTexture = new CGFtexture(this.scene, "../scenes/images/redPiece.png");
-            this.bluePieceTexture = new CGFtexture(this.scene, "../scenes/images/bluePiece.png");
+            this.borderPieceTexture = this.scene.graph.textures['greenPiece'];
+            this.redPieceTexture = this.scene.graph.textures['redPiece'];
+            this.bluePieceTexture = this.scene.graph.textures['bluePiece'];
 
         if(this.colour == 'green')
             this.appearancePiece.setTexture(this.borderPieceTexture);

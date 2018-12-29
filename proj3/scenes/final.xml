@@ -83,20 +83,24 @@
 
 	<textures>
 		<texture id="wood" file="scenes/images/wood.jpg"/>
-		<texture id="life-buoy" file="scenes/images/lifebuoy.png"/>
 		<texture id="metal" file="scenes/images/metal.jpg"/>
+	<!-- 	<texture id="life-buoy" file="scenes/images/lifebuoy.png"/>
 		<texture id="cup" file="scenes/images/cup.jpg"/>
 		<texture id="ball" file="scenes/images/ball.jpg"/>
 		<texture id="floor" file="scenes/images/floor.jpg"/>
 		<texture id="wall" file="scenes/images/wall.jpg"/>
 		<texture id="blackboard" file="scenes/images/blackboard.jpg"/>
 		<texture id="paper-plane" file="scenes/images/paper-plane.jpg"/>
-		<texture id="rocket-red" file="scenes/images/rocketRed.jpg"/>
-		<texture id="example" file="scenes/images/example.jpg"/>
+		<texture id="rocket-red" file="scenes/images/rocketRed.jpg"/> -->
+		<!-- <texture id="example" file="scenes/images/example.jpg"/>
 		<texture id="terrain_t" file="scenes/images/downldoad.jpg" />
 		<texture id="terrain_h" file="scenes/images/heightmap_128.jpg" />
         <texture id="water_t" file="scenes/images/download.jpg" />
-		<texture id="water_h" file="scenes/images/downloadH.png" />
+		<texture id="water_h" file="scenes/images/downloadH.png" /> -->
+
+		<texture id="greenPiece" file="scenes/images/greenPiece.png" />
+		<texture id="redPiece" file="scenes/images/redPiece.png" />
+		<texture id="bluePiece" file="scenes/images/bluePiece.png" />
 	</textures>
 
 	<materials>
