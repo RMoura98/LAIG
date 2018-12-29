@@ -291,11 +291,21 @@ class XMLscene extends CGFscene {
                         if(this.board[customIdc][customIdr] == 'empty'){
                             this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
 
-                            var piece;
-                            piece = new Piece(this, 'red', 'red');
+                            var ascencion = new LinearAnimation(2, [[0, 0, 0], [0, 0.2, 0]]);
 
-                            this.pieces.push(piece);
+                            var positioning = this.getPositioningAnimation(customIdr, customIdc);
 
+                            var descending = new LinearAnimation(2, [[0, 0, 0], [0, -0.27, 0]]);
+
+                            this.redPieces[this.redPieceIndex].animations.push(ascencion);
+
+                            this.redPieces[this.redPieceIndex].animations.push(positioning);
+
+                            this.redPieces[this.redPieceIndex].animations.push(descending);
+
+                            this.graph.nodes[this.redPieces[this.bluePieceIndex].id] = this.redPieces[this.bluePieceIndex]
+
+                            this.redPieceIndex++;
                         }
                         else 
                             console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
