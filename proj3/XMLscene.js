@@ -32,8 +32,11 @@ class XMLscene extends CGFscene {
         this.bluePieceIndex = null;
 
         this.gameRunning = false;
-
+        
+        
         this.startGame = function() {
+            
+            this.timeOnStart = new Date().getTime();
 
             var originalPieceIndex = 0;
 
@@ -81,6 +84,7 @@ class XMLscene extends CGFscene {
                 console.log('we have a winner! ou algo do genero');
                 console.log('red: ' + (board.match(/red/g) || []).length)
                 console.log('blue: ' + (board.match(/blue/g) || []).length)
+                this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
             }
 
@@ -330,30 +334,41 @@ class XMLscene extends CGFscene {
         var nodeName;
         var newMatrix;
 
+        
         for (let i = 0; i < Object.keys(this.graph.nodes).length; i++) {
-
+            
             nodeName = Object.keys(this.graph.nodes)[i];
-
+            
             if (this.graph.nodes[nodeName].animations.length != 0) {
-
+                
                 for (let k = 0; k < this.graph.nodes[nodeName].animations.length; k++) {
                     
                     if (this.graph.nodes[nodeName].animations[k].hasEnded)
-                        continue;
-
+                    continue;
+                    
                     //gets new position matrix
                     newMatrix = this.graph.nodes[nodeName].animations[k].getMatrix(this.time);
-
+                    
                     //updates object position matrix
                     this.graph.nodes[nodeName].updateMatrix(newMatrix);
-
+                    
                     break;
                 }
             }
         }
-
+        
         this.previousTime = currTime;
         
+        if(this.timeOnStart){
+            let elapsed = (new Date().getTime() - this.timeOnStart) / 1000; //in ms
+            var m = Math.floor(elapsed / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            var s = Math.floor(elapsed % 60);
+            s = s < 10 ? '0' + s : s;
+            console.log(m + ':' + s);
+            //TODO: tratar de quando o jogo acaba
+        }
+
         //is the bot already on it
         if(this.currPlayer.charAt(0) == 'c'){
             if(this.alronit == 0){
@@ -364,25 +379,23 @@ class XMLscene extends CGFscene {
         else {
             this.alronit = 0;
         }
-
-
-    
+        
     }
-
+    
     display() {
         // ---- BEGIN Background, camera and axis setup
-
+        
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-
+        
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
-
+        
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
+        
         this.clearPickRegistration();
 
         this.pushMatrix();
