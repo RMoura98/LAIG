@@ -76,7 +76,7 @@ class XMLscene extends CGFscene {
         };
 
         this.test = function() {
-            this.rotateCamera = this.rotateCamera != Math.PI ? Math.PI - this.rotateCamera : Math.PI;
+            this.rotateCamera += Math.PI;
         };
 
 
