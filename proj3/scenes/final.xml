@@ -98,6 +98,18 @@
         <texture id="water_t" file="scenes/images/download.jpg" />
 		<texture id="water_h" file="scenes/images/downloadH.png" /> -->
 
+		<texture id="0" file="scenes/images/0.png" />
+		<texture id="1" file="scenes/images/1.png" />
+		<texture id="2" file="scenes/images/2.png" />
+		<texture id="3" file="scenes/images/3.png" />
+		<texture id="4" file="scenes/images/4.png" />
+		<texture id="5" file="scenes/images/5.png" />
+		<texture id="6" file="scenes/images/6.png" />
+		<texture id="7" file="scenes/images/7.png" />
+		<texture id="8" file="scenes/images/8.png" />
+		<texture id="9" file="scenes/images/9.png" />
+		<texture id="2pontos" file="scenes/images/2pontos.png" />
+
 		<texture id="greenPiece" file="scenes/images/greenPiece.png" />
 		<texture id="redPiece" file="scenes/images/redPiece.png" />
 		<texture id="bluePiece" file="scenes/images/bluePiece.png" />

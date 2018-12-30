@@ -32,6 +32,8 @@ class XMLscene extends CGFscene {
         this.bluePieceIndex = null;
 
         this.gameRunning = false;
+
+        
         
         
         this.startGame = function() {
@@ -59,8 +61,11 @@ class XMLscene extends CGFscene {
                 }
            }
     
-           this.redPieceIndex = 0;
-           this.bluePieceIndex = 0;
+            this.redPieceIndex = 0;
+            this.bluePieceIndex = 0;
+            //? isto e a mesma coisa ?? temos de vir isto em baixo e para o clock
+            this.redCount = 0;
+            this.blueCount = 0;
 
            this.gameRunning = true;
 
@@ -80,10 +85,14 @@ class XMLscene extends CGFscene {
             console.log("next Player:" + currPlayer);
             console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
 
+            this.redCount = (board.match(/red/g) || []).length;
+            this.blueCount = (board.match(/blue/g) || []).length;
+
+
             if((board.match(/empty/g) || []).length == 0){
                 console.log('we have a winner! ou algo do genero');
-                console.log('red: ' + (board.match(/red/g) || []).length)
-                console.log('blue: ' + (board.match(/blue/g) || []).length)
+                console.log('red: ' + this.redCount)
+                console.log('blue: ' + this.blueCount)
                 this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
             }
@@ -358,16 +367,6 @@ class XMLscene extends CGFscene {
         }
         
         this.previousTime = currTime;
-        
-        if(this.timeOnStart){
-            let elapsed = (new Date().getTime() - this.timeOnStart) / 1000; //in ms
-            var m = Math.floor(elapsed / 60 % 60);
-            m = m < 10 ? '0' + m : m;
-            var s = Math.floor(elapsed % 60);
-            s = s < 10 ? '0' + s : s;
-            console.log(m + ':' + s);
-            //TODO: tratar de quando o jogo acaba
-        }
 
         //is the bot already on it
         if(this.currPlayer.charAt(0) == 'c'){

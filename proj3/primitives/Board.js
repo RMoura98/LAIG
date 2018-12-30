@@ -16,6 +16,8 @@ class Board extends CGFobject {
         this.bluePiece = new Piece(this.scene, null, 'blue');
         this.pickingQuad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
 
+        this.clock = new Clock(this.scene);
+
         this.quad.updateTexCoords(0.1, 4);
 
         this.appearance = new CGFappearance(this.scene);
@@ -42,7 +44,10 @@ class Board extends CGFobject {
     }
 
     display() {
-        
+        this.scene.pushMatrix();
+            this.clock.display();
+        this.scene.popMatrix();
+
         this.scene.logPicking();
 	    
 
