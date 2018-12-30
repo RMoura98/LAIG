@@ -33,6 +33,7 @@ class XMLscene extends CGFscene {
 
         this.gameRunning = false;
 
+        this.rotateCamera = 0;
         
         
         
@@ -72,6 +73,10 @@ class XMLscene extends CGFscene {
         };
 
         this.undoMove = function() {
+        };
+
+        this.test = function() {
+            this.rotateCamera = this.rotateCamera != Math.PI ? Math.PI - this.rotateCamera : Math.PI;
         };
 
 
@@ -342,7 +347,7 @@ class XMLscene extends CGFscene {
         /* this.makeRequest("valid_moves(" + this.arrayToString(this.board) +")", this.handleReply); */
         var nodeName;
         var newMatrix;
-
+        
         
         for (let i = 0; i < Object.keys(this.graph.nodes).length; i++) {
             
@@ -367,7 +372,7 @@ class XMLscene extends CGFscene {
         }
         
         this.previousTime = currTime;
-
+        
         //is the bot already on it
         if(this.currPlayer.charAt(0) == 'c'){
             if(this.alronit == 0){
@@ -378,7 +383,11 @@ class XMLscene extends CGFscene {
         else {
             this.alronit = 0;
         }
-        
+
+        if(this.rotateCamera > 0){
+            this.rotateCamera -= this.time; 
+            this.camera.orbit(vec3.fromValues(0, 1, 0), 1 * this.time);
+        }
     }
     
     display() {
