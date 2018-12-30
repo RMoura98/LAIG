@@ -385,8 +385,9 @@ class XMLscene extends CGFscene {
         }
 
         if(this.rotateCamera > 0){
-            this.rotateCamera -= this.time; 
-            this.camera.orbit(vec3.fromValues(0, 1, 0), 1 * this.time);
+            let currAngle = this.rotateCamera - this.time < 0 ? this.rotateCamera : this.time;
+            this.rotateCamera -= currAngle; 
+            this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
         }
     }
     
