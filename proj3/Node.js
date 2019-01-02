@@ -50,7 +50,10 @@ MyNode.prototype.resetMatrix = function (newMatrix) {
 	mat4.identity(this.matTransf);
 
 	mat4.multiply(this.matTransf, this.matTransf, newMatrix);
+}
 
+MyNode.prototype.resetAnimations = function () {
+	this.animations = [];
 }
 
 MyNode.prototype.resetPosition = function() {

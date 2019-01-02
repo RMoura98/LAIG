@@ -21,7 +21,6 @@ class XMLscene extends CGFscene {
 
         this.initialBoard = [];
         this.board = [];
-        this.previousBoard = [];
 
         this.currentPlayer = null;
         this.secondPlayer = null;
@@ -41,6 +40,11 @@ class XMLscene extends CGFscene {
         this.animationInProgress = false;
         this.gameRunning = false;
 
+        this.movie = [];
+        this.movieIndex = 0;
+        this.movieRunning = false;
+        this.animationTimeCount = 0;
+
         this.rotateCamera = 0;
         
         
@@ -52,6 +56,9 @@ class XMLscene extends CGFscene {
 
             if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) )
                 return;
+
+            this.gameRunning = false;
+            this.animationInProgress = false;
             
             this.preparePieces();
 
@@ -59,6 +66,10 @@ class XMLscene extends CGFscene {
             this.bluePieceIndex = 0;
 
             this.board = this.initialBoard;
+
+            this.movie = [];
+            this.movieIndex = 0;
+            this.animationTimeCount = 0;
 
             let errorSample;
 
@@ -98,6 +109,25 @@ class XMLscene extends CGFscene {
                 this.makeP1Undo();
         };
 
+        this.watchMovie = function() {      
+            
+            if(this.gameRunning)
+                return;
+
+            if(this.movie == [])
+                return;
+
+            this.preparePieces();
+
+            this.redPieceIndex = 0;
+            this.bluePieceIndex = 0;
+
+            this.movieIndex = 0;
+            this.animationTimeCount = 0;
+
+            this.movieRunning = true;
+        };
+
         this.test = function() {
             this.rotateCamera += Math.PI;
         };
@@ -105,7 +135,6 @@ class XMLscene extends CGFscene {
 
         //Handle the Reply Option 2 -> used for player move handling
         this.handleReplyGameRound = function handleReplyGameRound(data){
-            console.log(data);
             let comArray = data.target.response.split(',');
             let currPlayer = comArray.pop().slice(0, -1);
             let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
@@ -128,7 +157,6 @@ class XMLscene extends CGFscene {
                 this.gameRunning = false;
             }
 
-            this.previousBoard = this.board;
             this.board = this.stringToArray(board);
             this.currentPlayer = currPlayer;
             this.alronit = 0;
@@ -165,8 +193,6 @@ class XMLscene extends CGFscene {
                 this.gameRunning = false;
             }
 
-
-            this.previousBoard = this.board;
             this.board = this.stringToArray(board);
             this.currentPlayer = currPlayer;
             this.alronit = 0;
@@ -442,6 +468,7 @@ class XMLscene extends CGFscene {
             }
         }
         
+        this.animationTimeCount += this.time;
         this.previousTime = currTime;
         
         if( this.gameRunning ) {
@@ -462,6 +489,24 @@ class XMLscene extends CGFscene {
             this.rotateCamera -= currAngle; 
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
         }
+
+
+        if(this.movieRunning) {
+            if(this.animationInProgress)
+                return;
+            
+            if(this.movieIndex >= 75) {
+                this.movieRunning = false;
+                return;
+            }
+            
+            if(this.animationTimeCount < 2)
+                return;
+
+            this.manageMovie();
+        }
+
+
     }
     
     display() {
@@ -619,6 +664,10 @@ class XMLscene extends CGFscene {
             this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceRow = customIdr;
             this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceColumn = customIdc;
 
+            this.movie.push(this.redPieces[this.redPieceIndex]);
+            this.movie.push(customIdr);
+            this.movie.push(customIdc);
+
             this.redPieceIndex++;
         }
 
@@ -631,6 +680,10 @@ class XMLscene extends CGFscene {
 
             this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceRow = customIdr;
             this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceColumn = customIdc;
+
+            this.movie.push(this.bluePieces[this.bluePieceIndex]);
+            this.movie.push(customIdr);
+            this.movie.push(customIdc);
 
             this.bluePieceIndex++;
         }
@@ -685,6 +738,7 @@ class XMLscene extends CGFscene {
             if(this.graph.nodes[i].primitive instanceof Piece) {
                 this.graph.nodes[i].resetMatrix(this.originalPositionMatrix);
                 this.graph.nodes[i].resetPosition();
+                this.graph.nodes[i].resetAnimations();
             }
         }
     }
@@ -708,8 +762,12 @@ class XMLscene extends CGFscene {
                 this.graph.nodes[this.bluePieces[this.bluePieceIndex]].resetPosition();
 
                 this.blueCount--;
+
+                this.deleteFromMovie();
             }
         }
+
+        this.deleteFromMovie();
     }
 
     makeP2Undo() {
@@ -729,7 +787,41 @@ class XMLscene extends CGFscene {
                 this.board[this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceRow][this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceColumn] = "empty";
                 this.graph.nodes[this.redPieces[this.redPieceIndex]].resetPosition();
                 this.redCount--;
+
+                this.deleteFromMovie();
             }
         }
+
+        this.deleteFromMovie();
+    }
+
+    deleteFromMovie() {
+        this.movie.pop();
+        this.movie.pop();
+        this.movie.pop();
+    }   
+
+    manageMovie() {
+        let ascencion = new LinearAnimation(0.5, [[0, 0, 0], [0, 0.2, 0]]);
+
+        let positioning;
+
+        if(this.graph.nodes[this.movie[this.movieIndex]].primitive.colour == "red")
+            positioning = this.getPositioningAnimationRed(this.movie[this.movieIndex+1], this.movie[this.movieIndex+2]);
+        else if(this.graph.nodes[this.movie[this.movieIndex]].primitive.colour == "blue")
+            positioning = this.getPositioningAnimationBlue(this.movie[this.movieIndex+1], this.movie[this.movieIndex+2]);
+        
+        let descending = new LinearAnimation(0.5, [[0, 0, 0], [0, -0.27, 0]]);
+
+        this.graph.nodes[this.movie[this.movieIndex]].animations.push(ascencion);
+        this.graph.nodes[this.movie[this.movieIndex]].animations.push(positioning);
+        this.graph.nodes[this.movie[this.movieIndex]].animations.push(descending);
+
+        this.graph.nodes[this.movie[this.movieIndex]].pieceRow = this.movie[this.movieIndex+1];
+        this.graph.nodes[this.movie[this.movieIndex]].pieceColumn = this.movie[this.movieIndex+2];
+
+        this.movieIndex += 3;
+
+        this.animationTimeCount = 0;
     }
 }
