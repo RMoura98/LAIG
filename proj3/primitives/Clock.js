@@ -109,6 +109,28 @@ class Clock extends CGFobject {
             this.quadBox.display();
         this.scene.popMatrix();
 
+        //PARA NAO HAVER BURACOES ENTRE NUMEROS SEM O PLANE A CIMA!
+        this.scene.pushMatrix();
+            this.scene.translate(-0.325,-0.05,0.01); 
+            this.scene.scale(0.05,0.5,1);
+            this.quadBox.display();
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.scene.translate(0.325,-0.05,0.01); 
+            this.scene.scale(0.05,0.5,1);
+            this.quadBox.display();
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.scene.translate(-1.1,-0.1,0.01); 
+            this.scene.scale(0.054,0.4,1);
+            this.quadBox.display();
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.scene.translate(1.1,-0.1,0.01); 
+            this.scene.scale(0.054,0.4,1);
+            this.quadBox.display();
+        this.scene.popMatrix();
+
         
         this.scene.pushMatrix();
             this.scene.translate(0,-0.05,0.01);
@@ -142,43 +164,45 @@ class Clock extends CGFobject {
         this.scene.popMatrix();
 
 
+        //Pontos vermelho
         this.scene.pushMatrix();
-            this.scene.translate(-1.10,0.35,0.01);
+            this.scene.translate(-1.10,0.3,0.01);
             this.scene.scale(0.05,0.05,1);
             this.appearanceRed.apply();
             this.circle.display();
         this.scene.popMatrix();
         
         this.scene.pushMatrix();
-            this.scene.translate(1.20,-.075,0.01);
-            this.scene.scale(0.15,0.45,1);
+            this.scene.translate(1.20,-.1,0.01);
+            this.scene.scale(0.15,0.4,1);
             this.appearancePP11.apply();
             this.quadNumber.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();
-            this.scene.translate(1,-.075,0.01);
-            this.scene.scale(0.15,0.45,1);
+            this.scene.translate(1,-.1,0.01);
+            this.scene.scale(0.15,0.4,1);
             this.appearancePP12.apply();
             this.quadNumber.display();
         this.scene.popMatrix();
         
 
+        //pontos azul
         this.scene.pushMatrix();
-            this.scene.translate(1.10,0.36,0.01);
+            this.scene.translate(1.10,0.3,0.01);
             this.scene.scale(0.05,0.05,1);
             this.appearanceBlue.apply();
             this.circle.display();
         this.scene.popMatrix();
         
         this.scene.pushMatrix();
-            this.scene.translate(-1,-.075,0.01);
-            this.scene.scale(0.15,0.45,1);
+            this.scene.translate(-1,-.1,0.01);
+            this.scene.scale(0.15,0.4,1);
             this.appearancePP21.apply();
             this.quadNumber.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();
-            this.scene.translate(-1.20,-.075,0.01);
-            this.scene.scale(0.15,0.45,1);
+            this.scene.translate(-1.20,-.1,0.01);
+            this.scene.scale(0.15,0.4,1);
             this.appearancePP22.apply();
             this.quadNumber.display();
         this.scene.popMatrix();
