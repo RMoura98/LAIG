@@ -493,8 +493,6 @@ class XMLscene extends CGFscene {
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
         }
 
-        console.log(this.movieRunning);
-
         if(this.movieRunning) {
             if(this.animationInProgress)
                 return;
