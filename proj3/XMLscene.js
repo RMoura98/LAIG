@@ -114,8 +114,11 @@ class XMLscene extends CGFscene {
             if(this.gameRunning)
                 return;
 
-            if(this.movie == [])
+            if(this.movie.length == 0)
                 return;
+
+            console.log(this.gameRunning);
+            console.log(this.movie);
 
             this.preparePieces();
 
@@ -490,6 +493,7 @@ class XMLscene extends CGFscene {
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
         }
 
+        console.log(this.movieRunning);
 
         if(this.movieRunning) {
             if(this.animationInProgress)
