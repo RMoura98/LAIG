@@ -1,8 +1,13 @@
 <yas>
-	<scene root="root" axis_length="3.0"/>
+	<scene root="root" axis_length="2.5"/>
 
 	<views default="presp0">
 		<perspective id="presp0" near="0.1" far="500" angle="76">
+			<from x="2.5" y="5" z="4" />
+            <to x="2.5" y="2" z="2" />
+		</perspective>
+        
+		<perspective id="presp0_old" near="0.1" far="500" angle="76">
 			<from x="2.5" y="2" z="6" />
             <to x="2.5" y="0" z="1" />
 		</perspective>
