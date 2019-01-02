@@ -37,6 +37,9 @@ class XMLscene extends CGFscene {
         this.bluePieces = [];
         this.bluePieceIndex = null;
 
+        this.redCount = 0;
+        this.blueCount = 0;
+
         this.animationInProgress = false;
         this.gameRunning = false;
 
@@ -46,6 +49,7 @@ class XMLscene extends CGFscene {
         this.animationTimeCount = 0;
 
         this.rotateCamera = 0;
+        this.rotateCamBool = false;
         
         
         
@@ -161,6 +165,10 @@ class XMLscene extends CGFscene {
             }
 
             this.board = this.stringToArray(board);
+            if(this.currentPlayer != currPlayer){
+                this.rotateCamBool = true;
+                this.rotateCamera += Math.PI;
+            }
             this.currentPlayer = currPlayer;
             this.alronit = 0;
         }
@@ -197,6 +205,10 @@ class XMLscene extends CGFscene {
             }
 
             this.board = this.stringToArray(board);
+            if(this.currentPlayer != currPlayer){
+                this.rotateCamBool = true;
+                this.rotateCamera += Math.PI;
+            }
             this.currentPlayer = currPlayer;
             this.alronit = 0;
         }
@@ -474,7 +486,7 @@ class XMLscene extends CGFscene {
         this.animationTimeCount += this.time;
         this.previousTime = currTime;
         
-        if( this.gameRunning ) {
+        if( this.gameRunning && !this.rotateCamBool) {
             //is the bot already on it
             if(this.currentPlayer.charAt(0) == 'c') {
                 if(this.alronit == 0) {
@@ -487,10 +499,13 @@ class XMLscene extends CGFscene {
             }
         }
 
-        if(this.rotateCamera > 0){
+        if(this.rotateCamera > 0 && !this.animationInProgress && this.rotatingCamera){
             let currAngle = this.rotateCamera - this.time < 0 ? this.rotateCamera : this.time;
             this.rotateCamera -= currAngle; 
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
+            console.log(this.rotateCamera);
+            if(this.rotateCamera == 0)
+                this.rotateCamBool = false;
         }
 
         if(this.movieRunning) {
@@ -507,8 +522,6 @@ class XMLscene extends CGFscene {
 
             this.manageMovie();
         }
-
-
     }
     
     display() {

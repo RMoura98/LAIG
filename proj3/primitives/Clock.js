@@ -86,7 +86,6 @@ class Clock extends CGFobject {
             //? por la e depois so vamos la buscar o this.scene.elapsed ou algo do genero o que achas? tal como fiz em baixo
             //console.log(this.scene.redCount,this.scene.blueCount);
 
-            this.setNumbersPoints(this.scene.redCount,this.scene.blueCount);
             if(!this.doisPontosBool) this.doisPontosBool = !this.doisPontosBool;
         }
         else {
@@ -99,7 +98,8 @@ class Clock extends CGFobject {
                 this.doisPontosBool = !this.doisPontosBool;
             }        
         }
-
+        
+        this.setNumbersPoints(this.scene.redCount,this.scene.blueCount);
 
         
         // // // // 
