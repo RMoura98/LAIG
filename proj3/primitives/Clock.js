@@ -78,7 +78,7 @@ class Clock extends CGFobject {
     }
     
     display() {
-        if(this.scene.timeOnStart){
+        if(this.scene.timeOnStart) {
             let elapsed = (new Date().getTime() - this.scene.timeOnStart) / 1000; //in ms
             this.setNumbersTime(Math.floor(elapsed / 60 % 60),Math.floor(elapsed % 60));
 

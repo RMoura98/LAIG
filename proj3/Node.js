@@ -22,6 +22,9 @@ function MyNode(id) {
 	this.primitive = null;                		//Primitive
 
 	this.animations = [];                 		//Id to animation
+
+	this.pieceRow = null;
+	this.pieceColumn = null;
 }
 
 MyNode.prototype.insertChild = function (nodeId) {
@@ -41,4 +44,16 @@ MyNode.prototype.setPosition = function (x, y, z) {
 
 MyNode.prototype.updateMatrix = function (newMatrix) {
 	mat4.multiply(this.matTransf, this.matTransf, newMatrix);
+}
+
+MyNode.prototype.resetMatrix = function (newMatrix) {
+	mat4.identity(this.matTransf);
+
+	mat4.multiply(this.matTransf, this.matTransf, newMatrix);
+
+}
+
+MyNode.prototype.resetPosition = function() {
+	this.pieceRow = null;
+	this.pieceColumn = null;
 }

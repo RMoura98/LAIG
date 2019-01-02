@@ -83,7 +83,7 @@ class MyInterface extends CGFinterface {
 
         group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode");
 
-        group.add(this.scene, 'gameDifficulty', [ 'Easy', 'Hard'] ).name("Difficulty");
+        group.add(this.scene, 'gameDifficulty', [ 'Easy', 'Hard', 'Easy vs Easy', 'Easy vs Hard', 'Hard vs Easy', 'Hard vs Hard'] ).name("Difficulty");
 
         group.add(this.scene, 'rotatingCamera').name("Rotating Camera");
     }

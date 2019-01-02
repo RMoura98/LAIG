@@ -19,18 +19,26 @@ class XMLscene extends CGFscene {
         this.currentCamera = null;
         this.previousCamera = null;
 
+        this.initialBoard = [];
+        this.board = [];
+        this.previousBoard = [];
+
+        this.currentPlayer = null;
+        this.secondPlayer = null;
+
         this.gameMode = {};
         this.gameDifficulty = {};
         this.rotatingCamera = true;
-
-        this.originalPieces = [];
         
+        this.originalPositionMatrix = null;
+
         this.redPieces = []
         this.redPieceIndex = null;
 
         this.bluePieces = [];
         this.bluePieceIndex = null;
 
+        this.animationInProgress = false;
         this.gameRunning = false;
 
         this.rotateCamera = 0;
@@ -38,41 +46,56 @@ class XMLscene extends CGFscene {
         
         
         this.startGame = function() {
+
+            if( this.isEmpty(this.gameMode) )
+                return;
+
+            if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) )
+                return;
             
-            this.timeOnStart = new Date().getTime();
+            this.preparePieces();
 
-            var originalPieceIndex = 0;
-
-            this.redPieces = [];
-            this.bluePieces = [];
-            
-            for(let i in this.graph.nodes) {
-
-                if(this.graph.nodes[i].primitive instanceof Piece ) {
-                    this.graph.nodes[i] = this.originalPieces[originalPieceIndex];
-
-                    originalPieceIndex++;
-    
-                    if(this.graph.nodes[i].primitive.colour == 'red')
-                        this.redPieces.push(this.graph.nodes[i]);
-    
-                    else if(this.graph.nodes[i].primitive.colour == 'blue')
-                        this.bluePieces.push(this.graph.nodes[i]);
-
-                }
-           }
-    
             this.redPieceIndex = 0;
             this.bluePieceIndex = 0;
-            //? isto e a mesma coisa ?? temos de vir isto em baixo e para o clock
+
+            this.board = this.initialBoard;
+
+            let errorSample;
+
+            errorSample = this.setPlayers();
+
+            if(errorSample == -1)
+                return;
+
             this.redCount = 0;
             this.blueCount = 0;
 
            this.gameRunning = true;
 
+           this.timeOnStart = new Date().getTime();
         };
 
         this.undoMove = function() {
+
+            if( !this.gameRunning )
+                return;
+
+            if(this.gameMode == 'Bot vs Bot')
+                return;
+
+            if( this.animationInProgress )
+                return;
+
+            if(this.gameMode == 'Player vs Player') {
+                if(this.currentPlayer == 'p1')
+                    this.makeP1Undo();
+    
+                else if(this.currentPlayer == 'p2')
+                    this.makeP2Undo();
+            }
+
+            else if(this.gameMode == 'Player vs Bot')
+                this.makeP1Undo();
         };
 
         this.test = function() {
@@ -80,8 +103,9 @@ class XMLscene extends CGFscene {
         };
 
 
-        //Handle the Reply Option 2
+        //Handle the Reply Option 2 -> used for player move handling
         this.handleReplyGameRound = function handleReplyGameRound(data){
+            console.log(data);
             let comArray = data.target.response.split(',');
             let currPlayer = comArray.pop().slice(0, -1);
             let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
@@ -100,15 +124,54 @@ class XMLscene extends CGFscene {
                 console.log('blue: ' + this.blueCount)
                 this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
+
+                this.gameRunning = false;
+            }
+
+            this.previousBoard = this.board;
+            this.board = this.stringToArray(board);
+            this.currentPlayer = currPlayer;
+            this.alronit = 0;
+        }
+        this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
+
+        
+        //Handle the Reply Option 3 -> used for bot move handling
+        this.handleReplyGameRound2 = function handleReplyGameRound2(data){
+            let comArray = data.target.response.split(',');
+            let currPlayer = comArray.pop().slice(0, -1);
+            let board = data.target.response.substring(5, data.target.response.indexOf("," + currPlayer));
+            let row = parseInt(comArray[0].substring(1, 2));
+            let column = parseInt(comArray[1]);
+
+            this.movePieceAccordingly(row, column);
+
+            console.log("pick position [" + row + ", "  + column + "]");
+            console.table(this.stringToArray(board));
+            console.log("next Player:" + currPlayer);
+            console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
+
+            this.redCount = (board.match(/red/g) || []).length;
+            this.blueCount = (board.match(/blue/g) || []).length;
+
+
+            if((board.match(/empty/g) || []).length == 0){
+                console.log('we have a winner! ou algo do genero');
+                console.log('red: ' + this.redCount)
+                console.log('blue: ' + this.blueCount)
+                this.timeOnStart = null;
+                //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
+
+                this.gameRunning = false;
             }
 
 
             this.previousBoard = this.board;
             this.board = this.stringToArray(board);
-            this.currPlayer = currPlayer;
+            this.currentPlayer = currPlayer;
             this.alronit = 0;
         }
-        this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
+        this.handleReplyGameRound2 = this.handleReplyGameRound2.bind(this);
     }
 
     /**
@@ -132,10 +195,10 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
 
         this.setUpdatePeriod(33.33);
-        this.previousBoard = [];
-        this.board = [['border','border','border','border','border','border','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','border','border','border','border','border','border']];
-        this.currPlayer = 'p1';
-        this.option = 'ch';
+        
+        this.initialBoard = [['border','border','border','border','border','border','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','empty','empty','empty','empty','empty','border'],['border','border','border','border','border','border','border']];
+
+        this.board = this.initialBoard;
     }
 
     /**
@@ -293,6 +356,22 @@ class XMLscene extends CGFscene {
     }
 
     logPicking() {
+
+        if( !this.gameRunning ) {
+            this.pickResults = [];
+            return;
+        }
+
+        if( this.animationInProgress ) {
+            this.pickResults = [];
+            return;
+        }
+
+        if(this.gameMode == 'Bot vs Bot') {
+            this.pickResults = [];
+            return;
+        }
+
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (var i=0; i< this.pickResults.length; i++) {
@@ -306,27 +385,15 @@ class XMLscene extends CGFscene {
                         customIdc--;    
                         customIdr--;
                         console.log("Picked object: " + obj + ", with pick position [" + customIdr + ", " + customIdc + "]");
-                        if(this.board[customIdc][customIdr] == 'empty'){
-                            this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+                        if(this.board[customIdr][customIdc] == "empty") {
+                            this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currentPlayer + "," + this.secondPlayer + ")", this.handleReplyGameRound);
 
-                            var ascencion = new LinearAnimation(2, [[0, 0, 0], [0, 0.2, 0]]);
-
-                            var positioning = this.getPositioningAnimation(customIdr, customIdc);
-
-                            var descending = new LinearAnimation(2, [[0, 0, 0], [0, -0.27, 0]]);
-
-                            this.redPieces[this.redPieceIndex].animations.push(ascencion);
-
-                            this.redPieces[this.redPieceIndex].animations.push(positioning);
-
-                            this.redPieces[this.redPieceIndex].animations.push(descending);
-
-                            this.graph.nodes[this.redPieces[this.bluePieceIndex].id] = this.redPieces[this.bluePieceIndex]
-
-                            this.redPieceIndex++;
+                            this.movePieceAccordingly(customIdr, customIdc);
                         }
-                        else 
+                        else {
                             console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
+                        }
+                            
                     }
 
                 }
@@ -357,9 +424,13 @@ class XMLscene extends CGFscene {
                 
                 for (let k = 0; k < this.graph.nodes[nodeName].animations.length; k++) {
                     
-                    if (this.graph.nodes[nodeName].animations[k].hasEnded)
-                    continue;
+                    if (this.graph.nodes[nodeName].animations[k].hasEnded) {
+                        this.animationInProgress = false;
+                        continue;
+                    }
                     
+                    this.animationInProgress = true;
+
                     //gets new position matrix
                     newMatrix = this.graph.nodes[nodeName].animations[k].getMatrix(this.time);
                     
@@ -373,15 +444,17 @@ class XMLscene extends CGFscene {
         
         this.previousTime = currTime;
         
-        //is the bot already on it
-        if(this.currPlayer.charAt(0) == 'c'){
-            if(this.alronit == 0){
-                this.alronit = 1;
-                this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currPlayer + "," + this.option + ")",this.handleReplyGameRound);
+        if( this.gameRunning ) {
+            //is the bot already on it
+            if(this.currentPlayer.charAt(0) == 'c') {
+                if(this.alronit == 0) {
+                    this.alronit = 1;
+                    this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound2);
+                }
             }
-        }
-        else {
-            this.alronit = 0;
+            else {
+                this.alronit = 0;
+            }
         }
 
         if(this.rotateCamera > 0){
@@ -448,25 +521,43 @@ class XMLscene extends CGFscene {
     }
 
     getPieces() {
-       for(let i in this.graph.nodes) {
+        for(let i in this.graph.nodes) {
 
             if(this.graph.nodes[i].primitive instanceof Piece ) {
 
-                this.originalPieces.push(this.graph.nodes[i]);
-
                 if(this.graph.nodes[i].primitive.colour == 'red')
-                    this.redPieces.push(this.graph.nodes[i]);
+                    this.redPieces.push(this.graph.nodes[i].id);
 
                 else if(this.graph.nodes[i].primitive.colour == 'blue')
-                    this.bluePieces.push(this.graph.nodes[i]);
+                    this.bluePieces.push(this.graph.nodes[i].id);
             }
        }
 
        this.redPieceIndex = 0;
        this.bluePieceIndex = 0;
+
+
+       this.originalPositionMatrix = mat4.create();
+
+       this.originalPositionMatrix[0] = 1;
+       this.originalPositionMatrix[1] = 0;
+       this.originalPositionMatrix[2] = 0;
+       this.originalPositionMatrix[3] = 0;
+       this.originalPositionMatrix[4] = 0;
+       this.originalPositionMatrix[5] = 1;
+       this.originalPositionMatrix[6] = 0;
+       this.originalPositionMatrix[7] = 0;
+       this.originalPositionMatrix[8] = 0;
+       this.originalPositionMatrix[9] = 0;
+       this.originalPositionMatrix[10] = 1;
+       this.originalPositionMatrix[11] = 0;
+       this.originalPositionMatrix[12] = 1.0499999523162842;
+       this.originalPositionMatrix[13] = 1.850000023841858;
+       this.originalPositionMatrix[14] = 0.18000000715255737;
+       this.originalPositionMatrix[15] = 1;
     }
 
-    getPositioningAnimation(row, column) {
+    getPositioningAnimationRed(row, column) {
         var x = 0.56;
         var z = -1.42;
 
@@ -480,8 +571,165 @@ class XMLscene extends CGFscene {
             row--;
         }
 
-        var animation = new LinearAnimation(4, [[0, 0, 0], [x, 0, z]]);
+        var animation = new LinearAnimation(1, [[0, 0, 0], [x, 0, z]]);
 
         return animation;
+    }
+
+    getPositioningAnimationBlue(row, column) {
+        var x = 0.053;
+        var z = 0.78;
+
+        while(column > 1) {
+            z += 0.186;
+            column--;
+        }
+
+        while(row > 1) {
+            x -= 0.185;
+            row--;
+        }
+
+        var animation = new LinearAnimation(1, [[0, 0, 0], [x, 0, z]]);
+
+        return animation;
+    }
+
+    isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+
+    movePieceAccordingly(customIdr, customIdc) {
+
+        var ascencion = new LinearAnimation(0.5, [[0, 0, 0], [0, 0.2, 0]]);
+
+        var descending = new LinearAnimation(0.5, [[0, 0, 0], [0, -0.27, 0]]);
+
+        if( this.currentPlayer == 'p1' || this.currentPlayer == 'ce1' || this.currentPlayer == 'ch1' ) {
+            var positioning = this.getPositioningAnimationRed(customIdr, customIdc);
+
+            this.graph.nodes[this.redPieces[this.redPieceIndex]].animations.push(ascencion);
+            this.graph.nodes[this.redPieces[this.redPieceIndex]].animations.push(positioning);
+            this.graph.nodes[this.redPieces[this.redPieceIndex]].animations.push(descending);
+
+            this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceRow = customIdr;
+            this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceColumn = customIdc;
+
+            this.redPieceIndex++;
+        }
+
+        else if( this.currentPlayer == 'p2' || this.currentPlayer == 'ce' || this.currentPlayer == 'ch' || this.currentPlayer == 'ce2' || this.currentPlayer == 'ch2' ) {
+            var positioning = this.getPositioningAnimationBlue(customIdr, customIdc);
+
+            this.graph.nodes[this.bluePieces[this.bluePieceIndex]].animations.push(ascencion);
+            this.graph.nodes[this.bluePieces[this.bluePieceIndex]].animations.push(positioning);
+            this.graph.nodes[this.bluePieces[this.bluePieceIndex]].animations.push(descending);
+
+            this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceRow = customIdr;
+            this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceColumn = customIdc;
+
+            this.bluePieceIndex++;
+        }
+    }
+
+    setPlayers() {
+
+        if( this.gameMode == 'Player vs Player' ) {
+            this.currentPlayer = 'p1';
+            this.secondPlayer = 'p2';
+        }
+        else if( this.gameMode == 'Player vs Bot') {
+            if( this.gameDifficulty == 'Easy') {
+                this.currentPlayer = 'p1';
+                this.secondPlayer = 'ce';
+            }
+            else if( this.gameDifficulty == 'Hard' ) {
+                this.currentPlayer = 'p1';
+                this.secondPlayer = 'ch';
+            }
+            else
+                return -1;
+        }
+        else if( this.gameMode == 'Bot vs Bot' ) {
+            if( this.gameDifficulty == 'Easy vs Easy') {
+                this.currentPlayer = 'ce1';
+                this.secondPlayer = 'ce2';
+            }
+            else if( this.gameDifficulty == 'Easy vs Hard') {
+                this.currentPlayer = 'ce1';
+                this.secondPlayer = 'ch2';
+            }
+            else if( this.gameDifficulty == 'Hard vs Easy') {
+                this.currentPlayer = 'ch1';
+                this.secondPlayer = 'ce2';
+            }
+            else if( this.gameDifficulty == 'Hard vs Hard') {
+                this.currentPlayer = 'ch1';
+                this.secondPlayer = 'ch2';
+            }
+            else
+                return -1;
+
+            this.alronit = 0;
+        }
+        else
+            return -1;
+    }
+
+    preparePieces() {
+        for(let i in this.graph.nodes) {
+            if(this.graph.nodes[i].primitive instanceof Piece) {
+                this.graph.nodes[i].resetMatrix(this.originalPositionMatrix);
+                this.graph.nodes[i].resetPosition();
+            }
+        }
+    }
+
+    makeP1Undo() {
+        if(this.redPieceIndex == 0)
+            return;
+
+        this.redPieceIndex--;
+        this.graph.nodes[this.redPieces[this.redPieceIndex]].resetMatrix(this.originalPositionMatrix);
+        this.board[this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceRow][this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceColumn] = "empty";
+        this.graph.nodes[this.redPieces[this.redPieceIndex]].resetPosition();
+        this.redCount--;
+
+        if( this.bluePieceIndex > this.redPieceIndex ) {
+            while( this.bluePieceIndex > this.redPieceIndex ) {
+                this.bluePieceIndex--;
+                this.graph.nodes[this.bluePieces[this.bluePieceIndex]].resetMatrix(this.originalPositionMatrix);
+
+                this.board[this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceRow][this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceColumn] = "empty";
+                this.graph.nodes[this.bluePieces[this.bluePieceIndex]].resetPosition();
+
+                this.blueCount--;
+            }
+        }
+    }
+
+    makeP2Undo() {
+        if(this.bluePieceIndex == 0)
+            return;
+
+        this.bluePieceIndex--;
+        this.graph.nodes[this.bluePieces[this.bluePieceIndex]].resetMatrix(this.originalPositionMatrix);
+        this.board[this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceRow][this.graph.nodes[this.bluePieces[this.bluePieceIndex]].pieceColumn] = "empty";
+        this.graph.nodes[this.bluePieces[this.bluePieceIndex]].resetPosition();
+        this.blueCount--;
+
+        if( this.redPieceIndex > (this.bluePieceIndex + 1) ) {
+            while( this.redPieceIndex > (this.bluePieceIndex + 1) ) {
+                this.redPieceIndex--;
+                this.graph.nodes[this.redPieces[this.redPieceIndex]].resetMatrix(this.originalPositionMatrix);
+                this.board[this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceRow][this.graph.nodes[this.redPieces[this.redPieceIndex]].pieceColumn] = "empty";
+                this.graph.nodes[this.redPieces[this.redPieceIndex]].resetPosition();
+                this.redCount--;
+            }
+        }
     }
 }
