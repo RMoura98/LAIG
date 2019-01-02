@@ -503,7 +503,6 @@ class XMLscene extends CGFscene {
             let currAngle = this.rotateCamera - this.time < 0 ? this.rotateCamera : this.time;
             this.rotateCamera -= currAngle; 
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
-            console.log(this.rotateCamera);
             if(this.rotateCamera == 0)
                 this.rotateCamBool = false;
         }
