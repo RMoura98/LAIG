@@ -138,6 +138,14 @@ class XMLscene extends CGFscene {
         this.test = function() {
             this.rotateCamera += Math.PI;
         };
+		
+		this.testAlert = function() {
+			Swal(
+			  'Good job!',
+			  'You clicked the button!',
+			  'success'
+			);
+		}
 
 
         //Handle the Reply Option 2 -> used for player move handling
