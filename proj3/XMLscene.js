@@ -144,10 +144,7 @@ class XMLscene extends CGFscene {
                 timer: 3000
             });
 
-            toast({
-                type: 'success',
-                title: 'Undo'
-            })
+           
 
             if(this.gameMode == 'Player vs Player') {
                 if(this.currentPlayer == 'p1')
@@ -157,8 +154,18 @@ class XMLscene extends CGFscene {
                     this.makeP2Undo();
             }
 
-            else if(this.gameMode == 'Player vs Bot')
+            else if(this.gameMode == 'Player vs Bot') {
+                if( (this.currentPlayer == 'ce') || (this.currentPlayer == 'ch') )
+                    return;
+                
                 this.makeP1Undo();
+            }
+                
+
+            toast({
+                type: 'success',
+                title: 'Undo'
+            })
         };
 
         this.watchMovie = function() {      
