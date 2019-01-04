@@ -43,6 +43,9 @@ class Clock extends CGFobject {
         this.doisPontosDir = -1;
         this.doisPontosBool = true;
 
+		this.lastH = '00';
+		this.lastM = '00';
+		
         this.appearanceM1.setTexture(this.zero);
         this.appearanceM2.setTexture(this.zero);
         this.appearancePs.setTexture(this.dp);
@@ -80,7 +83,9 @@ class Clock extends CGFobject {
     display() {
         if(this.scene.timeOnStart) {
             let elapsed = (new Date().getTime() - this.scene.timeOnStart) / 1000; //in ms
-            this.setNumbersTime(Math.floor(elapsed / 60 % 60),Math.floor(elapsed % 60));
+			this.lastH = Math.floor(elapsed / 60 % 60);
+			this.lastM = Math.floor(elapsed % 60);
+			
 
             //? isto aqui podia ser no xml e guardar numa variavel global o elapsed e tar sempre a
             //? por la e depois so vamos la buscar o this.scene.elapsed ou algo do genero o que achas? tal como fiz em baixo
@@ -89,15 +94,16 @@ class Clock extends CGFobject {
             if(!this.doisPontosBool) this.doisPontosBool = !this.doisPontosBool;
         }
         else {
-            this.setNumbersTime('00','00');
             
             this.doisPontosIte += this.doisPontosDir;
             
-            if(this.doisPontosIte > 1 || this.doisPontosIte < 0){
+            if(this.doisPontosIte > 7 || this.doisPontosIte < -7){
                 this.doisPontosDir *= -1;
                 this.doisPontosBool = !this.doisPontosBool;
             }        
         }
+		
+		this.setNumbersTime(this.lastH,this.lastM);
         
         this.setNumbersPoints(this.scene.redCount,this.scene.blueCount);
 

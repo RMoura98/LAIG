@@ -401,6 +401,11 @@ class XMLscene extends CGFscene {
             this.pickResults = [];
             return;
         }
+		
+		if( this.rotateCamBool ) {
+            this.pickResults = [];
+            return;
+        }
 
         if(this.gameMode == 'Bot vs Bot') {
             this.pickResults = [];
@@ -490,24 +495,27 @@ class XMLscene extends CGFscene {
         if( this.gameRunning ) {
             if(this.animationInProgress)
                 return;
+			
+			if(!this.rotateCamBool){
 
-            //is the bot already on it
-            if(this.currentPlayer.charAt(0) == 'c') {
-                if(this.alronit == 0) {
-                    this.alronit = 1;
-                    this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound);
-                }
-            }
-            else {
-                this.alronit = 0;
-            }
+				//is the bot already on it
+				if(this.currentPlayer.charAt(0) == 'c') {
+					if(this.alronit == 0) {
+						this.alronit = 1;
+						this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound);
+					}
+				}
+				else {
+					this.alronit = 0;
+				}
+			}
         }
 
         if(this.rotateCamera > 0 && !this.animationInProgress && this.rotatingCamera){
             let currAngle = this.rotateCamera - this.time < 0 ? this.rotateCamera : this.time;
             this.rotateCamera -= currAngle; 
             this.camera.orbit(vec3.fromValues(0, 1, 0), currAngle);
-            if(this.rotateCamera == 0)
+            if(this.rotateCamera == 0 )
                 this.rotateCamBool = false;
         }
 
