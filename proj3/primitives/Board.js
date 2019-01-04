@@ -45,6 +45,17 @@ class Board extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
+            this.scene.translate(-1.3,1.8,0.5);
+            this.scene.rotate(-Math.PI/2 + Math.PI/6,1,0,0);
+            this.scene.scale(0.35,0.35,1);
+            this.clock.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(1.3,1.8,-.5);
+            this.scene.rotate(Math.PI/2 - Math.PI/6,1,0,0);
+            this.scene.rotate(Math.PI,0,1,0);
+            this.scene.scale(0.35,0.35,1);
             this.clock.display();
         this.scene.popMatrix();
 

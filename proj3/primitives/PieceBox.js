@@ -12,7 +12,6 @@ class PieceBox extends CGFobject {
         this.quad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
         this.piece = new Piece(this.scene);
 
-
         this.appearance = new CGFappearance(this.scene);
         this.appearance.setEmission(0, 0, 0, 1);
         this.appearance.setAmbient(0, 0, 0.1, 1);
@@ -33,6 +32,10 @@ class PieceBox extends CGFobject {
 		this.appearance3.setDiffuse(0.2, 0.05, 0.05, 1);
         this.appearance3.setSpecular(0.2, 0.05, 0.05, 1);
         this.appearance3.setShininess(30);
+
+        this.appearance4 = new CGFappearance(this.scene);
+        
+        this.appearance4.setTexture(this.scene.graph.textures['oldWood']);
     }
 
     display() {
@@ -41,6 +44,7 @@ class PieceBox extends CGFobject {
             this.scene.pushMatrix();    //front-front
                 this.scene.translate(1.1, 1.8, 0.5);
                 this.scene.scale(0.4, 0.2, 1);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -48,6 +52,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(1.1, 1.8, 0.5);
                 this.scene.scale(0.4, 0.2, 1);
                 this.scene.rotate(Math.PI, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -55,6 +60,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(0.9, 1.8, 0.25);
                 this.scene.scale(0.4, 0.2, 0.5);
                 this.scene.rotate(-Math.PI/2, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -62,6 +68,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(0.9, 1.8, 0.25);
                 this.scene.scale(0.4, 0.2, 0.5);
                 this.scene.rotate(Math.PI/2, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -69,6 +76,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(1.3, 1.8, 0.25);
                 this.scene.scale(0.4, 0.2, 0.5);
                 this.scene.rotate(Math.PI/2, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -76,6 +84,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(1.3, 1.8, 0.25);
                 this.scene.scale(0.4, 0.2, 0.5);
                 this.scene.rotate(-Math.PI/2, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -83,12 +92,14 @@ class PieceBox extends CGFobject {
                 this.scene.translate(1.1, 1.8, 0);
                 this.scene.scale(0.4, 0.2, 0.5);
                 this.scene.rotate(Math.PI, 0, 1, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();    //back-front
                 this.scene.translate(1.1, 1.8, 0);
                 this.scene.scale(0.4, 0.2, 0.5);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();
 
@@ -96,6 +107,7 @@ class PieceBox extends CGFobject {
                 this.scene.translate(1.1, 1.701, 0.25);
                 this.scene.scale(0.4, 1, 0.5);
                 this.scene.rotate(-Math.PI/2, 1, 0, 0);
+                this.appearance4.apply();
                 this.quad.display();
             this.scene.popMatrix();            
             

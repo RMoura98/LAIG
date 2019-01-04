@@ -81,7 +81,7 @@ class Clock extends CGFobject {
     }
     
     display() {
-        if(this.scene.timeOnStart) {
+        if(this.scene.gameRunning) {
             let elapsed = (new Date().getTime() - this.scene.timeOnStart) / 1000; //in ms
 			this.lastH = Math.floor(elapsed / 60 % 60);
 			this.lastM = Math.floor(elapsed % 60);
@@ -112,6 +112,7 @@ class Clock extends CGFobject {
 
         this.scene.pushMatrix();
             this.scene.scale(3,1,1);
+            this.appearance.apply();
             this.quadBox.display();
         this.scene.popMatrix();
 
@@ -142,6 +143,7 @@ class Clock extends CGFobject {
             this.scene.translate(0,-0.05,0.01);
             this.scene.scale(0.2,0.5,1);
             if (this.doisPontosBool) this.appearancePs.apply();
+            else this.appearance.apply();
             this.quadNumber.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();

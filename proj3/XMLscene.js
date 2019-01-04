@@ -55,14 +55,45 @@ class XMLscene extends CGFscene {
         
         this.startGame = function() {
 
-            if(this.gameRunning)
+            if(this.gameRunning){
+                Swal({
+                    type: 'error',
+                    text: 'A game has already started',
+                });
                 return;
+            }
+                
 
-            if( this.isEmpty(this.gameMode) )
+            if( this.isEmpty(this.gameMode) ){
+                Swal({
+                    type: 'error',
+                    text: 'Select a Mode on Game Settings',
+                    timer: 5000
+                });
                 return;
+            }
+                
 
-            if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) )
+            if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) ){
+                Swal({
+                    type: 'error',
+                    text: 'Select a Difficulty on Game Settings',
+                    timer: 5000
+                });
                 return;
+            }
+
+            const toast = Swal.mixin({
+                toast: true,
+                position: 'top-start',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            toast({
+                type: 'success',
+                title: 'Starting the game'
+            })
 
             this.gameRunning = false;
             this.animationInProgress = false;
@@ -91,6 +122,8 @@ class XMLscene extends CGFscene {
            this.gameRunning = true;
 
            this.timeOnStart = new Date().getTime();
+
+           this.camera = this.returnCameraDefault();
         };
 
         this.undoMove = function() {
@@ -103,6 +136,18 @@ class XMLscene extends CGFscene {
 
             if( this.animationInProgress )
                 return;
+
+            const toast = Swal.mixin({
+                toast: true,
+                position: 'top-start',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            toast({
+                type: 'success',
+                title: 'Undo'
+            })
 
             if(this.gameMode == 'Player vs Player') {
                 if(this.currentPlayer == 'p1')
@@ -123,6 +168,18 @@ class XMLscene extends CGFscene {
 
             if(this.movie.length == 0)
                 return;
+
+            const toast = Swal.mixin({
+                toast: true,
+                position: 'top-start',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            toast({
+                type: 'success',
+                title: 'Watching the movie'
+            })
 
             this.preparePieces();
 
@@ -179,17 +236,25 @@ class XMLscene extends CGFscene {
 
             if((board.match(/empty/g) || []).length == 0) {
                 if(this.redCount > this.blueCount )
-                    Swal(
-                        'Congratulations!',
-                        'Player 1 won the game!',
-                        'success'
-                    );
+                    setTimeout(function(){  
+                        Swal({
+                            title:'Congratulations!',
+                            text:'Player 1 won the game!',
+                            type:'success',
+                            animation: false,
+                            customClass: 'animated tada'
+                        });
+                    }, 2000);
                 else 
-                    Swal(
-                        'Congratulations!',
-                        'Player 2 won the game!',
-                        'success'
-                    );
+                    setTimeout(function(){  
+                        Swal({
+                            title:'Congratulations!',
+                            text:'Player 2 won the game!',
+                            type:'success',
+                            animation: false,
+                            customClass: 'animated tada'
+                        });
+                    }, 2000);
 
                 this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
@@ -207,6 +272,19 @@ class XMLscene extends CGFscene {
         }
         this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
 
+        this.handleError = function handleError(data) {
+            Swal({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: 'Check Prolog Server'
+            });
+            this.gameRunning = false;
+        }
+        this.handleError = this.handleError.bind(this);
+
+
+        
     }
 
     /**
@@ -245,6 +323,10 @@ class XMLscene extends CGFscene {
 
         this.camera = new CGFcamera(1,0.1,500,vec3.fromValues(0.8, 0.8, 0.8),vec3.fromValues(0, 0, 0));
         this.interface.setActiveCamera(this.camera);
+    }
+
+    returnCameraDefault() {
+        return new CGFcamera( 76, 0.1, 500, vec3.fromValues(2, 5, 5), vec3.fromValues(2, 2, 2) );
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -331,7 +413,7 @@ class XMLscene extends CGFscene {
         request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 
         request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
-        request.onerror = onError || function(){console.log("Error waiting for response");};
+        request.onerror = onError || this.handleError;
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();
@@ -431,7 +513,7 @@ class XMLscene extends CGFscene {
                         //1 a 7 vai ser pesitios do tabuleiro apartir dai e para butoes e outras cenas 
                         customIdc--;    
                         customIdr--;
-                        console.log("Picked object: " + obj + ", with pick position [" + customIdr + ", " + customIdc + "]");
+                        //console.log("Picked object: " + obj + ", with pick position [" + customIdr + ", " + customIdc + "]");
                         if(this.board[customIdr][customIdc] == "empty") {
 
                             this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currentPlayer + "," + this.secondPlayer + ")", this.handleReplyGameRound);

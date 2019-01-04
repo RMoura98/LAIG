@@ -103,6 +103,10 @@
         <texture id="water_t" file="scenes/images/download.jpg" />
 		<texture id="water_h" file="scenes/images/downloadH.png" /> -->
 
+        <texture id="oldWood" file="scenes/images/OldWood.jpg"/>
+        <!-- <texture id="blueBox" file="scenes/images/blueBox.png"/>
+        <texture id="redBox" file="scenes/images/redBox.png"/> -->
+
 		<texture id="0" file="scenes/images/0.png" />
 		<texture id="1" file="scenes/images/1.png" />
 		<texture id="2" file="scenes/images/2.png" />
