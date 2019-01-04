@@ -55,6 +55,9 @@ class XMLscene extends CGFscene {
         
         this.startGame = function() {
 
+            if(this.gameRunning)
+                return;
+
             if( this.isEmpty(this.gameMode) )
                 return;
 
@@ -121,9 +124,6 @@ class XMLscene extends CGFscene {
             if(this.movie.length == 0)
                 return;
 
-            console.log(this.gameRunning);
-            console.log(this.movie);
-
             this.preparePieces();
 
             this.redPieceIndex = 0;
@@ -135,37 +135,62 @@ class XMLscene extends CGFscene {
             this.movieRunning = true;
         };
 
-        this.test = function() {
-            this.rotateCamera += Math.PI;
-        };
-		
-		this.testAlert = function() {
-			Swal(
-			  'Good job!',
-			  'You clicked the button!',
-			  'success'
-			);
-		}
-
 
         //Handle the Reply Option 2 -> used for player move handling
-        this.handleReplyGameRound = function handleReplyGameRound(data){
+        this.handleReplyGameRound = function handleReplyGameRound(data) {
+
             let comArray = data.target.response.split(',');
             let currPlayer = comArray.pop().slice(0, -1);
-            let board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
+            let board;
 
-            console.table(this.stringToArray(board));
-            console.log("next Player:" + currPlayer);
-            console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
+            if( this.gameMode == "Player vs Bot" ) {
+                if( (this.currentPlayer == 'ce') || (this.currentPlayer == 'ch') ) {
+                    board = data.target.response.substring(5, data.target.response.indexOf("," + currPlayer));
+                    let row = parseInt(comArray[0].substring(1, 2));
+                    let column = parseInt(comArray[1]);
+
+                    this.movePieceAccordingly(row, column);
+                    this.animationInProgress = true;
+                }
+                else
+                    board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
+            }
+
+            else if( this.gameMode == "Bot vs Bot" ) {
+                board = data.target.response.substring(5, data.target.response.indexOf("," + currPlayer));
+                let row = parseInt(comArray[0].substring(1, 2));
+                let column = parseInt(comArray[1]);
+
+                this.movePieceAccordingly(row, column);
+                this.animationInProgress = true;
+            }
+
+            else
+                board = data.target.response.substring(1, data.target.response.indexOf("," + currPlayer));
+
+
+            // console.table(this.stringToArray(board));
+            // console.log("next Player:" + currPlayer);
+            // console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
 
             this.redCount = (board.match(/red/g) || []).length;
             this.blueCount = (board.match(/blue/g) || []).length;
 
 
-            if((board.match(/empty/g) || []).length == 0){
-                console.log('we have a winner! ou algo do genero');
-                console.log('red: ' + this.redCount)
-                console.log('blue: ' + this.blueCount)
+            if((board.match(/empty/g) || []).length == 0) {
+                if(this.redCount > this.blueCount )
+                    Swal(
+                        'Congratulations!',
+                        'Player 1 won the game!',
+                        'success'
+                    );
+                else 
+                    Swal(
+                        'Congratulations!',
+                        'Player 2 won the game!',
+                        'success'
+                    );
+
                 this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
 
@@ -182,45 +207,6 @@ class XMLscene extends CGFscene {
         }
         this.handleReplyGameRound = this.handleReplyGameRound.bind(this);
 
-        
-        //Handle the Reply Option 3 -> used for bot move handling
-        this.handleReplyGameRound2 = function handleReplyGameRound2(data){
-            let comArray = data.target.response.split(',');
-            let currPlayer = comArray.pop().slice(0, -1);
-            let board = data.target.response.substring(5, data.target.response.indexOf("," + currPlayer));
-            let row = parseInt(comArray[0].substring(1, 2));
-            let column = parseInt(comArray[1]);
-
-            this.movePieceAccordingly(row, column);
-
-            console.log("pick position [" + row + ", "  + column + "]");
-            console.table(this.stringToArray(board));
-            console.log("next Player:" + currPlayer);
-            console.log((board.match(/empty/g) || []).length); // se calhar fazer esta parte no prolog ... nao sei bem
-
-            this.redCount = (board.match(/red/g) || []).length;
-            this.blueCount = (board.match(/blue/g) || []).length;
-
-
-            if((board.match(/empty/g) || []).length == 0){
-                console.log('we have a winner! ou algo do genero');
-                console.log('red: ' + this.redCount)
-                console.log('blue: ' + this.blueCount)
-                this.timeOnStart = null;
-                //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
-
-                this.gameRunning = false;
-            }
-
-            this.board = this.stringToArray(board);
-            if(this.currentPlayer != currPlayer){
-                this.rotateCamBool = true;
-                this.rotateCamera += Math.PI;
-            }
-            this.currentPlayer = currPlayer;
-            this.alronit = 0;
-        }
-        this.handleReplyGameRound2 = this.handleReplyGameRound2.bind(this);
     }
 
     /**
@@ -421,6 +407,13 @@ class XMLscene extends CGFscene {
             return;
         }
 
+        if(this.gameMode == 'Player vs Bot') {
+            if( (this.currentPlayer == 'ce') || (this.currentPlayer == 'ch') ) {
+                this.pickResults = [];
+                return;
+            }
+        }
+
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
                 for (var i=0; i< this.pickResults.length; i++) {
@@ -435,12 +428,14 @@ class XMLscene extends CGFscene {
                         customIdr--;
                         console.log("Picked object: " + obj + ", with pick position [" + customIdr + ", " + customIdc + "]");
                         if(this.board[customIdr][customIdc] == "empty") {
+
                             this.makeRequest("gameRound(" + this.arrayToString(this.board) + "," + customIdr + "," + customIdc + "," + this.currentPlayer + "," + this.secondPlayer + ")", this.handleReplyGameRound);
 
                             this.movePieceAccordingly(customIdr, customIdc);
+                            this.animationInProgress = true;
                         }
                         else {
-                            console.log('not empty (tratar disto mais tarde dar algum sinal para indicar que nao se pode)');
+                            //Swal('Oops...', 'You cannot play a piece there!', 'error');
                         }
                             
                     }
@@ -464,7 +459,6 @@ class XMLscene extends CGFscene {
         var nodeName;
         var newMatrix;
         
-        
         for (let i = 0; i < Object.keys(this.graph.nodes).length; i++) {
             
             nodeName = Object.keys(this.graph.nodes)[i];
@@ -473,12 +467,8 @@ class XMLscene extends CGFscene {
                 
                 for (let k = 0; k < this.graph.nodes[nodeName].animations.length; k++) {
                     
-                    if (this.graph.nodes[nodeName].animations[k].hasEnded) {
-                        this.animationInProgress = false;
+                    if (this.graph.nodes[nodeName].animations[k].hasEnded) 
                         continue;
-                    }
-                    
-                    this.animationInProgress = true;
 
                     //gets new position matrix
                     newMatrix = this.graph.nodes[nodeName].animations[k].getMatrix(this.time);
@@ -490,16 +480,22 @@ class XMLscene extends CGFscene {
                 }
             }
         }
+
+        this.checkIfAnimationRunning();
         
         this.animationTimeCount += this.time;
         this.previousTime = currTime;
         
-        if( this.gameRunning && !this.rotateCamBool) {
+        //&& !this.rotateCamBool
+        if( this.gameRunning ) {
+            if(this.animationInProgress)
+                return;
+
             //is the bot already on it
             if(this.currentPlayer.charAt(0) == 'c') {
                 if(this.alronit == 0) {
                     this.alronit = 1;
-                    this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound2);
+                    this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound);
                 }
             }
             else {
@@ -845,5 +841,38 @@ class XMLscene extends CGFscene {
         this.movieIndex += 3;
 
         this.animationTimeCount = 0;
+    }
+
+    checkIfAnimationRunning() {
+
+        if( this.currentPlayer == 'p1' || this.currentPlayer == 'ce1' || this.currentPlayer == 'ch1' ) {
+            if(this.bluePieceIndex < 1)
+                return;
+
+           if(this.graph.nodes[this.bluePieces[this.bluePieceIndex-1]].animations[this.graph.nodes[this.bluePieces[this.bluePieceIndex-1]].animations.length-1].hasEnded) {
+                if(this.redPieceIndex < 1) {
+                    this.animationInProgress = false;
+                    return;
+                }
+                
+                if(this.graph.nodes[this.redPieces[this.redPieceIndex-1]].animations[this.graph.nodes[this.redPieces[this.redPieceIndex-1]].animations.length-1].hasEnded)
+                    this.animationInProgress = false;
+           }
+        }
+
+        else if( this.currentPlayer == 'p2' || this.currentPlayer == 'ce' || this.currentPlayer == 'ch' || this.currentPlayer == 'ce2' || this.currentPlayer == 'ch2' ) {
+            if(this.redPieceIndex < 1)
+                return;
+
+            if(this.graph.nodes[this.redPieces[this.redPieceIndex-1]].animations[this.graph.nodes[this.redPieces[this.redPieceIndex-1]].animations.length-1].hasEnded) {
+                if(this.bluePieceIndex < 1) {
+                    this.animationInProgress = false;
+                    return;
+                }
+                
+                if(this.graph.nodes[this.bluePieces[this.bluePieceIndex-1]].animations[this.graph.nodes[this.bluePieces[this.bluePieceIndex-1]].animations.length-1].hasEnded)
+                    this.animationInProgress = false;
+            }
+        }
     }
 }
