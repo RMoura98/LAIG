@@ -81,9 +81,21 @@ class MyInterface extends CGFinterface {
         var group = this.gui.addFolder("Game Settings");
         group.open();
 
-        group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode");
+        group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode").onChange((value) => {
+            switch (value) {
+                case 'Player vs Bot':
+                    this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy', 'Hard']);
+                    break;
+                case 'Bot vs Bot':
+                    this.updateDatDropdown(this.hmm, ['‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy vs Easy', 'Easy vs Hard', 'Hard vs Easy', 'Hard vs Hard']);
+                    break;
+                default:
+                    this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌']);
+                    break;
+            }
+        });
 
-        group.add(this.scene, 'gameDifficulty', [ 'Easy', 'Hard', 'Easy vs Easy', 'Easy vs Hard', 'Hard vs Easy', 'Hard vs Hard'] ).name("Difficulty");
+        this.hmm = group.add(this.scene, 'gameDifficulty', [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'] ).name("Difficulty");
 
         group.add(this.scene, 'rotatingCamera').name("Rotating Camera");
     }
@@ -95,6 +107,24 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, 'startGame').name("Start Game");
         group.add(this.scene, 'undoMove').name("Undo Move");
         group.add(this.scene, 'watchMovie').name("Watch Movie");
+    }
+
+    updateDatDropdown(target, list){   
+        let innerHTMLStr = "";
+        if(list.constructor.name == 'Array'){
+            for(var i=0; i<list.length; i++){
+                var str = "<option value='" + list[i] + "'>" + list[i] + "</option>";
+                innerHTMLStr += str;        
+            }
+        }
+    
+        if(list.constructor.name == 'Object'){
+            for(var key in list){
+                var str = "<option value='" + list[key] + "'>" + key + "</option>";
+                innerHTMLStr += str;
+            }
+        }
+        if (innerHTMLStr != "") target.domElement.children[0].innerHTML = innerHTMLStr;
     }
     
 }

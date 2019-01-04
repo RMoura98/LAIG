@@ -83,16 +83,6 @@ class XMLscene extends CGFscene {
                 return;
             }
 
-            if( ((this.gameMode == 'Player vs Bot') && !(this.gameDifficulty == 'Easy' || this.gameDifficulty == 'Hard')) || 
-                    (this.gameMode == 'Bot vs Bot') && (this.gameDifficulty == 'Easy' || this.gameDifficulty == 'Hard')  ){
-                Swal({
-                    type: 'error',
-                    text: 'Wrong Difficulty on Game Settings',
-                    timer: 5000
-                });
-                return;
-            }
-
             const toast = Swal.mixin({
                 toast: true,
                 position: 'top-start',
