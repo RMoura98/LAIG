@@ -50,28 +50,28 @@
 
 	<lights>
 		<omni id="omni0" enabled="1">
-			<location x="4" y="10" z="5" w="1"/>
+			<location x="-3" y="5" z="-1" w="1"/>
 			<ambient r="0.1" g="0.1" b="0.1" a="1"/>
 			<diffuse r="1" g="1" b="1" a="1"/>
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>
 		</omni>
 
 		<omni id="omni1" enabled="1">
-			<location x="21" y="10" z="5" w="1"/>
+			<location x="6" y="5" z="-1" w="1"/>
 			<ambient r="0.1" g="0.1" b="0.1" a="1"/>
 			<diffuse r="1" g="1" b="1" a="1"/>
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>
 		</omni>
 
 		<omni id="omni2" enabled="1">
-			<location x="4" y="10" z="21" w="1"/>
+			<location x="-3" y="5" z="5" w="-1"/>
 			<ambient r="0.1" g="0.1" b="0.1" a="1"/>
 			<diffuse r="1" g="1" b="1" a="1"/>
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>
 		</omni>
 
 		<omni id="omni3" enabled="1">
-			<location x="21" y="10" z="21" w="1"/>
+			<location x="6" y="5" z="5" w="-1"/>
 			<ambient r="0.1" g="0.1" b="0.1" a="1"/>
 			<diffuse r="1" g="1" b="1" a="1"/>
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>

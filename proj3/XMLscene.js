@@ -587,16 +587,16 @@ class XMLscene extends CGFscene {
 			
 			if(!this.rotateCamBool){
 
-				//is the bot already on it
-				if(this.currentPlayer.charAt(0) == 'c') {
-					if(this.alronit == 0) {
-						this.alronit = 1;
-						this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound);
-					}
-				}
-				else {
-					this.alronit = 0;
-				}
+                //is the bot already on it
+                if(this.currentPlayer.charAt(0) == 'c') {
+                    if(this.alronit == 0) {
+                        this.alronit = 1;
+                        this.makeRequest("getCompPlay(" + this.arrayToString(this.board) + "," + this.currentPlayer + "," + this.secondPlayer + ")",this.handleReplyGameRound);
+                    }
+                }
+                else {
+                    this.alronit = 0;
+                }
 			}
         }
 
