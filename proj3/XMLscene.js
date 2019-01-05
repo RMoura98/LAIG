@@ -58,7 +58,7 @@ class XMLscene extends CGFscene {
             if(this.gameRunning){
                 Swal({
                     type: 'error',
-                    text: 'A game has already started',
+                    title: 'A game has already started!',
                 });
                 return;
             }
@@ -67,7 +67,7 @@ class XMLscene extends CGFscene {
             if( this.isEmpty(this.gameMode) ){
                 Swal({
                     type: 'error',
-                    text: 'Select a Mode on Game Settings',
+                    title: 'Select a Mode on Game Settings.',
                     timer: 5000
                 });
                 return;
@@ -77,7 +77,7 @@ class XMLscene extends CGFscene {
             if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) ){
                 Swal({
                     type: 'error',
-                    text: 'Select a Difficulty on Game Settings',
+                    title: 'Select a Difficulty on Game Settings.',
                     timer: 5000
                 });
                 return;
@@ -252,16 +252,27 @@ class XMLscene extends CGFscene {
                             customClass: 'animated tada'
                         });
                     }, 2000);
-                else 
-                    setTimeout(function(){  
-                        Swal({
-                            title:'Congratulations!',
-                            text:'Player 2 won the game!',
-                            type:'success',
-                            animation: false,
-                            customClass: 'animated tada'
-                        });
-                    }, 2000);
+                else {
+                    if(this.gameMode != 'Player vs Bot')
+                        setTimeout(function(){  
+                            Swal({
+                                title:'Congratulations!',
+                                text:'Player 2 won the game!',
+                                type:'success',
+                                animation: false,
+                                customClass: 'animated tada'
+                            });
+                        }, 2000);
+                    else 
+                        setTimeout(function(){  
+                            Swal({
+                                text:'Player 2 won the game!',
+                                type:'error',
+                                animation: false,
+                                customClass: 'animated swing'
+                            });
+                        }, 2000);
+                }
 
                 this.timeOnStart = null;
                 //esta parte e so temporaria e quando acaba no bot ele continua a jogar --> maquina de estados!
@@ -486,26 +497,9 @@ class XMLscene extends CGFscene {
             return;
         }
 
-        if( this.animationInProgress ) {
-            this.pickResults = [];
-            return;
-        }
-		
-		if( this.rotateCamBool ) {
-            this.pickResults = [];
-            return;
-        }
-
         if(this.gameMode == 'Bot vs Bot') {
             this.pickResults = [];
             return;
-        }
-
-        if(this.gameMode == 'Player vs Bot') {
-            if( (this.currentPlayer == 'ce') || (this.currentPlayer == 'ch') ) {
-                this.pickResults = [];
-                return;
-            }
         }
 
         if (this.pickMode == false) {
@@ -514,6 +508,37 @@ class XMLscene extends CGFscene {
                     var obj = this.pickResults[i][0];
                     if (obj)
                     {
+
+                        if(this.gameMode == 'Player vs Bot') {
+                            if( (this.currentPlayer == 'ce') || (this.currentPlayer == 'ch') ) {
+                                Swal({
+                                    position: 'center',
+                                    type: 'error',
+                                    title: 'Wait for your turn!',
+                                    animation: false,
+                                    customClass: 'animated shake',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                this.pickResults = [];
+                                return;
+                            }
+                        }
+
+                        if( this.animationInProgress || this.rotateCamBool ) {
+                            Swal({
+                                position: 'center',
+                                type: 'error',
+                                title: 'Too fast!',
+                                animation: false,
+                                customClass: 'animated shake',
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                            this.pickResults = [];
+                            return;
+                        }   
+
                         var customId = this.pickResults[i][1];			
                         let customIdc = customId % 10;	
                         let customIdr = Math.floor(customId / 10);

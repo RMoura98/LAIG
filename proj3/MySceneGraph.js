@@ -1879,6 +1879,13 @@ class MySceneGraph {
                 this.primitives[primitiveId] = primitive;
             }
 
+            if(grandChildren[0].nodeName == "skull") {
+
+                var primitive = new Skull(this.scene);
+
+                this.primitives[primitiveId] = primitive;
+            }
+
             if(grandChildren[0].nodeName == "box") {
 
                 var primitive = new PieceBox(this.scene);

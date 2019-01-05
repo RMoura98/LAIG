@@ -230,6 +230,10 @@
 		<primitive id="bluePiece">
 			<piece player="blue" colour="blue"/>
 		</primitive>
+
+		<primitive id="skull">
+			<skull />
+		</primitive>
 	</primitives >
 
 	<components>
@@ -292,6 +296,8 @@
 				<componentref id="table-legs" />
 				<componentref id="box1" />
 				<componentref id="box2" />
+				<componentref id="skull1" />
+				<componentref id="skull2" />
 				<primitiveref id="board" />
 			</children>
 		</component>
@@ -1479,6 +1485,47 @@
 
 			<children>
 				<primitiveref id="redPiece"/>
+			</children>
+		</component>
+
+        <component id="skull1">
+			<transformation>
+                <translate x="0" y="2" z="-1.85" />
+                <scale x="0.02" y="0.02" z="0.02"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="skull"/>
+			</children>
+		</component>
+
+        <component id="skull2">
+			<transformation>
+				<translate x="0" y="2" z="1.85" />
+                <scale x="0.02" y="0.02" z="0.02"/>
+				<rotate axis="y" angle="180"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="inherit"/>
+
+			<children>
+				<primitiveref id="skull"/>
 			</children>
 		</component>
 

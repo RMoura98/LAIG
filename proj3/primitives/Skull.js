@@ -10,7 +10,6 @@ class Skull extends CGFobject {
     display() {
         this.scene.pushMatrix();
             this.scene.rotate(-Math.PI/2,1,0,0);
-            this.scene.scale(0.025, 0.025, 0.025);
             this.material.apply();
             this.obj.display();
 		this.scene.popMatrix();
