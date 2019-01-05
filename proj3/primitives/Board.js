@@ -17,6 +17,7 @@ class Board extends CGFobject {
         this.pickingQuad = new MyQuad(this.scene, -0.5, -0.5, 0.5, 0.5);
 
         this.clock = new Clock(this.scene);
+        this.skull = new Skull(this.scene);
 
         this.quad.updateTexCoords(0.1, 4);
 
@@ -60,7 +61,7 @@ class Board extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.logPicking();
-	    
+	    this.skull.display();
 
         this.scene.pushMatrix();
 
