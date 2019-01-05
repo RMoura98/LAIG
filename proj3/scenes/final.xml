@@ -264,6 +264,7 @@
 
 			<children>
 				<componentref id="table"/>
+				<componentref id="chairs"/>
 			</children>
 		</component>
 
@@ -1551,6 +1552,62 @@
 
 			<children>
 				<primitiveref id="bluePiece"/>
+			</children>
+		</component>
+
+		<component id="chairs">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="chair1"/>
+			</children>
+		</component>
+
+		<component id="chair1">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="leg1"/>
+			</children>
+		</component>
+
+		<component id="leg1">
+			<transformation>
+				<translate x="0" y="4" z="0"/>
+				<scale x="2" y="2" z="2"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-leg"/>
 			</children>
 		</component>
 	</components>
