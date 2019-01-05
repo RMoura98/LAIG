@@ -36,6 +36,7 @@ class PieceBox extends CGFobject {
         this.appearance4 = new CGFappearance(this.scene);
         
         this.appearance4.setTexture(this.scene.graph.textures['oldWood']);
+        this.quad.updateTexCoords(1,1.7);
     }
 
     display() {
