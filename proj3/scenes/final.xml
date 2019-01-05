@@ -207,6 +207,10 @@
 			<cylinder base="0.16" top="0.16" height="1.5" slices="30" stacks="30"/>
 		</primitive>  
 
+		<primitive id="cylinder-back">
+			<cylinder base="0.1" top="0.1" height="1.5" slices="30" stacks="30"/>
+		</primitive>  
+
 		<primitive id="board">
 			<board />
 		</primitive>
@@ -264,7 +268,6 @@
 
 			<children>
 				<componentref id="table"/>
-				<componentref id="chairs"/>
 			</children>
 		</component>
 
@@ -283,6 +286,8 @@
 			<texture id="none"/>
 
 			<children>
+				<componentref id="walls"/>
+				<componentref id="chairs"/>
 				<componentref id="top" />
 				<componentref id="table-legs" />
 				<componentref id="box1" />
@@ -290,6 +295,384 @@
 				<primitiveref id="board" />
 			</children>
 		</component>
+
+		<component id="chairs">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="chair1"/>
+				<componentref id="chair2"/>
+			</children>
+		</component>
+
+		<component id="chair1">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="chair1Leg1"/>
+				<componentref id="chair1Leg2"/>
+				<componentref id="chair1Leg3"/>
+				<componentref id="chair1Leg4"/>
+				<componentref id="chair1Seat"/>
+				<componentref id="chair1Back"/>
+			</children>
+		</component>
+
+		<component id="chair1Leg1">
+			<transformation>
+				<translate x="-0.4" y="0.8" z="1.5"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="chair1Leg2">
+			<transformation>
+				<translate x="0.4" y="0.8" z="1.5"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="chair1Leg3">
+			<transformation>
+				<translate x="-0.4" y="0.8" z="2"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="chair1Leg4">
+			<transformation>
+				<translate x="0.4" y="0.8" z="2"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-leg"/>
+			</children>
+		</component>
+
+		<component id="chair1Seat">
+			<transformation>
+				<translate x="0" y="0.75" z="1.75"/>
+				<scale x="1.1" y="0.1" z="0.85"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="cube"/>
+			</children>
+		</component>
+
+		<component id="chair1Back">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="chair1LeftSuport"/>
+				<componentref id="chair1RightSuport"/>
+				<componentref id="chair1BackBack"/>
+			</children>
+		</component>
+
+		<component id="chair1LeftSuport">
+			<transformation>
+				<translate x="-0.25" y="1.6" z="2.1"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-back"/>
+			</children>
+		</component>
+
+		<component id="chair1RightSuport">
+			<transformation>
+				<translate x="0.25" y="1.6" z="2.1"/>
+				<scale x="0.5" y="0.55" z="0.4"/>
+				<rotate axis="x" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<primitiveref id="cylinder-back"/>
+			</children>
+		</component>
+
+		<component id="chair1BackBack">
+			<transformation>
+				<translate x="0" y="1.6" z="2.1"/>
+				<scale x="1.0" y="0.3" z="0.12"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="cube"/>
+			</children>
+		</component>
+
+		<component id="chair2">
+			<transformation>
+				<rotate axis="y" angle="180"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="mater0"/>
+			</materials>
+
+			<texture id="none" length_s="1.0" length_t="1.0"/>
+
+			<children>
+				<componentref id="chair1Leg1"/>
+				<componentref id="chair1Leg2"/>
+				<componentref id="chair1Leg3"/>
+				<componentref id="chair1Leg4"/>
+				<componentref id="chair1Seat"/>
+				<componentref id="chair1Back"/>
+			</children>
+		</component>
+
+		<component id="walls">
+			<transformation>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<componentref id="floor"/>
+				<componentref id="backWall"/>
+				<componentref id="frontWall"/>
+				<componentref id="leftWall"/>
+				<componentref id="rightWall"/>
+			</children>
+		</component>
+
+		<component id="floor">
+			<transformation>
+				<scale x="12.0" y="1.0" z="8.0"/>
+				<rotate axis="x" angle="-90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="backWall">
+			<transformation>
+				<translate x="0.0" y="2.5" z="-4.0"/>
+				<scale x="12.0" y="5.0" z="8.0"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="frontWall">
+			<transformation>
+				<translate x="0.0" y="2.5" z="4.0"/>
+				<scale x="12.0" y="5.0" z="8.0"/>
+				<rotate axis="y" angle="-180"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="leftWall">
+			<transformation>
+				<translate x="-6" y="2.5" z="0.0"/>
+				<scale x="12.0" y="5.0" z="8.0"/>
+				<rotate axis="y" angle="90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
+		<component id="rightWall">
+			<transformation>
+				<translate x="6" y="2.5" z="0.0"/>
+				<scale x="12.0" y="5.0" z="8.0"/>
+				<rotate axis="y" angle="-90"/>
+			</transformation>
+
+			<animations>
+			</animations>
+
+			<materials>
+				<material id="inherit"/>
+			</materials>
+
+			<texture id="none" length_s="1" length_t="1"/>
+
+			<children>
+				<primitiveref id="quad"/>
+			</children>
+		</component>
+
 
 		<component id="top">
 			<transformation>
@@ -573,7 +956,6 @@
 
 			<children>
 				<componentref id="pieceBox1" />
-				<!-- <componentref id="box-lid-1" /> -->
 				<componentref id="redPiece1" />
 				<componentref id="redPiece2" />
 				<componentref id="redPiece3" />
@@ -612,67 +994,6 @@
 
 			<children>
 				<primitiveref id="pieceBox1"/>
-			</children>
-		</component>
-
-		<component id="box-lid-1">
-			<transformation>
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="box-lid-top-1" />
-				<componentref id="box-lid-bottom-1" />
-			</children>
-		</component>
-
-		<component id="box-lid-top-1">
-			<transformation>
-				<translate x="1.1" y="1.9" z="0.25" />
-				<scale x="0.4" y="1" z="0.5" />
-				<rotate axis="x" angle="-90"  />
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="box-lid"/>
-			</children>
-		</component>
-
-		<component id="box-lid-bottom-1">
-			<transformation>
-				<translate x="1.1" y="1.9" z="0.25" />
-				<scale x="0.4" y="1" z="0.5" />
-				<rotate axis="x" angle="90" />
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="box-lid"/>
 			</children>
 		</component>
 
@@ -1072,7 +1393,6 @@
 
 			<children>
 				<componentref id="pieceBox2" />
-				<!-- <componentref id="box-lid-2" /> -->
 				<componentref id="bluePiece1" />
 				<componentref id="bluePiece2" />
 				<componentref id="bluePiece3" />
@@ -1111,67 +1431,6 @@
 
 			<children>
 				<primitiveref id="pieceBox2"/>
-			</children>
-		</component>
-
-		<component id="box-lid-2">
-			<transformation>
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="box-lid-top-2" />
-				<componentref id="box-lid-bottom-2" />
-			</children>
-		</component>
-
-		<component id="box-lid-top-2">
-			<transformation>
-				<translate x="1.1" y="1.9" z="0.25" />
-				<scale x="0.4" y="1" z="0.5" />
-				<rotate axis="x" angle="-90"  />
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="box-lid"/>
-			</children>
-		</component>
-
-		<component id="box-lid-bottom-2">
-			<transformation>
-				<translate x="1.1" y="1.9" z="0.25" />
-				<scale x="0.4" y="1" z="0.5" />
-				<rotate axis="x" angle="90" />
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="inherit"/>
-			</materials>
-
-			<texture id="inherit" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="box-lid"/>
 			</children>
 		</component>
 
@@ -1552,62 +1811,6 @@
 
 			<children>
 				<primitiveref id="bluePiece"/>
-			</children>
-		</component>
-
-		<component id="chairs">
-			<transformation>
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="none" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="chair1"/>
-			</children>
-		</component>
-
-		<component id="chair1">
-			<transformation>
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="none" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<componentref id="leg1"/>
-			</children>
-		</component>
-
-		<component id="leg1">
-			<transformation>
-				<translate x="0" y="4" z="0"/>
-				<scale x="2" y="2" z="2"/>
-			</transformation>
-
-			<animations>
-			</animations>
-
-			<materials>
-				<material id="mater0"/>
-			</materials>
-
-			<texture id="none" length_s="1.0" length_t="1.0"/>
-
-			<children>
-				<primitiveref id="cylinder-leg"/>
 			</children>
 		</component>
 	</components>
