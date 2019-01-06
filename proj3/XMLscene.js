@@ -56,13 +56,17 @@ class XMLscene extends CGFscene {
         
         this.startGame = function() {
 
-            if(this.gameRunning){
-                Swal({
-                    type: 'error',
-                    title: 'A game has already started!',
-                });
-                return;
-            }
+            // if(this.gameRunning){
+            //     Swal({
+            //         type: 'error',
+            //         title: 'A game has already started!',
+            //     });
+            //     return;
+            // }
+
+            
+            // if( this.gameRunning && (this.gameMode == 'Bot vs Bot') )
+            //     return;
                 
 
             if( this.isEmpty(this.gameMode) ){
@@ -75,7 +79,7 @@ class XMLscene extends CGFscene {
             }
                 
 
-            if( ((this.gameMode == 'Player vs Bot') || (this.gameMode == 'Bot vs Bot')) && this.isEmpty(this.gameDifficulty) ){
+            if( this.gameMode == 'Player vs Bot' && this.isEmpty(this.gameDifficulty) ) {
                 Swal({
                     type: 'error',
                     title: 'Select a Difficulty on Game Settings.',
@@ -119,6 +123,9 @@ class XMLscene extends CGFscene {
 
             this.redCount = 0;
             this.blueCount = 0;
+
+            this.rotateCamera = 0;
+            this.rotateCamBool = false;
 
            this.gameRunning = true;
 
@@ -415,7 +422,6 @@ class XMLscene extends CGFscene {
 
         // Adds scene group.
         this.interface.addSceneGroup();
-        this.windowScenes = "Porto";
 
         // Adds game setting group
         this.interface.addGameSettingsGroup();
