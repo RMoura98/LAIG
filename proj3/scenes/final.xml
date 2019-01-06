@@ -6,41 +6,27 @@
 			<from x="2" y="5" z="4" />
             <to x="2" y="2" z="2" />
 		</perspective>
-        
-		<perspective id="presp0_old" near="0.1" far="500" angle="76">
-			<from x="2.5" y="2" z="6" />
-            <to x="2.5" y="0" z="1" />
-		</perspective>
 
 		<perspective id="presp1" near="0.1" far="500" angle="76">
-            <from x="6" y="1" z="0" />
+            <from x="7" y="3" z="-1" />
             <to x="0" y="0" z="4" />
         </perspective>
 
 		<perspective id="presp2" near="0.1" far="500" angle="76">
-			<from x="0.1" y="1" z="6" />
-            <to x="4" y="0" z="0" />
+			<from x="7" y="3" z="4" />
+            <to x="0" y="0" z="0" />
 		</perspective>
 
 		<perspective id="presp3" near="0.1" far="500" angle="76">
-			<from x="4.5" y="3" z="4.5" />
-            <to x="1.5" y="0" z="1.5" />
+			<from x="-3" y="3" z="4" />
+            <to x="6" y="0" z="0" />
 		</perspective>
 
-		<perspective id="presp4" near="0.1" far="500" angle="90">
-			<from x="6" y="2" z="10"/>
-			<to x="4" y="0.0" z="8"/>
+		<perspective id="presp4" near="0.1" far="500" angle="76">
+			<from x="-3" y="3" z="0"/>
+			<to x="6" y="0.0" z="6"/>
 		</perspective>
 
-		<ortho id="ortho0" near="0.1" far="500" left="-14" right="3" top="10" bottom="-8">
-			<from x="5.0" y="6.0" z="10.0"/>
-			<to x="13.0" y="6.0" z="0.0"/>
-		</ortho>
-
-		<ortho id="ortho1" near="0.1" far="500" left="-15" right="15" top="5" bottom="-7">
-			<from x="50.0" y="6.0" z="13.0"/>
-			<to x="0.0" y="6.0" z="13.0"/>
-		</ortho>
 	</views>
 
 	<ambient>
@@ -76,14 +62,6 @@
 			<diffuse r="1" g="1" b="1" a="1"/>
 			<specular r="0.5" g="0.5" b="0.5" a="1"/>
 		</omni>
-
-		<spot id="spot0" enabled="0" angle="15" exponent="50">
-			<location x="5" y="5" z="18" w="1"/>
-			<target x="0" y="2" z="18"/>
-			<ambient r="0" g="0" b="0" a="0"/>
-			<diffuse r="0.5" g="0.5" b="0.5" a="0.5"/>
-			<specular r="0.5" g="0.5" b="0.5" a="0.5"/>
-		</spot>
 	</lights>
 
 	<textures>
