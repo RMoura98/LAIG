@@ -147,7 +147,7 @@ class XMLscene extends CGFscene {
 
            this.timeOnStart = new Date().getTime();
 
-           this.camera = this.returnCameraDefault();
+           this.setGameCamera();
         };
 
         this.undoMove = function() {
@@ -367,8 +367,12 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
-    returnCameraDefault() {
-        return new CGFcamera( 76, 0.1, 500, vec3.fromValues(2, 5, 5), vec3.fromValues(2, 2, 2) );
+    setGameCamera() {
+		this.graph.views['game'] = new CGFcamera(0.6, 0.1, 500, vec3.fromValues(2, 5, 5), vec3.fromValues(2, 2, 2) );
+		this.previousCamera = this.currentCamera;
+		this.currentCamera = 'default_';
+		setTimeout(() => {this.currentCamera = 'game'; }, 35);
+		
     }
     /**
      * Initializes the scene lights with the values read from the XML file.

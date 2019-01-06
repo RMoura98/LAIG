@@ -55,7 +55,7 @@ class MyInterface extends CGFinterface {
         var group = this.gui.addFolder("Cameras");
         group.open();
 
-        group.add(this.scene, 'currentCamera', Object.keys(views) );
+        group.add(this.scene, 'currentCamera', Object.keys(views) ).name('Current Camera').listen();
     }
 
     processKeyboard(event) {
