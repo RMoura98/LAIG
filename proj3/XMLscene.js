@@ -25,8 +25,8 @@ class XMLscene extends CGFscene {
         this.currentPlayer = null;
         this.secondPlayer = null;
 
-        this.windowScenes = {};
-        this.gameMode = {};
+        this.windowScenes = 'Porto';
+        this.gameMode = 'Player vs Player';
         this.gameDifficulty = {};
         this.rotatingCamera = true;
         
@@ -67,8 +67,7 @@ class XMLscene extends CGFscene {
             
             // if( this.gameRunning && (this.gameMode == 'Bot vs Bot') )
             //     return;
-                
-
+            
             if( this.isEmpty(this.gameMode) ){
                 Swal({
                     type: 'error',
@@ -78,8 +77,7 @@ class XMLscene extends CGFscene {
                 return;
             }
                 
-
-            if( this.gameMode == 'Player vs Bot' && this.isEmpty(this.gameDifficulty) ) {
+            if( (this.gameMode == 'Player vs Bot' || this.gameMode == 'Bot vs Bot') && this.isEmpty(this.gameDifficulty) ) {
                 Swal({
                     type: 'error',
                     title: 'Select a Difficulty on Game Settings.',
@@ -88,6 +86,31 @@ class XMLscene extends CGFscene {
                 return;
             }
 
+            if(this.gameRunning) { 
+                
+                Swal({ 
+                    title: 'Start a new game?', 
+                    text: "A game has already started!", 
+                    type: 'warning', 
+                    showCancelButton: true, 
+                    confirmButtonColor: '#3085d6', 
+                    cancelButtonColor: '#d33', 
+                    confirmButtonText: 'Yes!' 
+                }).then((result) => { 
+                    if (result.value) { 
+                        this.gameRunning = false;
+                        this.startGame();
+                        return;
+                    } 
+                });
+                
+                return;
+            }
+                
+
+
+            
+            
             const toast = Swal.mixin({
                 toast: true,
                 position: 'top-start',
@@ -588,7 +611,7 @@ class XMLscene extends CGFscene {
         /* this.makeRequest("valid_moves(" + this.arrayToString(this.board) +")", this.handleReply); */
         var nodeName;
         var newMatrix;
-        
+
         for (let i = 0; i < Object.keys(this.graph.nodes).length; i++) {
             
             nodeName = Object.keys(this.graph.nodes)[i];

@@ -118,18 +118,18 @@ class MyInterface extends CGFinterface {
         group.open();
 
         group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode").onChange((value) => {
-            /* this.scene.graph.gameDifficulty = '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'; */
             switch (value) {
                 case 'Player vs Bot':
-                    this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy', 'Hard']);
-                    break;
+                this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy', 'Hard']);
+                break;
                 case 'Bot vs Bot':
-                    this.updateDatDropdown(this.hmm, ['‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy vs Easy', 'Easy vs Hard', 'Hard vs Easy', 'Hard vs Hard']);
-                    break;
+                this.updateDatDropdown(this.hmm, ['‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy vs Easy', 'Easy vs Hard', 'Hard vs Easy', 'Hard vs Hard']);
+                break;
                 default:
-                    this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌']);
-                    break;
+                this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌']);
+                break;
             }
+            this.scene.gameDifficulty = '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌';
         });
 
         this.hmm = group.add(this.scene, 'gameDifficulty', [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'] ).name("Difficulty");
