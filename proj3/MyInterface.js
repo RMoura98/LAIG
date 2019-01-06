@@ -75,6 +75,53 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    addSceneGroup() {
+        var group = this.gui.addFolder("Game Scenes");
+        group.open();
+
+        group.add(this.scene, 'windowScenes', ['Porto', 'New York', 'Paris'] ).name("Scenes").onChange((value) => {
+            
+            for(var key in this.scene.graph.nodes) {
+
+                if(this.scene.graph.nodes[key].id == 'backWallLeftWindow') {
+                    if(value == 'Porto')
+                        this.scene.graph.nodes[key].textureId = "porto";
+                    else if(value == 'New York')
+                        this.scene.graph.nodes[key].textureId = "NY";
+                    else if(value == 'Paris')
+                        this.scene.graph.nodes[key].textureId = "paris";
+                }
+
+                else if(this.scene.graph.nodes[key].id == 'backWallRightWindow') {
+                    if(value == 'Porto')
+                        this.scene.graph.nodes[key].textureId = "porto2";
+                    else if(value == 'New York')
+                        this.scene.graph.nodes[key].textureId = "NY2";
+                    else if(value == 'Paris')
+                        this.scene.graph.nodes[key].textureId = "paris2";
+                }
+
+                else if(this.scene.graph.nodes[key].id == 'frontWallLeftWindow') {
+                    if(value == 'Porto')
+                        this.scene.graph.nodes[key].textureId = "porto3";
+                    else if(value == 'New York')
+                        this.scene.graph.nodes[key].textureId = "NY3";
+                    else if(value == 'Paris')
+                        this.scene.graph.nodes[key].textureId = "paris3";
+                }
+
+                else if(this.scene.graph.nodes[key].id == 'frontWallRightWindow') {
+                    if(value == 'Porto')
+                        this.scene.graph.nodes[key].textureId = "porto4";
+                    else if(value == 'New York')
+                        this.scene.graph.nodes[key].textureId = "NY4";
+                    else if(value == 'Paris')
+                        this.scene.graph.nodes[key].textureId = "paris4";
+                }
+            }
+        });
+    }
+
 
     addGameSettingsGroup() {
 

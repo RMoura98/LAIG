@@ -25,6 +25,7 @@ class XMLscene extends CGFscene {
         this.currentPlayer = null;
         this.secondPlayer = null;
 
+        this.windowScenes = {};
         this.gameMode = {};
         this.gameDifficulty = {};
         this.rotatingCamera = true;
@@ -411,6 +412,10 @@ class XMLscene extends CGFscene {
 
         // Adds lights group.
         this.interface.addLightsGroup(this.graph.lights);
+
+        // Adds scene group.
+        this.interface.addSceneGroup();
+        this.windowScenes = "Porto";
 
         // Adds game setting group
         this.interface.addGameSettingsGroup();
