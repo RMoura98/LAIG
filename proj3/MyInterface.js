@@ -116,7 +116,7 @@ class MyInterface extends CGFinterface {
         var group = this.gui.addFolder("Game Settings");
         group.open();
 
-        group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode").onChange((value) => {
+        group.add(this.scene, 'gameModeGui', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode").onChange((value) => {
             switch (value) {
                 case 'Player vs Bot':
                 this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy', 'Hard']);
@@ -128,10 +128,10 @@ class MyInterface extends CGFinterface {
                 this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌']);
                 break;
             }
-            this.scene.gameDifficulty = '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌';
+            this.scene.gameDifficultyGui = {};
         });
 
-        this.hmm = group.add(this.scene, 'gameDifficulty', [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'] ).name("Difficulty");
+        this.hmm = group.add(this.scene, 'gameDifficultyGui', [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'] ).name("Difficulty");
 
         group.add(this.scene, 'rotatingCamera').name("Rotating Camera");
     }

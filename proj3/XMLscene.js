@@ -26,8 +26,13 @@ class XMLscene extends CGFscene {
         this.secondPlayer = null;
 
         this.windowScenes = 'Porto';
-        this.gameMode = 'Player vs Player';
-        this.gameDifficulty = {};
+
+        this.gameMode = null;
+        this.gameModeGui = 'Player vs Player';
+
+        this.gameDifficulty = null;
+        this.gameDifficultyGui = {};
+        
         this.rotatingCamera = true;
         
         this.originalPositionMatrix = null;
@@ -56,7 +61,7 @@ class XMLscene extends CGFscene {
         
         this.startGame = function() {
             
-            if( this.isEmpty(this.gameMode) ){
+            if( this.isEmpty(this.gameModeGui) ){
                 Swal({
                     type: 'error',
                     title: 'Select a Mode on Game Settings.',
@@ -65,7 +70,7 @@ class XMLscene extends CGFscene {
                 return;
             }
                 
-            if( (this.gameMode == 'Player vs Bot' || this.gameMode == 'Bot vs Bot') && this.isEmpty(this.gameDifficulty) ) {
+            if( (this.gameModeGui == 'Player vs Bot' || this.gameModeGui == 'Bot vs Bot') && this.isEmpty(this.gameDifficultyGui) ) {
                 Swal({
                     type: 'error',
                     title: 'Select a Difficulty on Game Settings.',
@@ -95,9 +100,9 @@ class XMLscene extends CGFscene {
                 return;
             }
                 
+            this.gameMode = this.gameModeGui;
 
-
-            
+            this.gameDifficulty = this.gameDifficultyGui;
             
             const toast = Swal.mixin({
                 toast: true,
