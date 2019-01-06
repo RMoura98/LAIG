@@ -97,7 +97,7 @@ class Clock extends CGFobject {
             
             this.doisPontosIte += this.doisPontosDir;
             
-            if(this.doisPontosIte > 7 || this.doisPontosIte < -7){
+            if(this.doisPontosIte > 50 || this.doisPontosIte < -50){
                 this.doisPontosDir *= -1;
                 this.doisPontosBool = !this.doisPontosBool;
             }        
