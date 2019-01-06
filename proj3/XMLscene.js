@@ -305,7 +305,7 @@ class XMLscene extends CGFscene {
             }
 
             this.board = this.stringToArray(board);
-            if(this.currentPlayer != currPlayer && this.rotatingCamera){
+            if(this.currentPlayer != currPlayer && this.rotatingCamera && this.currentCamera == 'game'){
                 this.rotateCamBool = true;
                 this.rotateCamera += Math.PI;
             }
