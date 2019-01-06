@@ -55,18 +55,6 @@ class XMLscene extends CGFscene {
         
         
         this.startGame = function() {
-
-            // if(this.gameRunning){
-            //     Swal({
-            //         type: 'error',
-            //         title: 'A game has already started!',
-            //     });
-            //     return;
-            // }
-
-            
-            // if( this.gameRunning && (this.gameMode == 'Bot vs Bot') )
-            //     return;
             
             if( this.isEmpty(this.gameMode) ){
                 Swal({
