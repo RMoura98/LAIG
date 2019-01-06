@@ -66,6 +66,7 @@
 
 	<textures>
 		<texture id="wood" file="scenes/images/wood.jpg"/>
+		<texture id="oldWood" file="scenes/images/oldWood.jpg" />
 		<texture id="metal" file="scenes/images/metal.jpg"/>	
 		<texture id="wall1" file="scenes/images/wall1.png"/>
 		<texture id="wall2" file="scenes/images/wall2.jpg"/>
