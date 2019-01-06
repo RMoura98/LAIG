@@ -80,45 +80,34 @@ class MyInterface extends CGFinterface {
         group.open();
 
         group.add(this.scene, 'windowScenes', ['Porto', 'New York', 'Paris'] ).name("Scenes").onChange((value) => {
-            
-            for(var key in this.scene.graph.nodes) {
-
-                if(this.scene.graph.nodes[key].id == 'backWallLeftWindow') {
-                    if(value == 'Porto')
-                        this.scene.graph.nodes[key].textureId = "porto";
-                    else if(value == 'New York')
-                        this.scene.graph.nodes[key].textureId = "NY";
-                    else if(value == 'Paris')
-                        this.scene.graph.nodes[key].textureId = "paris";
-                }
-
-                else if(this.scene.graph.nodes[key].id == 'backWallRightWindow') {
-                    if(value == 'Porto')
-                        this.scene.graph.nodes[key].textureId = "porto2";
-                    else if(value == 'New York')
-                        this.scene.graph.nodes[key].textureId = "NY2";
-                    else if(value == 'Paris')
-                        this.scene.graph.nodes[key].textureId = "paris2";
-                }
-
-                else if(this.scene.graph.nodes[key].id == 'frontWallLeftWindow') {
-                    if(value == 'Porto')
-                        this.scene.graph.nodes[key].textureId = "porto3";
-                    else if(value == 'New York')
-                        this.scene.graph.nodes[key].textureId = "NY3";
-                    else if(value == 'Paris')
-                        this.scene.graph.nodes[key].textureId = "paris3";
-                }
-
-                else if(this.scene.graph.nodes[key].id == 'frontWallRightWindow') {
-                    if(value == 'Porto')
-                        this.scene.graph.nodes[key].textureId = "porto4";
-                    else if(value == 'New York')
-                        this.scene.graph.nodes[key].textureId = "NY4";
-                    else if(value == 'Paris')
-                        this.scene.graph.nodes[key].textureId = "paris4";
-                }
+            let newTexture1;
+            let newTexture2;
+            let newTexture3;
+            let newTexture4;
+            switch (value) {
+                case 'Porto':
+                    newTexture1 = "porto";
+                    newTexture2 = "porto2";
+                    newTexture3 = "porto3";
+                    newTexture4 = "porto4";
+                    break;
+                case 'New York':
+                    newTexture1 = "NY";
+                    newTexture2 = "NY2";
+                    newTexture3 = "NY3";
+                    newTexture4 = "NY4";
+                    break;
+                case 'Paris':
+                    newTexture1 = "paris";
+                    newTexture2 = "paris2";
+                    newTexture3 = "paris3";
+                    newTexture4 = "paris4";
+                    break;
             }
+            this.scene.graph.nodes['backWallLeftWindow'].textureId = newTexture1;
+            this.scene.graph.nodes['backWallRightWindow'].textureId = newTexture2;
+            this.scene.graph.nodes['frontWallLeftWindow'].textureId = newTexture3;
+            this.scene.graph.nodes['frontWallRightWindow'].textureId = newTexture4;
         });
     }
 
@@ -129,6 +118,7 @@ class MyInterface extends CGFinterface {
         group.open();
 
         group.add(this.scene, 'gameMode', ['Player vs Player', 'Player vs Bot', 'Bot vs Bot'] ).name("Mode").onChange((value) => {
+            /* this.scene.graph.gameDifficulty = '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌'; */
             switch (value) {
                 case 'Player vs Bot':
                     this.updateDatDropdown(this.hmm, [ '‌‌ ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌ ‌‌ ‌‌ ‌‌ ‌‌  ‌‌ ‌‌‌‌','Easy', 'Hard']);
