@@ -17,4 +17,5 @@ Projects for the Graphical Applications Laboratory (LAIG) class of the Master in
 Inside the project folder open terminal and insert:
 
 python3 -m http.server 8080
+
 Then go to http://localhost:8080/
