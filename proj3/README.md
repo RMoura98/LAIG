@@ -2,6 +2,8 @@
 
 Projects for the Graphical Applications Laboratory (LAIG) class of the Master in Informatics and Computer Engineering (MIEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
+More about the game: http://www.iggamecenter.com/info/en/flume.html
+
 Made in colaboration with [Tomás Figueiredo](https://github.com/Saltitans).
 
 ## Snapshots
