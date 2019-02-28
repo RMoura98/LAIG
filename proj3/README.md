@@ -1,10 +1,10 @@
-#LAIG
+# LAIG
 
 Made in colaboration with [Tomás Figueiredo](https://github.com/Saltitans).
 
 Projects for the Graphical Applications Laboratory (LAIG) class of the Master in Informatics and Computer Engineering (MIEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
-##Snapshots
+## Snapshots
 
 ![Imgur](https://i.imgur.com/nkpL9Rf.jpg)  
 ![Imgur](https://i.imgur.com/Rc5RcAR.jpg)
@@ -13,7 +13,7 @@ Projects for the Graphical Applications Laboratory (LAIG) class of the Master in
 ![Imgur](https://i.imgur.com/cGtWoDl.jpg)
 ![Imgur](https://i.imgur.com/oKmTnYa.jpg)
 
-##Build
+## Build
 Inside the project folder open terminal and insert:
 
 python3 -m http.server 8080
