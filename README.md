@@ -16,7 +16,7 @@ Made in colaboration with [Tomás Figueiredo](https://github.com/Saltitans).
 ![Imgur](https://i.imgur.com/oKmTnYa.jpg)
 
 ## Build
-Inside the project folder open terminal and insert:
+Inside the project folder (proj3) open terminal and insert:
 
 python3 -m http.server 8080
 
